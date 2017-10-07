@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="/Users/kd/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp/3.8.0/5a11f020cce2d11eb71ba916700600e18c4547e7/okhttp-3.8.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="5a11f020cce2d11eb71ba916700600e18c4547e7">
+        <dex dex="/Users/kd/Desktop/SEM 3/NEW/CS251/Project/PhotoGraph/android-sample/app/build/intermediates/transforms/dex/debug/folders/1000/10/okhttp-3.8.0_2520a8bf3e809991743f20bf62816efa7c87ad0e/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/kd/.gradle/caches/modules-2/files-2.1/com.squareup.picasso/picasso/2.5.2/7446d06ec8d4f7ffcc53f1da37c95f200dcb9387/picasso-2.5.2.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="7446d06ec8d4f7ffcc53f1da37c95f200dcb9387">
+        <dex dex="/Users/kd/Desktop/SEM 3/NEW/CS251/Project/PhotoGraph/android-sample/app/build/intermediates/transforms/dex/debug/folders/1000/10/picasso-2.5.2_cb255de74868480334a6ff31b0893155492c862d/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/kd/.android/build-cache/fa0dd44ac3d9e7faa5b39f6432636b6048daba4e/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="3f151e49c316a5ab2c065969a3b3b55ef9b393fc">
+        <dex dex="/Users/kd/Desktop/SEM 3/NEW/CS251/Project/PhotoGraph/android-sample/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_013a78cd5ceda9e1b1980ebfd89d069a3b8a3347/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/kd/.android/build-cache/93fbb2e046593898be6f15e1bfadb4ef4225f913/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="57ae0d750ff83f0c738d21720224ac7ea866a094">
+        <dex dex="/Users/kd/Desktop/SEM 3/NEW/CS251/Project/PhotoGraph/android-sample/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_0b7ef83b174a7bc606872b10cf87ef506afc72bd/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/kd/.android/build-cache/7e580a534a953f81806a7ea18ac9abdeaf86d743/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="ddde541c289c8b816a8f8fd6c325d80788c522a6">
+        <dex dex="/Users/kd/Desktop/SEM 3/NEW/CS251/Project/PhotoGraph/android-sample/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_6f417ff7ca9c47c630e1fba79b3260a8c2e34393/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/kd/.android/build-cache/761ead9434a476bdce8a706bb2c766cdf7a4d065/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="78ea232052df889856dcb7b7b542707c89bb3bfb">
+        <dex dex="/Users/kd/Desktop/SEM 3/NEW/CS251/Project/PhotoGraph/android-sample/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_9e00e6f392267c2b4cd3a1b32745987d44060708/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/kd/.gradle/caches/modules-2/files-2.1/com.squareup.okio/okio/1.13.0/a9283170b7305c8d92d25aff02a6ab7e45d06cbe/okio-1.13.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="a9283170b7305c8d92d25aff02a6ab7e45d06cbe">
+        <dex dex="/Users/kd/Desktop/SEM 3/NEW/CS251/Project/PhotoGraph/android-sample/app/build/intermediates/transforms/dex/debug/folders/1000/10/okio-1.13.0_0e2eb2683731fdbb13592f92ebfdc1356665f514/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/kd/.android/build-cache/5f57a00b2a4d3132d5cdabe067a7008e0192a047/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="19026d31f5d3ae868db81319671a642be5fbba08">
+        <dex dex="/Users/kd/Desktop/SEM 3/NEW/CS251/Project/PhotoGraph/android-sample/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_832effe737998bfcec286e9e134ed159616792f0/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/kd/Desktop/SEM 3/NEW/CS251/Project/PhotoGraph/android-sample/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
+        <dex dex="/Users/kd/Desktop/SEM 3/NEW/CS251/Project/PhotoGraph/android-sample/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_becde6e06ec8de96b00e9bb220809180448aa535/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/kd/.android/build-cache/768d67ab06d677be5cabd1c2079f569564dcc0dd/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="a07818a1ecabdb149998823429cce555af4b9cba">
+        <dex dex="/Users/kd/Desktop/SEM 3/NEW/CS251/Project/PhotoGraph/android-sample/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_72ed2cf393fd8670a4aab1859631c37d8f8d1aa7/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/kd/.android/build-cache/7e580a534a953f81806a7ea18ac9abdeaf86d743/output/jars/libs/internal_impl-23.1.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="8716243bf04bae8d6c9ca94d27b9a9be7236f0a3">
+        <dex dex="/Users/kd/Desktop/SEM 3/NEW/CS251/Project/PhotoGraph/android-sample/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-23.1.0_a0dac5983d63eb79760083c65249b7273457d213/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/kd/Desktop/SEM 3/NEW/CS251/Project/PhotoGraph/android-sample/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="b57d78efeb8a18126aad78a65984ed44c4a179a9">
+        <dex dex="/Users/kd/Desktop/SEM 3/NEW/CS251/Project/PhotoGraph/android-sample/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_440441419f0bb24398d348265a8f7c1856fe5e37/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/kd/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/24.1.0/support-annotations-24.1.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="8a23146e1a8c7cb4758e3d3f62449213f1e51f67">
+        <dex dex="/Users/kd/Desktop/SEM 3/NEW/CS251/Project/PhotoGraph/android-sample/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-24.1.0_f8b7e8324c2e9bd81e965d6ab6990d7632a9a821/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/kd/.gradle/caches/modules-2/files-2.1/com.jakewharton/butterknife-annotations/8.4.0/ea392375cf9ff59234a82e7928a204215ccc98cd/butterknife-annotations-8.4.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="ea392375cf9ff59234a82e7928a204215ccc98cd">
+        <dex dex="/Users/kd/Desktop/SEM 3/NEW/CS251/Project/PhotoGraph/android-sample/app/build/intermediates/transforms/dex/debug/folders/1000/10/butterknife-annotations-8.4.0_58e7935a88341e576f8beb217e36ae95db1eaa6a/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/kd/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.7/751f548c85fa49f330cecbb1875893f971b33c4e/gson-2.7.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="751f548c85fa49f330cecbb1875893f971b33c4e">
+        <dex dex="/Users/kd/Desktop/SEM 3/NEW/CS251/Project/PhotoGraph/android-sample/app/build/intermediates/transforms/dex/debug/folders/1000/10/gson-2.7_141420dd4598444f91d324265601de95ed168023/classes.dex" />
+    </item>
+
+</items>
