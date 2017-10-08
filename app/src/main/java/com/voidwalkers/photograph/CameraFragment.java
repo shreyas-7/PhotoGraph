@@ -47,6 +47,7 @@ import butterknife.OnClick;
 
 public class CameraFragment extends Fragment {
     private static final String TAG = CameraFragment.class.getSimpleName();
+    public static String latexInput ;
 
     //region UI
     @BindView(R.id.takePhotoButton)
@@ -69,6 +70,7 @@ public class CameraFragment extends Fragment {
 
     @BindView(R.id.latexText)
     TextView mLatexText;
+
 
     @OnClick(R.id.nextPhoto)
     void onNextPhotoClicked() {
@@ -267,27 +269,21 @@ public class CameraFragment extends Fragment {
     private void loadLocalContent() {
         mWebViewContainer.setVisibility(View.VISIBLE);
 
+        latexInput = mLatestLatex ;
+
+        // display change
+
+        EquationSolver.solve(latexInput) ;
+
+
         mLatexText.setText(mLatestLatex);
 
     }
 
-//    public String localHTML(Context context) {
-//        StringBuilder stringBuilder = new StringBuilder();
-//        InputStream json;
-//        try {
-//            json = context.getAssets().open("latex.html");
-//            BufferedReader in = new BufferedReader(new InputStreamReader(json));
-//            String str;
-//
-//            while ((str = in.readLine()) != null) {
-//                stringBuilder.append(str);
-//            }
-//            in.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        return stringBuilder.toString();
-//    }
+
+
+
+
 
     private void showErrorAndReset(String errMessage) {
         Toast.makeText(getContext(), errMessage, Toast.LENGTH_LONG).show();
