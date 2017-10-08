@@ -3,6 +3,7 @@ package com.voidwalkers.photograph;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.text.method.CharacterPickerDialog;
+import android.widget.TextView;
 
 import com.voidwalkers.photograph.api.request.SingleProcessRequest;
 import com.voidwalkers.photograph.api.response.DetectionResult;
@@ -88,8 +89,7 @@ class UploadImageTask extends AsyncTask<UploadImageTask.UploadParams, Void, Uplo
 
         ResultSuccessful(String latex) {
 
-            latex = Sysofeq(latex);
-
+           //latex = Sysofeq(latex);
 
             this.latex = latex;
         }
