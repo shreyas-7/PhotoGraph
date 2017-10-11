@@ -198,6 +198,7 @@ public class CameraFragment extends Fragment {
 
         if (mCamera != null) {
             try {
+                Log.v("Tag2","Camera.startpreview") ;
                 mCamera.startPreview();
                 return;
             } catch (Exception e) {
@@ -258,6 +259,7 @@ public class CameraFragment extends Fragment {
                 stopScanAnimation();
                 mLatestLatex = latex;
                 Log.d("Latex_NEW", mLatestLatex);
+                Log.v("TAG2", mLatestLatex);
                 loadLocalContent();
             }
         });
@@ -273,14 +275,14 @@ public class CameraFragment extends Fragment {
 
         // display change
 
-        EquationSolver.solve(latexInput) ;
+        Log.d("TAG2", "CALLING EQUATION SOLVER") ;
 
+        EquationSolver.solve(latexInput) ;
 
         mLatexText.setText(mLatestLatex);
 
+
     }
-
-
 
 
 
