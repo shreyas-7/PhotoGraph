@@ -20,7 +20,7 @@ import android.widget.TextView ;
 
 import butterknife.BindView;
 
-public class Quadratic{
+public class Quadratic extends CameraFragment{
 
     @BindView(R.id.outputGraph)
     GraphView myGraph;
@@ -41,8 +41,26 @@ public class Quadratic{
     public static double[] Coeffs = new double[4];
 
 
+    public static String transformLatex(String latexInput) {
+        Log.v("TAG2","Transforming from Latex") ;
+        String answer = latexInput.replaceAll(" ", "");
+        answer = answer.replaceAll("x|X","Vx") ;
+
+        answer = answer.replaceAll("y|Y","Vy") ;
+
+        answer = answer.replaceAll("[0-9]+","V") ;
+        answer = answer.replaceAll("[V]+","V") ;
+
+        answer = answer.replaceAll("[-]+","+") ;
+
+        Log.v("TAG2","LATEX WAS "+ latexInput + " Transformed " + answer) ;
+
+        return answer ;
+
+    }
+
     public void solve(String latexInput) {
-        String transformedLatex = EquationSolver.transformLatex(latexInput);
+        String transformedLatex = Quadratic.transformLatex(latexInput);
         Quadratic.latexInput = latexInput;
         Quadratic.transformedLatex = transformedLatex;
         String functionID = quadPref.getString(transformedLatex, "N/A");
@@ -104,6 +122,7 @@ public class Quadratic{
 
 
     public void quadratic1() {
+        // ax^2 + bx + c = d ;
         Log.e("TAG2", "I am in quadratic1");
         Log.e("TAG2", "LatexInput = " + latexInput);
 
@@ -143,9 +162,6 @@ public class Quadratic{
                 Log.e("TAG2", "Found value: " + String.valueOf(Double.parseDouble(Vars[i])));
                 Coeffs[i] = Double.parseDouble(Vars[i]);
             }
-
-
-
 
 
             Log.e("TAG2","Adding") ;
@@ -203,6 +219,7 @@ public class Quadratic{
 ////        Quadratic.graph();
 
     public void quadratic2() {
+        // ax + bx^2 + cx = d ;
         Log.e("TAG2", "I am in quadratic2");
         Log.e("TAG2", "LatexInput = " + latexInput);
 
@@ -211,8 +228,8 @@ public class Quadratic{
         latexInput = latexInput.replaceAll(" ", "");
         latexInput = latexInput.replaceAll("\\.", "");
 
-//        String pattern = "(.*)x\\^\\{.*\\}(.*)x(.*)=(.*)";
-        String pattern = "\\frac{(.*)x}" ;
+        String pattern = "(.*)x(.*)x\\^\\{.*\\}(.*)=(.*)";
+//        String pattern = "" ;
 
         Log.e("TAG2", "LatexInput = " + latexInput);
         Log.e("TAG2", "TransformedLatex = " + transformedLatex);
@@ -233,11 +250,15 @@ public class Quadratic{
             if (Vars[1].equals("-")) Vars[1] = "-1";
             if (Vars[2].equals("")) Vars[2] = "0";
 
-            for (int i = 0; i < 4; i++) {
-//                Viars[i] = m.group(i+1);
-                Log.e("TAG2", "Found value: " + String.valueOf(Double.parseDouble(Vars[i])));
-                Coeffs[i] = Double.parseDouble(Vars[i]);
-            }
+//            for (int i = 0; i < 4; i++) {
+////                Viars[i] = m.group(i+1);
+//                Log.e("TAG2", "Found value: " + String.valueOf(Double.parseDouble(Vars[i])));
+//                Coeffs[i] = Double.parseDouble(Vars[i]);
+//            }
+            Coeffs[0] = Double.parseDouble(Vars[1]);
+            Coeffs[1] = Double.parseDouble(Vars[0]);
+            Coeffs[2] = Double.parseDouble(Vars[2]);
+            Coeffs[3] = Double.parseDouble(Vars[3]);
 
             Log.e("TAG2","Adding") ;
 
@@ -250,6 +271,111 @@ public class Quadratic{
 //        quad.graph();
     }
 
+    public void quadratic3() {
+        // a + bx + cx^2 = d ;
+        Log.e("TAG2", "I am in quadratic2");
+        Log.e("TAG2", "LatexInput = " + latexInput);
+
+        String[] Vars = new String[4];
+
+        latexInput = latexInput.replaceAll(" ", "");
+        latexInput = latexInput.replaceAll("\\.", "");
+
+        String pattern = "(.*)x(.*)x\\^\\{.*\\}(.*)=(.*)";
+//        String pattern = "" ;
+
+        Log.e("TAG2", "LatexInput = " + latexInput);
+        Log.e("TAG2", "TransformedLatex = " + transformedLatex);
+
+        Pattern r = Pattern.compile(pattern);
+
+        Matcher m = r.matcher(latexInput);
+
+        if (m.find()) {
+
+            for (int i = 0; i < 4; i++) {
+                Vars[i] = m.group(i + 1);
+                Log.e("TAG2","Found value: " + Vars[i]);
+
+            }
+            if (Vars[0].equals("")) Vars[0] = "1";
+            if (Vars[1].equals("+")) Vars[1] = "1";
+            if (Vars[1].equals("-")) Vars[1] = "-1";
+            if (Vars[2].equals("")) Vars[2] = "0";
+
+//            for (int i = 0; i < 4; i++) {
+////                Viars[i] = m.group(i+1);
+//                Log.e("TAG2", "Found value: " + String.valueOf(Double.parseDouble(Vars[i])));
+//                Coeffs[i] = Double.parseDouble(Vars[i]);
+//            }
+            Coeffs[0] = Double.parseDouble(Vars[1]);
+            Coeffs[1] = Double.parseDouble(Vars[0]);
+            Coeffs[2] = Double.parseDouble(Vars[2]);
+            Coeffs[3] = Double.parseDouble(Vars[3]);
+
+            Log.e("TAG2","Adding") ;
+
+        } else {
+            Log.e("TAG2", "NOT FOUND");
+        }
+
+//        Quadratic quad = new Quadratic() ;
+//
+//        quad.graph();
+    }
+
+    public void quadratic4() {
+        // bx + a + cx^2 = d ;
+        Log.e("TAG2", "I am in quadratic2");
+        Log.e("TAG2", "LatexInput = " + latexInput);
+
+        String[] Vars = new String[4];
+
+        latexInput = latexInput.replaceAll(" ", "");
+        latexInput = latexInput.replaceAll("\\.", "");
+
+        String pattern = "(.*)x(.*)x\\^\\{.*\\}(.*)=(.*)";
+//        String pattern = "" ;
+
+        Log.e("TAG2", "LatexInput = " + latexInput);
+        Log.e("TAG2", "TransformedLatex = " + transformedLatex);
+
+        Pattern r = Pattern.compile(pattern);
+
+        Matcher m = r.matcher(latexInput);
+
+        if (m.find()) {
+
+            for (int i = 0; i < 4; i++) {
+                Vars[i] = m.group(i + 1);
+                Log.e("TAG2","Found value: " + Vars[i]);
+
+            }
+            if (Vars[0].equals("")) Vars[0] = "1";
+            if (Vars[1].equals("+")) Vars[1] = "1";
+            if (Vars[1].equals("-")) Vars[1] = "-1";
+            if (Vars[2].equals("")) Vars[2] = "0";
+
+//            for (int i = 0; i < 4; i++) {
+////                Viars[i] = m.group(i+1);
+//                Log.e("TAG2", "Found value: " + String.valueOf(Double.parseDouble(Vars[i])));
+//                Coeffs[i] = Double.parseDouble(Vars[i]);
+//            }
+            Coeffs[0] = Double.parseDouble(Vars[1]);
+            Coeffs[1] = Double.parseDouble(Vars[0]);
+            Coeffs[2] = Double.parseDouble(Vars[2]);
+            Coeffs[3] = Double.parseDouble(Vars[3]);
+
+            Log.e("TAG2","Adding") ;
+
+        } else {
+            Log.e("TAG2", "NOT FOUND");
+        }
+
+//        Quadratic quad = new Quadratic() ;
+//
+//        quad.graph();
+    }
 
 
 }

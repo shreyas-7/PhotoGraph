@@ -17,25 +17,14 @@ public class EquationSolver {
             Log.v("TAG2","SOLVED Quadratic Solver") ;
 
         }
+        else if (latexInput.contains(",")) {
+            Log.v("TAG2" , "CALLED LINEAR Solver") ;
+            Linear lin = new Linear() ;
+            lin.solve(latexInput) ;
+            Log.v("TAG2", "Solved Linear") ;
+        }
         //
     }
 
-    public static String transformLatex(String latexInput) {
-        Log.v("TAG2","Transforming from Latex") ;
-        String answer = latexInput.replaceAll(" ", "");
-        answer = answer.replaceAll("x|X","Vx") ;
-
-        answer = answer.replaceAll("y|Y","Vy") ;
-
-        answer = answer.replaceAll("[0-9]+","V") ;
-        answer = answer.replaceAll("[V]+","V") ;
-
-        answer = answer.replaceAll("[-]+","+") ;
-
-        Log.v("TAG2","LATEX WAS "+ latexInput + " Transformed " + answer) ;
-
-        return answer ;
-
-    }
 
 }

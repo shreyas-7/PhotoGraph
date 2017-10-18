@@ -1,4 +1,4 @@
-//package com.voidwalkers.photograph;
+package com.voidwalkers.photograph;
 //
 //import android.content.SharedPreferences;
 //import android.os.Bundle;
