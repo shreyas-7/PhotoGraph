@@ -3,6 +3,15 @@
 
     <item
         is-multidex="true"
+        jar="/Users/kd/Desktop/SEM 3/NEW/CS251/PhotoGraph/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
+        <dex dex="/Users/kd/Desktop/SEM 3/NEW/CS251/PhotoGraph/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_95854b2d21b86679855261044e5706d863d4446d/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="/Users/kd/Desktop/SEM 3/NEW/PhotoGraph/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
         jumboMode="true"
         optimize="true"
@@ -27,6 +36,15 @@
         revision="25.0.0"
         sha1="44ee06abb66da30f5855e6bf54574e64cdcd982a">
         <dex dex="/Users/kd/Desktop/SEM 3/NEW/PhotoGraph/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_d8c1593528fd39503c5f94a48c1b2faabdc123c9/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/kd/Desktop/SEM 3/NEW/CS251/PhotoGraph/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="af1ad5a507ac85ee3302346a32bc947b6d5fbf4b">
+        <dex dex="/Users/kd/Desktop/SEM 3/NEW/CS251/PhotoGraph/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_f92ffe54687ab644c74e15dd4ec2e8bfd56f8e25/classes.dex" />
     </item>
     <item
         is-multidex="true"

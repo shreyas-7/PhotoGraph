@@ -64,8 +64,8 @@ public class CameraFragment extends Fragment {
     @BindView(R.id.webview_container)
     ViewGroup mWebViewContainer;
 
-    @BindView(R.id.latexText)
-    TextView mLatexText;
+//    @BindView(R.id.latexText)
+//    TextView mLatexText;
 
 
     @OnClick(R.id.nextPhoto)
@@ -271,7 +271,7 @@ public class CameraFragment extends Fragment {
 
         Latex.latexInput = mLatestLatex ;
 
-        mLatexText.setText(mLatestLatex);
+//        mLatexText.setText(mLatestLatex);
 
         Intent i = new Intent(this.getContext(), EquationSolver.class) ;
 

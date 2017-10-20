@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.base_activity);
 
+
         Button AlgebraButton = (Button) findViewById(R.id.algebra_button) ;
 
         AlgebraButton.setOnClickListener(
