@@ -26,20 +26,31 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Quadratic extends AppCompatActivity {
+    // the class contains four data members , namely the coefficients
     private static double a ;
     private static double b ;
     private static double c ;
     private static double d ;
     public ListView steps ;
-    public RelativeLayout rl;
+//    public RelativeLayout rl;
+
+    // arrayadpter for the listview
+
     public ArrayList<String> listItems=new ArrayList<String>();
     public ArrayAdapter<String> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        // general oncreate method
+
         super.onCreate(savedInstanceState);
 
+        // setting the view to activity_quadratic
+
         setContentView(R.layout.activity_quadratic);
+
+        // Meet change this to the newer library
 
         GraphView myGraph = (GraphView) findViewById(R.id.outputGraph);
         TextView input = (TextView) findViewById(R.id.input_latex);
@@ -49,7 +60,7 @@ public class Quadratic extends AppCompatActivity {
 
         steps.setAdapter(adapter);
 
-        rl = (RelativeLayout) findViewById(R.id.quad_output);
+//        rl = (RelativeLayout) findViewById(R.id.quad_output);
 
         input.setText(Latex.latexInput);
 
@@ -74,10 +85,6 @@ public class Quadratic extends AppCompatActivity {
 
         }
         else {
-            a = 1 ;
-            b = 2;
-            c = 1 ;
-            d = 0 ;
             // just make graph.
             // the grapher should be able to graph unknown templates
         }
@@ -87,7 +94,6 @@ public class Quadratic extends AppCompatActivity {
         listItems.add(step);
         adapter.notifyDataSetChanged();
     }
-
 
     public void callByName(String funcName) {
             try {
@@ -145,6 +151,8 @@ public class Quadratic extends AppCompatActivity {
         Pattern r = Pattern.compile(pattern);
         Matcher m = r.matcher(latexInput);
 
+        // if I find a pattern in the latex string
+
         if (m.find()) {
 
             for (int i = 0; i < 4; i++) {
@@ -167,12 +175,16 @@ public class Quadratic extends AppCompatActivity {
 
             Log.e("TAG2","Adding") ;
 
+            // steps, lol.
+
             String step1 = "This is the Standard form!" ;
             String step2 = "ax^2 + bx + c = d" ;
             String step3 = "where a = " + String.valueOf(a) ;
             String step4 = "where b = " + String.valueOf(b) ;
             String step5 = "where c = " + String.valueOf(c) ;
             String step6 = "where d = " + String.valueOf(d) ;
+
+            // this code basically adds steps, (lines) to the ListView
 
             this.addItems(this.findViewById(R.id.quadratic_steps),step1);
             this.addItems(this.findViewById(R.id.quadratic_steps),step2);
@@ -181,15 +193,18 @@ public class Quadratic extends AppCompatActivity {
             this.addItems(this.findViewById(R.id.quadratic_steps),step5);
             this.addItems(this.findViewById(R.id.quadratic_steps),step6);
 
-            TextView t = new TextView(this) ;
-            t.setText("This is the Standard form!");
-            rl.addView(t);
-            t.setText("ax^2 + bx + c = d");
-            rl.addView(t);
-            t.setText("where a = " + String.valueOf(a));
-            rl.addView(t);
+//            TextView t = new TextView(this) ;
+//            t.setText("This is the Standard form!");
+//            rl.addView(t);
+//            t.setText("ax^2 + bx + c = d");
+//            rl.addView(t);
+//            t.setText("where a = " + String.valueOf(a));
+//            rl.addView(t);
 
         } else {
+
+            // else I will just draw a graph
+
             Log.e("TAG2", "NOT FOUND");
         }
 

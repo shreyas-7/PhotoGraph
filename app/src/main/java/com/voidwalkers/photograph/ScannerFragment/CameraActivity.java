@@ -67,7 +67,7 @@ public class CameraActivity extends FragmentActivity {
         Log.e("TAG23","SET") ;
 
 
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_camera_main);
 
 //        Button button = (Button) findViewById(R.id.sample_button);
 //        button.setOnClickListener(new View.OnClickListener() {

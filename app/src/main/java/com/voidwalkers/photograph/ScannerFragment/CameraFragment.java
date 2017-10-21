@@ -275,6 +275,7 @@ public class CameraFragment extends Fragment {
 
         Intent i = new Intent(this.getContext(), EquationSolver.class) ;
 
+        Log.e("HHH","III") ;
         startActivity(i);
 
     }

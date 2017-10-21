@@ -9,4 +9,15 @@
     <color name="white">#FFFFFF</color>
     <color name="transparent_white">#abffffff</color>
     <color name="transluscent_white">#2cffffff</color>
+
+    <!--Normal App Color-->
+    <color name="cardColor">#80cbc4</color>
+    <color name="grey">#cfd8dc</color>
+    <!--Dark App Color-->
+    <color name="DarkcolorPrimary">#37474f</color>
+    <color name="DarkcolorPrimaryDark">#343d41</color>
+    <color name="DarkcolorAccent">#1de9b6</color>
+    <color name="deepgrey">#424242</color>
+    <color name="white2">#bcaaa4</color>
+
 </resources>

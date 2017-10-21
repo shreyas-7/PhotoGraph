@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
         AlgebraButton.setOnClickListener(
                 new Button.OnClickListener(){
                     public void onClick(View v){
+                        Log.e("HHH","B") ;
                         Intent i = new Intent(v.getContext(), CameraActivity.class) ;
                         startActivity(i);
                     }
@@ -36,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
         MatrixButton.setOnClickListener(
                 new Button.OnClickListener(){
                     public void onClick(View v){
+                        Log.e("HHH","C") ;
+
                         Intent i = new Intent(v.getContext(), MatrixMain.class) ;
                         startActivity(i);
                     }

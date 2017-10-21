@@ -3,6 +3,42 @@
 
     <item
         is-multidex="true"
+        jar="/Users/kd/.android/build-cache/8bb0c384a06a0f619c5b5a8914ce7583f9c66b6f/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="da27a32db6af8954ee8061537c7d476fcb1df46f">
+        <dex dex="/Users/kd/Desktop/SEM 3/NEW/CS251/PhotoGraph/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_fd52599c871fdf874e54f0612f0d6783811cf991/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/kd/.android/build-cache/019a62d072f002ea1bf978196f66a92650815d18/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="4a26a1154d053ab11aaf4c3967c42a4d66390991">
+        <dex dex="/Users/kd/Desktop/SEM 3/NEW/CS251/PhotoGraph/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_d3ce026da56bbf6535536aa3695081c1475f4a64/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/kd/.android/build-cache/a1a946082449c8ab507a8409248d879814996f49/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="/Users/kd/Desktop/SEM 3/NEW/CS251/PhotoGraph/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_5105851f28502780d8fc6fe9257b87132049cc26/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/kd/.android/build-cache/b40e25b8f9222c01b039741f2bd8499d06571d56/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="052f5f840f21174a3ecf6544130194e2652cbb73">
+        <dex dex="/Users/kd/Desktop/SEM 3/NEW/CS251/PhotoGraph/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_56f56df3214af7ce7c663ff88b6e65dc2e551034/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="/Users/kd/Desktop/SEM 3/NEW/CS251/PhotoGraph/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
         jumboMode="true"
         optimize="true"
@@ -12,11 +48,47 @@
     </item>
     <item
         is-multidex="true"
+        jar="/Users/kd/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/25.3.1/support-annotations-25.3.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="bf8841d29fa39e077730e7a91222c2ce269fa7c9">
+        <dex dex="/Users/kd/Desktop/SEM 3/NEW/CS251/PhotoGraph/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-25.3.1_3e2210ef160ec918061b80d26684cace4ae00676/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/kd/.android/build-cache/8b2bbacb8dfa1395d287a8e331bc9ef356996d8a/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="6ef31f1555bb4cc513ec8d52711365a8b89f3600">
+        <dex dex="/Users/kd/Desktop/SEM 3/NEW/CS251/PhotoGraph/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_d3c426bdcae95cc0c01156886404fd0bf5ee7452/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/kd/.android/build-cache/9c3a59130aa67d8ca43c0acaa046b1ba5cf8f5c9/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="45f697922e6f072daa12f8a2995dc77ab03c11da">
+        <dex dex="/Users/kd/Desktop/SEM 3/NEW/CS251/PhotoGraph/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_d55b2a3fa1ea59ff68e53ecad0769700c23ecd79/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/kd/.android/build-cache/6cf558a19523737ee8721d27870c032dcc1b9f02/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="914f5d3e3ace66080e59613708f06d129a222e25">
+        <dex dex="/Users/kd/Desktop/SEM 3/NEW/CS251/PhotoGraph/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_7c48b568ac564e226831b80bba190e7fb4b2f8a4/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="/Users/kd/Desktop/SEM 3/NEW/CS251/PhotoGraph/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.0"
-        sha1="769eace2d8696277d5f44654c8d35b8a80917ede">
+        sha1="95cda2e3920b8143cc9ff13bbf6d22ef16ec96b5">
         <dex dex="/Users/kd/Desktop/SEM 3/NEW/CS251/PhotoGraph/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_f92ffe54687ab644c74e15dd4ec2e8bfd56f8e25/classes.dex" />
     </item>
 
