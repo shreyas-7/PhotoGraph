@@ -12,14 +12,20 @@ public class EquationSolver extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        this.Solve();
 
         super.onCreate(savedInstanceState);
+        this.Solve();
+
 
     }
 
     private void Solve(){
         String latexInput = Latex.latexInput ;
+
+
+        //// if this contains a matrix, addd a global variable.
+        //// TODO this asap
+
         if (latexInput.indexOf(',') == -1 ) {
             Log.v("TAG2","CALLED Quadratic Solver") ;
 

@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jjoe64.graphview.GraphView;
@@ -14,6 +16,8 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 import com.voidwalkers.photograph.GlobalMemory;
 import com.voidwalkers.photograph.Latex;
 import com.voidwalkers.photograph.R;
+
+import org.w3c.dom.Text;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -27,6 +31,7 @@ public class Quadratic extends AppCompatActivity {
     private static double c ;
     private static double d ;
     public ListView steps ;
+    public RelativeLayout rl;
     public ArrayList<String> listItems=new ArrayList<String>();
     public ArrayAdapter<String> adapter;
 
@@ -43,6 +48,8 @@ public class Quadratic extends AppCompatActivity {
         adapter=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,listItems);
 
         steps.setAdapter(adapter);
+
+        rl = (RelativeLayout) findViewById(R.id.quad_output);
 
         input.setText(Latex.latexInput);
 
@@ -173,6 +180,14 @@ public class Quadratic extends AppCompatActivity {
             this.addItems(this.findViewById(R.id.quadratic_steps),step4);
             this.addItems(this.findViewById(R.id.quadratic_steps),step5);
             this.addItems(this.findViewById(R.id.quadratic_steps),step6);
+
+            TextView t = new TextView(this) ;
+            t.setText("This is the Standard form!");
+            rl.addView(t);
+            t.setText("ax^2 + bx + c = d");
+            rl.addView(t);
+            t.setText("where a = " + String.valueOf(a));
+            rl.addView(t);
 
         } else {
             Log.e("TAG2", "NOT FOUND");

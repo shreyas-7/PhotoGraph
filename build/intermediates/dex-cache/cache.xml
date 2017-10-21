@@ -12,48 +12,12 @@
     </item>
     <item
         is-multidex="true"
-        jar="/Users/kd/Desktop/SEM 3/NEW/PhotoGraph/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="1ab1efcbacc7467e91c3c98a6a0413dad988c6a4">
-        <dex dex="/Users/kd/Desktop/SEM 3/NEW/PhotoGraph/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_5a52ffd7928fda1beb497e28414ad3c96df2065c/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/kd/Desktop/SEM 3/NEW/PhotoGraph/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
-        <dex dex="/Users/kd/Desktop/SEM 3/NEW/PhotoGraph/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_daa6282de83c0f8e43a13ad541a79aeb6b6bda6f/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/kd/.android/build-cache/e07a93c2ea1f00a9f3210aace18dcf1145b2a48c/output/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="44ee06abb66da30f5855e6bf54574e64cdcd982a">
-        <dex dex="/Users/kd/Desktop/SEM 3/NEW/PhotoGraph/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_d8c1593528fd39503c5f94a48c1b2faabdc123c9/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="/Users/kd/Desktop/SEM 3/NEW/CS251/PhotoGraph/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.0"
-        sha1="af1ad5a507ac85ee3302346a32bc947b6d5fbf4b">
+        sha1="769eace2d8696277d5f44654c8d35b8a80917ede">
         <dex dex="/Users/kd/Desktop/SEM 3/NEW/CS251/PhotoGraph/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_f92ffe54687ab644c74e15dd4ec2e8bfd56f8e25/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/kd/Library/Android/sdk/extras/m2repository/com/android/support/constraint/constraint-layout-solver/1.0.2/constraint-layout-solver-1.0.2.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="b9cd8fc6bd15cb915735d34535db30ece0c44603">
-        <dex dex="/Users/kd/Desktop/SEM 3/NEW/PhotoGraph/app/build/intermediates/transforms/dex/debug/folders/1000/10/constraint-layout-solver-1.0.2_b3988dbed0c42316a2f1d579db4a0fac49f26817/classes.dex" />
     </item>
 
 </items>

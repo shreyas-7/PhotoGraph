@@ -29,6 +29,8 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".AlgebraFragment.EquationSolver" />
+        <activity android:name=".MatrixFragment.MatrixMain" />
+        <activity android:name=".MatrixFragment.SelectOperation"></activity>
     </application>
 
 </manifest>

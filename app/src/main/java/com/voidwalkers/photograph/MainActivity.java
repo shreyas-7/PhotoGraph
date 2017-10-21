@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.voidwalkers.photograph.MatrixFragment.MatrixMain;
 import com.voidwalkers.photograph.ScannerFragment.CameraActivity;
 import com.voidwalkers.photograph.ScannerFragment.CameraFragment;
 
@@ -30,7 +31,15 @@ public class MainActivity extends AppCompatActivity {
                 }
         );
 
+        Button MatrixButton = (Button) findViewById(R.id.matrix_button) ;
 
-
+        MatrixButton.setOnClickListener(
+                new Button.OnClickListener(){
+                    public void onClick(View v){
+                        Intent i = new Intent(v.getContext(), MatrixMain.class) ;
+                        startActivity(i);
+                    }
+                }
+        );
     }
 }
