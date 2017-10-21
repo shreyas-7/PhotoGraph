@@ -3,16 +3,10 @@ package com.voidwalkers.photograph.MatrixFragment;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -25,11 +19,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.voidwalkers.photograph.GlobalValues;
-import com.voidwalkers.photograph.MatrixFragment.base_fragments.MainActivityFragmentList;
+import com.voidwalkers.photograph.MatrixFragment.OperationFragments.AdditionFragment;
+import com.voidwalkers.photograph.MatrixFragment.base_fragments.MatrixMainFragmentList;
 import com.voidwalkers.photograph.R;
 import com.voidwalkers.photograph.MatrixFragment.base_classes.MakeNewMatrix ;
 
@@ -40,96 +36,58 @@ public class MatrixMain extends AppCompatActivity
     final int RESULT=1;
     Menu ActionbarMenu; //the Menu items in the top 3 dots
     ActionBar actionBar; //the Main Activity Actionbar
-    TextView t; //Center Text which describe the context of the Application
-    boolean OnceBackClicked=false;
+    TextView t; // opening hint
     Menu NavMenuItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-
+        // onCreate
         super.onCreate(savedInstanceState);
+        // setting View to activity_main
         setContentView(R.layout.activity_main);
 
-
+        // suggests the user to click the + button
         t = (TextView)findViewById(R.id.OpeningHint);
 
-            t.setTextColor(ContextCompat.getColor(this,R.color.colorPrimary));
-
+        // toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        // if there are entries (one or more variables stored, set the hint = ""
         if(!((GlobalValues)getApplication()).GetCompleteList().isEmpty())
             t.setText(null);
 
-
+        // extracting the drawer layout
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_main);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         toggle.syncState();
 
-//        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-//        navigationView.setNavigationItemSelectedListener(this);
-//        View v = navigationView.getHeaderView(0);
-//        navigationView.setCheckedItem(R.id.Home);
-//        NavMenuItem = navigationView.getMenu();
-
-//        if(v!=null)
-//        {
-//            if(isDark) {
-//                v.setBackground(ContextCompat.getDrawable(this, R.drawable.side_nav_bar_dark));
-//                navigationView.setItemTextColor(ColorStateList.valueOf(Color.parseColor("#ffffff")));
-//            }
-//            else
-//                v.setBackground(ContextCompat.getDrawable(this,R.drawable.side_nav_bar));
-//        }
-
-        FloatingActionButton floatingActionButton = (FloatingActionButton) findViewById(R.id.MainFAB);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+        // setting an event listener on Add Variable Button
+        Button b = (Button) findViewById(R.id.Main_Add_Variable) ;
+        b.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-//                if(((GlobalValues)getApplication()).CanCreateVariable()){
-                    Intent intent = new Intent(getApplicationContext(), MakeNewMatrix.class);
-                    startActivityForResult(intent, RESULT);
-//                }
-
+            public void onClick(View v) {
+                // On click Start MakeNewMatrix Activity
+                Intent intent = new Intent(getApplicationContext(), MakeNewMatrix.class);
+                startActivityForResult(intent, RESULT);
             }
         });
 
+        // TODO Add comment
         if(savedInstanceState==null)
         {
-            MainActivityFragmentList mh=new MainActivityFragmentList();
+            MatrixMainFragmentList mh=new MatrixMainFragmentList();
             getSupportFragmentManager().beginTransaction().add(R.id.MainContent,mh,"MAIN_LIST").commit();
         }
 
-
-    }
-
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_main);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            if(OnceBackClicked)
-                super.onBackPressed();
-            else{
-                Toast.makeText(getApplicationContext(),R.string.ClickToExit,Toast.LENGTH_SHORT).show();
-                OnceBackClicked=true;
-                Runnable runnable = new Runnable() {
-                    @Override
-                    public void run() {
-                        OnceBackClicked = false; //reset back pressed event
-                    }
-                };
-                new android.os.Handler().postDelayed(runnable,2000); //reset the click stat after 2 seconds
-            }
-        }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
+        // TODO better comment
         getMenuInflater().inflate(R.menu.main, menu);
         this.ActionbarMenu = menu;
         this.actionBar = getSupportActionBar();
@@ -138,82 +96,95 @@ public class MatrixMain extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+        // on click event for ClearVar
         int id = item.getItemId();
+        if (id == R.id.ClearAllVar)
+            // making a standard Alert dialog box
+            if(!((GlobalValues)getApplication()).GetCompleteList().isEmpty()){
 
-        //noinspection SimplifiableIfStatement
-        switch (id) {
-            case R.id.ClearAllVar:
-                if(!((GlobalValues)getApplication()).GetCompleteList().isEmpty()){
-                    AlertDialog.Builder builder= new AlertDialog.Builder(MatrixMain.this);
-                    builder.setMessage(R.string.Warning9);
-                    builder.setTitle(R.string.Clear);
-                    builder.setPositiveButton(R.string.Yup, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            ((GlobalValues) getApplication()).ClearAllMatrix();
-                            actionBar.setSubtitle(null);
-                            ((GlobalValues)getApplication()).AutoSaved=1; //Re initialize AutoSave to 1
-                            TextView t = (TextView) findViewById(R.id.OpeningHint);
-                            t.setText(R.string.OpenHint);
-                        }
-                    });
-                    builder.setNegativeButton(R.string.Nope, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            dialogInterface.dismiss();
-                        }
-                    });
-
-                    builder.show();
-                }
-                else
-                    Toast.makeText(getApplication(),R.string.Warning8,Toast.LENGTH_SHORT).show();
-        }
+                // create an alert dialog box
+                AlertDialog.Builder builder= new AlertDialog.Builder(MatrixMain.this);
+                builder.setMessage(R.string.Warning9);
+                builder.setTitle(R.string.Clear);
+                builder.setPositiveButton(R.string.Yup, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        // On Clicking yes, matrices cleared from globalvalues
+                        ((GlobalValues) getApplication()).ClearAllMatrix();
+                        actionBar.setSubtitle(null);
+                        // setting autosaved to 1
+                        ((GlobalValues)getApplication()).AutoSaved=1;
+                        // reset the opening hint
+                        TextView t = (TextView) findViewById(R.id.OpeningHint);
+                        t.setText(R.string.OpenHint);
+                    }
+                });
+                builder.setNegativeButton(R.string.Nope, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+                builder.show();
+            }
+            else {
+                Log.v("TAG2","Nothing") ;
+                Toast.makeText(getApplication(), R.string.Warning8, Toast.LENGTH_SHORT).show();
+            }
         return super.onOptionsItemSelected(item);
     }
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        // event handler for the navigation menu
         int id = item.getItemId();
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.MainFAB);
+        Button b = (Button) findViewById(R.id.Main_Add_Variable);
+
+        Log.v("TAG2","i") ;
 
         switch (id)
         {
-//            case R.id.Home:
-//                setting the fragment
-//                MainActivityFragmentList mh=new MainActivityFragmentList();
-//                getSupportFragmentManager().beginTransaction().replace(R.id.MainContent,mh,"MAIN_LIST").commit();
-//                ActionbarMenu.findItem(R.id.ClearAllVar).setVisible(true);
-//                actionBar.setTitle(R.string.app_name);
-//                if(((GlobalValues)getApplication()).GetCompleteList().isEmpty())
-//                    actionBar.setSubtitle(null);
-//                else
-//                    actionBar.setSubtitle(R.string.MainSubtitle);
-//                fab.show();
-//                if(((GlobalValues)getApplication()).GetCompleteList().isEmpty())
-//                    t.setText(R.string.OpenHint);
-//                else
-//                    t.setText(null);
-//                break;
-//            case R.id.add_sub :
+            case R.id.Home:
+                Log.v("TAG2","HomePressed") ;
+                // setting the fragment
+                MatrixMainFragmentList fragment_home=new MatrixMainFragmentList();
+                // replacing the fragment with home fragment
+                getSupportFragmentManager().beginTransaction().replace(R.id.MainContent,fragment_home,"MAIN_LIST").commit();
+                // setting the clearallvar button as visible
+                ActionbarMenu.findItem(R.id.ClearAllVar).setVisible(true);
+                // actionbar title as app name
+                actionBar.setTitle(R.string.app_name);
+                if(((GlobalValues)getApplication()).GetCompleteList().isEmpty())
+                    actionBar.setSubtitle(null);
+                else
+                    actionBar.setSubtitle(R.string.MainSubtitle);
+                // set button visible
+                b.setVisibility(View.VISIBLE);
+
+                // setting the hint
+                if(((GlobalValues)getApplication()).GetCompleteList().isEmpty())
+                    t.setText(R.string.OpenHint);
+                else
+                    t.setText(null);
+                break;
+            case R.id.add_sub :
+                Log.v("TAG2","Add_sub_pressed") ;
 //                setting fragment
-//                FragmentTransaction AdditionTransaction = getSupportFragmentManager().beginTransaction();
-//                AdditionFragement additionFragement = new AdditionFragement();
-//                AdditionTransaction.replace(R.id.MainContent, additionFragement,"ADDITION_FRAGMENT");
-//                AdditionTransaction.setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-//                AdditionTransaction.commit();
+                FragmentTransaction AdditionTransaction = getSupportFragmentManager().beginTransaction();
+                AdditionFragment additionFragment = new AdditionFragment();
+                AdditionTransaction.replace(R.id.MainContent, additionFragment,"ADDITION_FRAGMENT");
+                AdditionTransaction.setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                AdditionTransaction.commit();
 //                setting actionbar
-//                ActionbarMenu.findItem(R.id.ClearAllVar).setVisible(false);
-//                actionBar.setTitle(R.string.ShortAddSub);
-//                actionBar.setSubtitle(null);
-//                if(((GlobalValues)getApplication()).GetCompleteList().isEmpty())
-//                    t.setText(R.string.OpenHint2);
-//                else
-//                    t.setText(null);
-//                fab.hide();
-//                break;
+                ActionbarMenu.findItem(R.id.ClearAllVar).setVisible(false);
+                actionBar.setTitle(R.string.ShortAddSub);
+                actionBar.setSubtitle(null);
+                if(((GlobalValues)getApplication()).GetCompleteList().isEmpty())
+                    t.setText(R.string.OpenHint2);
+                else
+                    t.setText(null);
+                b.setVisibility(View.GONE);
+                break;
 //            case R.id.only_sub:
 //                setting fragment
 //                FragmentTransaction SubtractionTransaction = getSupportFragmentManager().beginTransaction();
@@ -472,14 +443,13 @@ public class MatrixMain extends AppCompatActivity
         return false;
     }
     public void SetMainActivity(boolean actionmenu,String MainTitle,String subtitle){
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.MainFAB);
+        Button b = (Button) findViewById(R.id.Main_Add_Variable);
         ActionbarMenu.findItem(R.id.ClearAllVar).setVisible(actionmenu);
         actionBar.setTitle(MainTitle);
         if(((GlobalValues)getApplication()).GetCompleteList().isEmpty())
             actionBar.setSubtitle(null);
         else
             actionBar.setSubtitle(subtitle);
-        fab.show();
         if(((GlobalValues)getApplication()).GetCompleteList().isEmpty())
             t.setText(R.string.OpenHint);
         else

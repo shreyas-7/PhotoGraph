@@ -22,14 +22,7 @@
             android:id="@+id/ScalerMulti"
             android:icon="@drawable/ic_action_send_now"
             android:title="@string/ScalerMult" />
-        <item
-            android:id="@+id/Swap"
-            android:icon="@drawable/ic_action_send_now"
-            android:title="@string/swap" />
-        <item
-            android:id="@+id/Clone"
-            android:icon="@drawable/ic_action_send_now"
-            android:title="@string/clone" />
+
         <item
             android:id="@+id/Transpose"
             android:icon="@drawable/ic_action_send_now"
@@ -47,10 +40,6 @@
             android:icon="@drawable/ic_action_send_now"
             android:title="@string/trace_text" />
         <item
-            android:id="@+id/MinorsofMat"
-            android:icon="@drawable/ic_action_send_now"
-            android:title="@string/Minor_detr"/>
-        <item
             android:id="@+id/inverse"
             android:icon="@drawable/ic_action_send_now"
             android:title="@string/inverse" />
@@ -64,11 +53,6 @@
             android:icon="@drawable/ic_action_send_now"
             android:visible="false"
             android:title="@string/RankofMat"/>
-        <!--Enable Rank after modifying the algorithm-->
-        <item
-            android:id="@+id/functional"
-            android:icon="@drawable/ic_action_send_now"
-            android:title="@string/function" />
     </group>
 
 

@@ -5,12 +5,4 @@
         android:title="@string/QuickDelete"
         android:orderInCategory="1"/>
 
-    <item android:id="@+id/QuickRename"
-        android:title="@string/QuickRename"
-        android:orderInCategory="2"/>
-
-    <item android:id="@+id/QuickChange"
-        android:orderInCategory="3"
-        android:title="@string/QuickOrder"/>
-
 </menu>

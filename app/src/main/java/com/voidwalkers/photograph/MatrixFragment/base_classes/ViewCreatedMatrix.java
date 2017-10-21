@@ -90,19 +90,19 @@ public class ViewCreatedMatrix extends AppCompatActivity {
 //                intent.putExtra("TITLE_OF_THIS_FORMATION",((GlobalValues)getApplication()).GetCompleteList().get(index).GetName());
 //                startActivityForResult(intent,100);
 //                return  true;
-            case R.id.RevertChanges:
-                EditFragment editFragment1 = ((EditFragment) getSupportFragmentManager().findFragmentByTag("FRAGMENTEDIT"));
-                editFragment1.RevertChanges();
-                Toast.makeText(getApplicationContext(),R.string.RevertSuccess,Toast.LENGTH_SHORT).show();
-                finish();
-                return true;
-            case R.id.ConfirmChanges:
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.detach(editFragment);
-                transaction.commit();
-                finish();
-                Toast.makeText(getApplicationContext(),R.string.ConfirmSuccess,Toast.LENGTH_SHORT).show();
-                return true;
+//            case R.id.RevertChanges:
+//                EditFragment editFragment1 = ((EditFragment) getSupportFragmentManager().findFragmentByTag("FRAGMENTEDIT"));
+//                editFragment1.RevertChanges();
+//                Toast.makeText(getApplicationContext(),R.string.RevertSuccess,Toast.LENGTH_SHORT).show();
+//                finish();
+//                return true;
+//            case R.id.ConfirmChanges:
+//                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+//                transaction.detach(editFragment);
+//                transaction.commit();
+//                finish();
+//                Toast.makeText(getApplicationContext(),R.string.ConfirmSuccess,Toast.LENGTH_SHORT).show();
+//                return true;
         }
         return super.onOptionsItemSelected(item);
     }

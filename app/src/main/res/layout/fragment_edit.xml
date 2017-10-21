@@ -6,7 +6,7 @@
     android:fadeScrollbars="true"
     android:scrollbars="horizontal|vertical"
     android:layout_height="match_parent"
-    tools:context="com.softminds.matrixcalculator.base_fragments.ViewMatrixFragment">
+    tools:context="com.voidwalkers.photograph.MatrixFragment.base_fragments.ViewMatrixFragment">
     <android.support.design.widget.CoordinatorLayout
         android:orientation="vertical"
         android:layout_width="match_parent"

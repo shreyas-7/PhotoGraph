@@ -5,7 +5,7 @@
     android:id="@+id/view_created_matrix"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.softminds.matrixcalculator.base_activities.ViewCreatedMatrix">
+    tools:context="com.voidwalkers.photograph.MatrixFragment.base_classes.ViewCreatedMatrix">
 
     <ScrollView
         android:layout_width="match_parent"
