@@ -12,6 +12,15 @@
     </item>
     <item
         is-multidex="true"
+        jar="/Users/kd/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-lang3/3.5/6c6c702c89bfff3cd9e80b04d668c5e190d588c6/commons-lang3-3.5.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="6c6c702c89bfff3cd9e80b04d668c5e190d588c6">
+        <dex dex="/Users/kd/Desktop/SEM 3/NEW/CS251/PhotoGraph/app/build/intermediates/transforms/dex/debug/folders/1000/10/commons-lang3-3.5_422da15e39853cc98a23995e79dc7ccfe302ba0d/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="/Users/kd/.android/build-cache/17be01d0f9a81f91a3dd31ea9244b32900170a70/output/jars/classes.jar"
         jumboMode="true"
         optimize="true"

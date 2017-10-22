@@ -16,7 +16,6 @@ import com.voidwalkers.photograph.R;
 public class ExponentSetter extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.exponent_setter);
 

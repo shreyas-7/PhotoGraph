@@ -12,7 +12,7 @@ import com.voidwalkers.photograph.MatrixFragment.Matrix;
 import com.voidwalkers.photograph.MatrixFragment.MatrixMain;
 import com.voidwalkers.photograph.MatrixFragment.Type;
 import com.voidwalkers.photograph.R;
-
+import org.apache.commons.lang3.StringUtils;
 import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -23,22 +23,23 @@ public class EquationSolver extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         Intent i = getIntent();
-        Bundle b = i.getExtras() ;
+        Bundle b = i.getExtras();
 
         super.onCreate(savedInstanceState);
 
-        if(Latex.latexInput.contains("array")) {
-            Log.e("TaG2","Matrix called") ;
+        // change it to random .
+
+        if (Latex.latexInput.contains("array")) {
+            Log.e("TaG2", "Matrix called");
             this.SolveMatrix();
-        }
-    else {
+            setContentView(R.layout.activity_matrix_main);
+            this.finish();
+        } else {
             this.Solve();
         }
-        setContentView(R.layout.activity_matrix_main);
-        this.finish();
     }
 
-    private double RemoveFrac(String a, String b){
+    private double RemoveFrac(String a, String b) {
 
 //        String pattern = "\\\\frac\\{(.*)\\}\\{(.*)\\}" ;
 //
@@ -50,82 +51,66 @@ public class EquationSolver extends AppCompatActivity {
 //            return Double.parseDouble(m.group(1)) / Double.parseDouble(m.group(2)) ;
 //
 // }
-        return Math.round(Double.parseDouble(a)/Double.parseDouble(b)) ;
+        return Math.round(Double.parseDouble(a) / Double.parseDouble(b));
         // denominator zero error is to be taken care of.
     }
 
-    private double RemoveSlash(String a,String b){
-        return Math.round(Double.parseDouble(a)/Double.parseDouble(b)) ;
+    private double RemoveSlash(String a, String b) {
+        return Math.round(Double.parseDouble(a) / Double.parseDouble(b));
     }
 
-    private void SolveMatrix(){
+    private void SolveMatrix() {
 
-//        String latexInput = Latex.latexInput ;
-//
-//        latexInput = latexInput.replaceAll(" ", "");
-//
-//        String pattern = "\\\\begin\\{array\\}\\{(.*)\\}";
+        String latexInput = Latex.latexInput;
 
-//            int rows =  StringUtils.countMatches(latexInput, "\\\\\\\\") ;
+        latexInput = latexInput.replaceAll(" ", "");
 
-//        Pattern r = Pattern.compile(pattern);
-//        Matcher m = r.matcher(latexInput);
-//
-//        int begin = latexInput.indexOf("\\{", 21);
-//        int end = latexInput.indexOf("\\\\end") - 1;
-//
-//        latexInput = latexInput.substring(begin, end);
+        int rows = StringUtils.countMatches(latexInput, "\\\\") + 1;
+        int columns = StringUtils.countMatches(latexInput, "l") - 1;
+        Log.v("Tag2", Integer.toString(rows) + " " + Integer.toString(columns));
+        Log.e("TAG2", latexInput);
 //        latexInput = latexInput.replaceAll("\\\\frac\\{(.*)\\}\\{(.*)\\}", Double.toString(RemoveFrac("$1", "$2")));
 //        latexInput = latexInput.replaceAll("\\{(.*)/(.*)\\}", Double.toString(RemoveSlash("$1", "$2")));
-//
-//        String[] rows = latexInput.split("\\\\\\\\");
+        Log.v("Tag2", Integer.toString(rows) + " " + Integer.toString(columns));
+        latexInput = latexInput.replaceAll("[a-z\\&\\\\]", "");
+        Log.e("TAG2", latexInput);
+        String[] coeffs = latexInput.split("\\}\\{");
 
-        // have to modify some things
+        Matrix input_matrix = new Matrix(rows, columns, Type.Normal);
 
-//            Matrix input = new Matrix(3, 3, Type.Normal);
-//
-//            float[][] variable = new float[3][3];
-//
-//            for (int i = 0; i < input.GetRow(); i++) {
-//                for (int j = 0; j < input.GetCol(); j++) {
-//                    input.SetElementof(1, i, j);
-//                    variable[i][j] =  i+j ;
-//                }
-//            }
-//
-//            Bundle bundle=new Bundle();
-//            bundle.putAll(getIntent().getExtras());
-//            bundle.putSerializable("VALUES",variable);
-//            bundle.putDoubleArray("VALUES",new Matrix().Compress(variable,3,3));
-//            Intent intnt=new Intent();
-//            intnt.putExtras(bundle);
-//            setResult(0,intnt);
-//            finish();
-//            return;
+        float[][] variable = new float[3][3];
 
-        Matrix matrix = new Matrix(3,3,Type.Normal) ;
-        ((GlobalValues) getApplication()).AddResultToGlobal(matrix);
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                input_matrix.SetElementof(Float.parseFloat(coeffs[i + j + 2]), i, j);
+            }
+        }
 
-        Intent i = new Intent(this, MatrixMain.class) ;
+        int name = ((GlobalValues)getApplication()).GetCompleteList().size() + 1 ;
+
+        input_matrix.SetName (Integer.toString(name)) ;
+
+        ((GlobalValues) getApplication()).AddResultToGlobal(input_matrix);
+
+        Intent i = new Intent(this, MatrixMain.class);
         startActivity(i);
     }
 
 
-    private void Solve(){
-        String latexInput = Latex.latexInput ;
+    private void Solve() {
+        String latexInput = Latex.latexInput;
 
-
-        if (latexInput.indexOf(',') == -1 ) {
+        if (latexInput.indexOf(',') == -1) {
 
             // So a comma is not found in the string, it is a quadratic
             // very vague right now
 
-            Log.v("TAG2","CALLED Quadratic Solver") ;
+            Log.v("TAG2", "CALLED Quadratic Solver");
 
-            Intent i = new Intent(this, Quadratic.class) ;
-            startActivity(i) ;
+            Intent i = new Intent(this, Quadratic.class);
+            startActivity(i);
 
-            Log.v("TAG2","SOLVED Quadratic Solver") ;
+            Log.v("TAG2", "SOLVED Quadratic Solver");
 
         }
     }

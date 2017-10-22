@@ -7,12 +7,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.NumberPicker;
-import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.voidwalkers.photograph.MatrixFragment.Type;
-import com.voidwalkers.photograph.MatrixFragment.base_classes.FillingMatrix;
 import com.voidwalkers.photograph.GlobalValues;
 import com.voidwalkers.photograph.R;
 import com.voidwalkers.photograph.ScannerFragment.CameraActivity;
@@ -26,21 +22,11 @@ public class MakeNewMatrix extends AppCompatActivity {
         Button button = (Button) findViewById(R.id.buttonMake);
         final EditText editText = (EditText) findViewById(R.id.MatrixName);
         editText.setSingleLine();
-//        final Spinner Typespinner = (Spinner) findViewById(R.id.MatType);
-//        final NumberPicker RowSpinner = (NumberPicker) findViewById(R.id.RowOrder);
-//        RowSpinner.setMinValue(1);
-//        RowSpinner.setMaxValue(9);
-//        RowSpinner.setValue(3);
-//        final NumberPicker ColSpinner = (NumberPicker) findViewById(R.id.ColOrder);
-//        ColSpinner.setMinValue(1);
-//        ColSpinner.setMaxValue(9);
-//        ColSpinner.setValue(3);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 Log.v("TAG2", "Clicked");
-//                if (NoError()) {
                 Type type = TypeFromString("Normal");
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("TYPE", type);
@@ -55,8 +41,6 @@ public class MakeNewMatrix extends AppCompatActivity {
             }
 
         });
-
-
 
     }
     protected void onActivityResult(int requestcode,int resultCode,Intent data)
