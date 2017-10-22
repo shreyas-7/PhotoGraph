@@ -254,9 +254,12 @@ public class CameraFragment extends Fragment {
             public void onSuccess(String latex) {
                 stopScanAnimation();
                 mLatestLatex = latex;
+                Latex.latexInput = latex ;
                 Log.d("Latex_NEW", mLatestLatex);
                 Log.v("TAG2", mLatestLatex);
-                loadLocalContent();
+//                loadLocalContent();
+                Intent i = new Intent(getView().getContext(), EquationSolver.class) ;
+                startActivity(i);
             }
         });
         task.execute(params);
@@ -272,11 +275,6 @@ public class CameraFragment extends Fragment {
         Latex.latexInput = mLatestLatex ;
 
 //        mLatexText.setText(mLatestLatex);
-
-        Intent i = new Intent(this.getContext(), EquationSolver.class) ;
-
-        Log.e("HHH","III") ;
-        startActivity(i);
 
     }
 
@@ -351,5 +349,4 @@ public class CameraFragment extends Fragment {
             }
         }, 500);
     }
-    //endregion
 }

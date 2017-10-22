@@ -44,22 +44,11 @@ public class CameraActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
 
         Log.e("TAG23","HEREIAM") ;
-//
-////        Linear.linearPref = getSharedPreferences("linearMap", Context.MODE_PRIVATE) ;
-////        Linear.linearMap = getSharedPreferences("linearMap", Context.MODE_PRIVATE).getAll() ;
-//
-//
-////        Quadratic.quadPref = getSharedPreferences("quadraticMap", Context.MODE_PRIVATE) ;
-////        Quadratic.quadraticMap = getSharedPreferences("quadraticMap", Context.MODE_PRIVATE).getAll() ;
-//
-//        Log.v("TAG2", "ADDED") ;
-//
         if(!MarshmallowPermissions.checkPermissionForCamera(this)) {
             Log.e("TAG23","INSIDE") ;
 
             MarshmallowPermissions.requestPermissionForCamera(this);
         }
-//
         else {
             Log.e("TAG23","OUT") ;
         }

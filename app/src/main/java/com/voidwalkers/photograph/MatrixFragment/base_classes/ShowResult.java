@@ -129,12 +129,6 @@ public class ShowResult extends AppCompatActivity {
 
                     return true;
                 }
-                else {
-                    if (!((GlobalValues) getApplication()).AdLoaded)
-                        Toast.makeText(getApplication(), R.string.ToAddMoreTurnData, Toast.LENGTH_SHORT).show();
-                    else
-                        Toast.makeText(getApplication(), R.string.LimitExceeds, Toast.LENGTH_SHORT).show();
-                }
         }
         return super.onOptionsItemSelected(item);
     }

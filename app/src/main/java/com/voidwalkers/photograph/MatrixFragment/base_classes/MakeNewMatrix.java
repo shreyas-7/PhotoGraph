@@ -15,6 +15,7 @@ import com.voidwalkers.photograph.MatrixFragment.Type;
 import com.voidwalkers.photograph.MatrixFragment.base_classes.FillingMatrix;
 import com.voidwalkers.photograph.GlobalValues;
 import com.voidwalkers.photograph.R;
+import com.voidwalkers.photograph.ScannerFragment.CameraActivity;
 
 public class MakeNewMatrix extends AppCompatActivity {
     final int RESCODE=0;
@@ -43,10 +44,10 @@ public class MakeNewMatrix extends AppCompatActivity {
                 Type type = TypeFromString("Normal");
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("TYPE", type);
-                bundle.putString("NAME", "A");
-                bundle.putInt("ROW", 2);
-                bundle.putInt("COL", 2);
-                Intent intent = new Intent(getApplication(), FillingMatrix.class);
+                bundle.putString("NAME", editText.getText().toString());
+
+                // calling cameraActivity from SacnnerFragment
+                Intent intent = new Intent(getApplication(), CameraActivity.class);
                 intent.putExtras(bundle);
 
                 Log.v("TAG2", "StartedActivity");

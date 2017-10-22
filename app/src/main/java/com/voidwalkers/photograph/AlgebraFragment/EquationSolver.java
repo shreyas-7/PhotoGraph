@@ -6,9 +6,12 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.voidwalkers.photograph.GlobalMemory;
+import com.voidwalkers.photograph.GlobalValues;
 import com.voidwalkers.photograph.Latex;
 import com.voidwalkers.photograph.MatrixFragment.Matrix;
+import com.voidwalkers.photograph.MatrixFragment.MatrixMain;
 import com.voidwalkers.photograph.MatrixFragment.Type;
+import com.voidwalkers.photograph.R;
 
 import java.util.StringTokenizer;
 import java.util.regex.Matcher;
@@ -19,11 +22,20 @@ public class EquationSolver extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        Intent i = getIntent();
+        Bundle b = i.getExtras() ;
 
         super.onCreate(savedInstanceState);
-        this.Solve();
 
-
+        if(Latex.latexInput.contains("array")) {
+            Log.e("TaG2","Matrix called") ;
+            this.SolveMatrix();
+        }
+    else {
+            this.Solve();
+        }
+        setContentView(R.layout.activity_matrix_main);
+        this.finish();
     }
 
     private double RemoveFrac(String a, String b){
@@ -46,42 +58,29 @@ public class EquationSolver extends AppCompatActivity {
         return Math.round(Double.parseDouble(a)/Double.parseDouble(b)) ;
     }
 
-    private void Solve(){
-        String latexInput = Latex.latexInput ;
+    private void SolveMatrix(){
 
-
-        //// if this contains a matrix, addd a global variable.
-        //// TODO this asap
-        // what I have to do is
-        // parse all the fractionals, etc
-        // add it to a global memory class
-        // create a matrix adapter
-        // and stuff
-
-        if (latexInput.indexOf("array") != -1) {
-
-            // error will come when rows and colums are zero
-
-            latexInput = latexInput.replaceAll(" ", "");
-
-            String pattern = "\\\\begin\\{array\\}\\{(.*)\\}";
-
+//        String latexInput = Latex.latexInput ;
+//
+//        latexInput = latexInput.replaceAll(" ", "");
+//
+//        String pattern = "\\\\begin\\{array\\}\\{(.*)\\}";
 
 //            int rows =  StringUtils.countMatches(latexInput, "\\\\\\\\") ;
 
-            Pattern r = Pattern.compile(pattern);
-            Matcher m = r.matcher(latexInput);
+//        Pattern r = Pattern.compile(pattern);
+//        Matcher m = r.matcher(latexInput);
+//
+//        int begin = latexInput.indexOf("\\{", 21);
+//        int end = latexInput.indexOf("\\\\end") - 1;
+//
+//        latexInput = latexInput.substring(begin, end);
+//        latexInput = latexInput.replaceAll("\\\\frac\\{(.*)\\}\\{(.*)\\}", Double.toString(RemoveFrac("$1", "$2")));
+//        latexInput = latexInput.replaceAll("\\{(.*)/(.*)\\}", Double.toString(RemoveSlash("$1", "$2")));
+//
+//        String[] rows = latexInput.split("\\\\\\\\");
 
-            int begin = latexInput.indexOf("\\{", 21);
-            int end = latexInput.indexOf("\\\\end") - 1;
-
-            latexInput = latexInput.substring(begin, end);
-            latexInput = latexInput.replaceAll("\\\\frac\\{(.*)\\}\\{(.*)\\}", Double.toString(RemoveFrac("$1", "$2")));
-            latexInput = latexInput.replaceAll("\\{(.*)/(.*)\\}", Double.toString(RemoveSlash("$1", "$2")));
-
-            String[] rows = latexInput.split("\\\\\\\\");
-
-            // have to modify some things
+        // have to modify some things
 
 //            Matrix input = new Matrix(3, 3, Type.Normal);
 //
@@ -104,9 +103,19 @@ public class EquationSolver extends AppCompatActivity {
 //            finish();
 //            return;
 
-        }
+        Matrix matrix = new Matrix(3,3,Type.Normal) ;
+        ((GlobalValues) getApplication()).AddResultToGlobal(matrix);
 
-        else if (latexInput.indexOf(',') == -1 ) {
+        Intent i = new Intent(this, MatrixMain.class) ;
+        startActivity(i);
+    }
+
+
+    private void Solve(){
+        String latexInput = Latex.latexInput ;
+
+
+        if (latexInput.indexOf(',') == -1 ) {
 
             // So a comma is not found in the string, it is a quadratic
             // very vague right now
