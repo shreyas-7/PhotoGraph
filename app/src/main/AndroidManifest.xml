@@ -57,10 +57,12 @@
             android:label="@string/NewMatrix"
             android:parentActivityName=".MatrixFragment.MatrixMain"
             android:theme="@style/AppThemeDialog" />
-        <activity android:name=".MatrixFragment.base_classes.MultiplierSetter"
+        <activity
+            android:name=".MatrixFragment.base_classes.MultiplierSetter"
             android:label="@string/ScalerMult"
             android:parentActivityName=".MatrixFragment.MatrixMain"
             android:theme="@style/AppThemeDialog" />
+        <activity android:name=".MatrixFragment.OperationFragments.RankFragment"></activity>
     </application>
 
 </manifest>

@@ -5,7 +5,7 @@
     android:id="@+id/filling_matrix"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.softminds.matrixcalculator.base_activities.FillingMatrix">
+    tools:context="com.voidwalkers.photograph.MatrixFragment.base_classes.FillingMatrix">
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_marginTop="5dp"

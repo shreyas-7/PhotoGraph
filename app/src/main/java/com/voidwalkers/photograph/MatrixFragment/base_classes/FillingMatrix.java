@@ -36,6 +36,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -262,10 +263,11 @@ public class FillingMatrix extends AppCompatActivity {
         {
             case R.id.ConfirmCreate :
                 if(!MatrixError()){
+                    Log.v("TAG2","HEY") ;
                     float variable[][]=GetIntoFloat();
                     Bundle bundle=new Bundle();
                     bundle.putAll(getIntent().getExtras());
-                    //bundle.putSerializable("VALUES",variable);
+                    bundle.putSerializable("VALUES",variable);
                     bundle.putFloatArray("VALUES",new Matrix().Compress(variable,getIntent().getIntExtra("ROW",-1),getIntent().getIntExtra("COL",-1)));
                     Intent intnt=new Intent();
                     intnt.putExtras(bundle);

@@ -25,6 +25,15 @@ import android.widget.Toast;
 
 import com.voidwalkers.photograph.GlobalValues;
 import com.voidwalkers.photograph.MatrixFragment.OperationFragments.AdditionFragment;
+import com.voidwalkers.photograph.MatrixFragment.OperationFragments.AdjointFragment;
+import com.voidwalkers.photograph.MatrixFragment.OperationFragments.DeterminantFragment;
+import com.voidwalkers.photograph.MatrixFragment.OperationFragments.ExponentFragment;
+import com.voidwalkers.photograph.MatrixFragment.OperationFragments.InverseFragment;
+import com.voidwalkers.photograph.MatrixFragment.OperationFragments.MultiplyFragment;
+import com.voidwalkers.photograph.MatrixFragment.OperationFragments.RankFragment;
+import com.voidwalkers.photograph.MatrixFragment.OperationFragments.SubtractionFragment;
+import com.voidwalkers.photograph.MatrixFragment.OperationFragments.TraceFragment;
+import com.voidwalkers.photograph.MatrixFragment.OperationFragments.TransposeFragment;
 import com.voidwalkers.photograph.MatrixFragment.base_fragments.MatrixMainFragmentList;
 import com.voidwalkers.photograph.R;
 import com.voidwalkers.photograph.MatrixFragment.base_classes.MakeNewMatrix ;
@@ -75,6 +84,13 @@ public class MatrixMain extends AppCompatActivity
             }
         });
 
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+        View v = navigationView.getHeaderView(0);
+        navigationView.setCheckedItem(R.id.Home);
+        NavMenuItem = navigationView.getMenu();
+
+
         // TODO Add comment
         if(savedInstanceState==null)
         {
@@ -86,8 +102,8 @@ public class MatrixMain extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        // TODO better comment
+        // Inflate the menu
+        // this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         this.ActionbarMenu = menu;
         this.actionBar = getSupportActionBar();
@@ -185,208 +201,172 @@ public class MatrixMain extends AppCompatActivity
                     t.setText(null);
                 b.setVisibility(View.GONE);
                 break;
-//            case R.id.only_sub:
+            case R.id.only_sub:
 //                setting fragment
-//                FragmentTransaction SubtractionTransaction = getSupportFragmentManager().beginTransaction();
-//                SubtractionFragment subtractionFragment = new SubtractionFragment();
-//                SubtractionTransaction.replace(R.id.MainContent, subtractionFragment,"SUBTRACTION_FRAGMENT");
-//                SubtractionTransaction.setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-//                SubtractionTransaction.commit();
+                FragmentTransaction SubtractionTransaction = getSupportFragmentManager().beginTransaction();
+                SubtractionFragment subtractionFragment = new SubtractionFragment();
+                SubtractionTransaction.replace(R.id.MainContent, subtractionFragment,"SUBTRACTION_FRAGMENT");
+                SubtractionTransaction.setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                SubtractionTransaction.commit();
 //                setting actionbar
-//                ActionbarMenu.findItem(R.id.ClearAllVar).setVisible(false);
-//                actionBar.setTitle(R.string.ShortOnlySub);
-//                actionBar.setSubtitle(null);
-//                if(((GlobalValues)getApplication()).GetCompleteList().isEmpty())
-//                    t.setText(R.string.OpenHint2);
-//                else
-//                    t.setText(null);
-//                fab.hide();
-//                break;
-//            case R.id.Transpose:
-//                FragmentTransaction  transposeTransaction = getSupportFragmentManager().beginTransaction();
-//                TransposeFragment transposeFragment = new TransposeFragment();
-//                transposeTransaction.replace(R.id.MainContent, transposeFragment,"TRANSPOSE_FRAGMENT");
-//                transposeTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-//                transposeTransaction.commit();
-//                ActionbarMenu.findItem(R.id.ClearAllVar).setVisible(false);
-//                actionBar.setTitle(R.string.transpose);
-//                actionBar.setSubtitle(null);
-//                if(((GlobalValues)getApplication()).GetCompleteList().isEmpty())
-//                    t.setText(R.string.OpenHint2);
-//                else
-//                    t.setText(null);
-//                fab.hide();
-//                break;
-//            case R.id.multiply:
-//                FragmentTransaction  multiplyTransaction = getSupportFragmentManager().beginTransaction();
-//                MultiplyFragment multiplyFragment = new MultiplyFragment();
-//                multiplyTransaction.replace(R.id.MainContent, multiplyFragment,"MULTIPLY_FRAGMENT");
-//                multiplyTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-//                multiplyTransaction.commit();
-//                ActionbarMenu.findItem(R.id.ClearAllVar).setVisible(false);
-//                actionBar.setSubtitle(null);
-//                actionBar.setTitle(R.string.multiply);
-//                if(((GlobalValues)getApplication()).GetCompleteList().isEmpty())
-//                    t.setText(R.string.OpenHint2);
-//                else
-//                    t.setText(null);
-//                fab.hide();
-//                break;
-//            case R.id.exponent:
-//                FragmentTransaction ExponentTransaction = getSupportFragmentManager().beginTransaction();
-//                ExponentFragment ef = new ExponentFragment();
-//                ExponentTransaction.replace(R.id.MainContent, ef,"EXPONENT_FRAGMENT");
-//                ExponentTransaction.setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-//                ExponentTransaction.commit();
+                ActionbarMenu.findItem(R.id.ClearAllVar).setVisible(false);
+                actionBar.setTitle(R.string.ShortOnlySub);
+                actionBar.setSubtitle(null);
+                if(((GlobalValues)getApplication()).GetCompleteList().isEmpty())
+                    t.setText(R.string.OpenHint2);
+                else
+                    t.setText(null);
+                b.setVisibility(View.GONE);
+                break;
+            case R.id.Transpose:
+                FragmentTransaction  transposeTransaction = getSupportFragmentManager().beginTransaction();
+                TransposeFragment transposeFragment = new TransposeFragment();
+                transposeTransaction.replace(R.id.MainContent, transposeFragment,"TRANSPOSE_FRAGMENT");
+                transposeTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                transposeTransaction.commit();
+                ActionbarMenu.findItem(R.id.ClearAllVar).setVisible(false);
+                actionBar.setTitle(R.string.transpose);
+                actionBar.setSubtitle(null);
+                if(((GlobalValues)getApplication()).GetCompleteList().isEmpty())
+                    t.setText(R.string.OpenHint2);
+                else
+                    t.setText(null);
+                b.setVisibility(View.GONE);
+                break;
+            case R.id.multiply:
+                FragmentTransaction  multiplyTransaction = getSupportFragmentManager().beginTransaction();
+                MultiplyFragment multiplyFragment = new MultiplyFragment();
+                multiplyTransaction.replace(R.id.MainContent, multiplyFragment,"MULTIPLY_FRAGMENT");
+                multiplyTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                multiplyTransaction.commit();
+                ActionbarMenu.findItem(R.id.ClearAllVar).setVisible(false);
+                actionBar.setSubtitle(null);
+                actionBar.setTitle(R.string.multiply);
+                if(((GlobalValues)getApplication()).GetCompleteList().isEmpty())
+                    t.setText(R.string.OpenHint2);
+                else
+                    t.setText(null);
+                b.setVisibility(View.GONE);
+                break;
+            case R.id.exponent:
+                FragmentTransaction ExponentTransaction = getSupportFragmentManager().beginTransaction();
+                ExponentFragment ef = new ExponentFragment();
+                ExponentTransaction.replace(R.id.MainContent, ef,"EXPONENT_FRAGMENT");
+                ExponentTransaction.setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                ExponentTransaction.commit();
 //                Modify the Actionbar
-//                ActionbarMenu.findItem(R.id.ClearAllVar).setVisible(false);
-//                actionBar.setTitle(R.string.exponent);
-//                actionBar.setSubtitle(null);
-//                if else Ladder
-//                if(((GlobalValues)getApplication()).GetCompleteList().isEmpty())
-//                    t.setText(R.string.OpenHint2);
-//                else
-//                {
-//                    if(isAnyVariableSquare())
-//                        t.setText(null);
-//                    else
-//                        t.setText(R.string.NoSupport);
-//                }
-//                fab.hide();
-//                break;
-//            case R.id.determinant:
-//                FragmentTransaction DeterminantTransaction= getSupportFragmentManager().beginTransaction();
-//                DeterminantFragment df = new DeterminantFragment();
-//                DeterminantTransaction.replace(R.id.MainContent, df,"DETERMINANT_FRAGMENT");
-//                DeterminantTransaction.setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-//                DeterminantTransaction.commit();
+                ActionbarMenu.findItem(R.id.ClearAllVar).setVisible(false);
+                actionBar.setTitle(R.string.exponent);
+                actionBar.setSubtitle(null);
+                if(((GlobalValues)getApplication()).GetCompleteList().isEmpty())
+                    t.setText(R.string.OpenHint2);
+                else
+                {
+                    if(isAnyVariableSquare())
+                        t.setText(null);
+                    else
+                        t.setText(R.string.NoSupport);
+                }
+                b.setVisibility(View.GONE);
+                break;
+            case R.id.determinant:
+                FragmentTransaction DeterminantTransaction= getSupportFragmentManager().beginTransaction();
+                DeterminantFragment df = new DeterminantFragment();
+                DeterminantTransaction.replace(R.id.MainContent, df,"DETERMINANT_FRAGMENT");
+                DeterminantTransaction.setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                DeterminantTransaction.commit();
 //                Modify the Actionbar
-//                ActionbarMenu.findItem(R.id.ClearAllVar).setVisible(false);
-//                actionBar.setTitle(R.string.determinant);
-//                actionBar.setSubtitle(null);
-//                if(((GlobalValues)getApplication()).GetCompleteList().isEmpty())
-//                    t.setText(R.string.OpenHint2);
-//                else
-//                {
-//                    if(isAnyVariableSquare())
-//                        t.setText(null);
-//                    else
-//                        t.setText(R.string.NoSupport);
-//                }
-//                fab.hide();
-//                break;
-//            case R.id.trace:
-//                FragmentTransaction TraceTrasaction = getSupportFragmentManager().beginTransaction();
-//                TraceFragment traceFragment = new TraceFragment();
-//                TraceTrasaction.replace(R.id.MainContent,traceFragment,"TRACE_FRAGMENT");
-//                TraceTrasaction.setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-//                TraceTrasaction.commit();
-//                //Modify Actionbar
-//                ActionbarMenu.findItem(R.id.ClearAllVar).setVisible(false);
-//                actionBar.setTitle(R.string.trace_text);
-//                actionBar.setSubtitle(null);
-//                if(((GlobalValues)getApplication()).GetCompleteList().isEmpty())
-//                    t.setText(R.string.OpenHint2);
-//                else {
-//                    if (isAnyVariableSquare())
-//                        t.setText(null);
-//                    else
-//                        t.setText(R.string.NoSupport);
-//                }
-//                fab.hide();
-//                break;
-//            case R.id.inverse:
-//                FragmentTransaction InverseTransaction= getSupportFragmentManager().beginTransaction();
-//                InverseFragment inv = new InverseFragment();
-//                InverseTransaction.replace(R.id.MainContent, inv,"INVERSE_FRAGMENT");
-//                InverseTransaction.setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-//                InverseTransaction.commit();
-//                //Modify the Actionbar
-//                ActionbarMenu.findItem(R.id.ClearAllVar).setVisible(false);
-//                actionBar.setTitle(R.string.inverse);
-//                actionBar.setSubtitle(null);
-//                if(((GlobalValues)getApplication()).GetCompleteList().isEmpty())
-//                    t.setText(R.string.OpenHint2);
-//                else
-//                {
-//                    if(isAnyVariableSquare())
-//                        t.setText(null);
-//                    else
-//                        t.setText(R.string.NoSupport);
-//                }
-//                fab.hide();
-//                break;
-//            case R.id.adjoint:
-//                FragmentTransaction AdjointTransaction= getSupportFragmentManager().beginTransaction();
-//                AdjointFragment af = new AdjointFragment();
-//                AdjointTransaction.replace(R.id.MainContent, af,"ADJOINT_FRAGMENT");
-//                AdjointTransaction.setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-//                AdjointTransaction.commit();
-//                //Modify the Actionbar
-//                ActionbarMenu.findItem(R.id.ClearAllVar).setVisible(false);
-//                actionBar.setTitle(R.string.adjoint);
-//                actionBar.setSubtitle(null);
-//                if(((GlobalValues)getApplication()).GetCompleteList().isEmpty())
-//                    t.setText(R.string.OpenHint2);
-//                else
-//                {
-//                    if(isAnyVariableSquare())
-//                        t.setText(null);
-//                    else
-//                        t.setText(R.string.NoSupport);
-//                }
-//                fab.hide();
-//                break;
-//            case R.id.ScalerMulti:
-//                FragmentTransaction ScalerTransaction= getSupportFragmentManager().beginTransaction();
-//                ScalerFragment sf = new ScalerFragment();
-//                ScalerTransaction.replace(R.id.MainContent, sf,"SCALAR_FRAGMENT");
-//                ScalerTransaction.setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-//                ScalerTransaction.commit();
-//                //Modify the Actionbar
-//                ActionbarMenu.findItem(R.id.ClearAllVar).setVisible(false);
-//                actionBar.setTitle(R.string.Scaler);
-//                actionBar.setSubtitle(null);
-//                if(((GlobalValues)getApplication()).GetCompleteList().isEmpty())
-//                    t.setText(R.string.OpenHint2);
-//                else
-//                    t.setText(null);
-//                break;
-//            case R.id.RankofMat1:
-//                FragmentTransaction RankTransaction= getSupportFragmentManager().beginTransaction();
-//                RankFragment rank = new RankFragment();
-//                RankTransaction.replace(R.id.MainContent, rank,"RANK_FRAGMENT");
-//                RankTransaction.setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-//                RankTransaction.commit();
-//                //Modify the Actionbar
-//                ActionbarMenu.findItem(R.id.ClearAllVar).setVisible(false);
-//                actionBar.setTitle(R.string.RankofMat);
-//                actionBar.setSubtitle(null);
-//                if(((GlobalValues)getApplication()).GetCompleteList().isEmpty())
-//                    t.setText(R.string.OpenHint2);
-//                else
-//                    t.setText(null);
-//                break;
-//            case R.id.MinorsofMat:
-//                FragmentTransaction MinorTransaction = getSupportFragmentManager().beginTransaction();
-//                MinorTransaction.replace(R.id.MainContent,new MinorFragment(),"MINOR_FRAGMENT");
-//                MinorTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-//                MinorTransaction.commit();
-//                //Actionbar
-//                ActionbarMenu.findItem(R.id.ClearAllVar).setVisible(false);
-//                actionBar.setTitle(R.string.Minor_detr);
-//                actionBar.setSubtitle(null);
-//                if(((GlobalValues)getApplication()).GetCompleteList().isEmpty())
-//                    t.setText(R.string.OpenHint2);
-//                else
-//                {
-//                    if(isAnyVariableSquare())
-//                        t.setText(null);
-//                    else
-//                        t.setText(R.string.NoSupport);
-//                }
-//                fab.hide();
-//                break;
+                ActionbarMenu.findItem(R.id.ClearAllVar).setVisible(false);
+                actionBar.setTitle(R.string.determinant);
+                actionBar.setSubtitle(null);
+                if(((GlobalValues)getApplication()).GetCompleteList().isEmpty())
+                    t.setText(R.string.OpenHint2);
+                else
+                {
+                    if(isAnyVariableSquare())
+                        t.setText(null);
+                    else
+                        t.setText(R.string.NoSupport);
+                }
+                b.setVisibility(View.GONE);
+                break;
+            case R.id.trace:
+                FragmentTransaction TraceTrasaction = getSupportFragmentManager().beginTransaction();
+                TraceFragment traceFragment = new TraceFragment();
+                TraceTrasaction.replace(R.id.MainContent,traceFragment,"TRACE_FRAGMENT");
+                TraceTrasaction.setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                TraceTrasaction.commit();
+                //Modify Actionbar
+                ActionbarMenu.findItem(R.id.ClearAllVar).setVisible(false);
+                actionBar.setTitle(R.string.trace_text);
+                actionBar.setSubtitle(null);
+                if(((GlobalValues)getApplication()).GetCompleteList().isEmpty())
+                    t.setText(R.string.OpenHint2);
+                else {
+                    if (isAnyVariableSquare())
+                        t.setText(null);
+                    else
+                        t.setText(R.string.NoSupport);
+                }
+                b.setVisibility(View.GONE);
+                break;
+            case R.id.inverse:
+                FragmentTransaction InverseTransaction= getSupportFragmentManager().beginTransaction();
+                InverseFragment inv = new InverseFragment();
+                InverseTransaction.replace(R.id.MainContent, inv,"INVERSE_FRAGMENT");
+                InverseTransaction.setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                InverseTransaction.commit();
+                //Modify the Actionbar
+                ActionbarMenu.findItem(R.id.ClearAllVar).setVisible(false);
+                actionBar.setTitle(R.string.inverse);
+                actionBar.setSubtitle(null);
+                if(((GlobalValues)getApplication()).GetCompleteList().isEmpty())
+                    t.setText(R.string.OpenHint2);
+                else
+                {
+                    if(isAnyVariableSquare())
+                        t.setText(null);
+                    else
+                        t.setText(R.string.NoSupport);
+                }
+                b.setVisibility(View.GONE);
+                break;
+            case R.id.adjoint:
+                FragmentTransaction AdjointTransaction= getSupportFragmentManager().beginTransaction();
+                AdjointFragment af = new AdjointFragment();
+                AdjointTransaction.replace(R.id.MainContent, af,"ADJOINT_FRAGMENT");
+                AdjointTransaction.setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                AdjointTransaction.commit();
+                //Modify the Actionbar
+                ActionbarMenu.findItem(R.id.ClearAllVar).setVisible(false);
+                actionBar.setTitle(R.string.adjoint);
+                actionBar.setSubtitle(null);
+                if(((GlobalValues)getApplication()).GetCompleteList().isEmpty())
+                    t.setText(R.string.OpenHint2);
+                else
+                {
+                    if(isAnyVariableSquare())
+                        t.setText(null);
+                    else
+                        t.setText(R.string.NoSupport);
+                }
+                b.setVisibility(View.GONE);
+                break;
+            case R.id.RankofMat1:
+                FragmentTransaction RankTransaction= getSupportFragmentManager().beginTransaction();
+                RankFragment rank = new RankFragment();
+                RankTransaction.replace(R.id.MainContent, rank,"RANK_FRAGMENT");
+                RankTransaction.setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                RankTransaction.commit();
+                //Modify the Actionbar
+                ActionbarMenu.findItem(R.id.ClearAllVar).setVisible(false);
+                actionBar.setTitle(R.string.RankofMat);
+                actionBar.setSubtitle(null);
+                if(((GlobalValues)getApplication()).GetCompleteList().isEmpty())
+                    t.setText(R.string.OpenHint2);
+                else
+                    t.setText(null);
+                break;
 
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_main);

@@ -1,10 +1,9 @@
 package com.voidwalkers.photograph.MatrixFragment.base_classes;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,55 +25,33 @@ public class MakeNewMatrix extends AppCompatActivity {
         Button button = (Button) findViewById(R.id.buttonMake);
         final EditText editText = (EditText) findViewById(R.id.MatrixName);
         editText.setSingleLine();
-        final Spinner Typespinner = (Spinner) findViewById(R.id.MatType);
-        final NumberPicker RowSpinner = (NumberPicker) findViewById(R.id.RowOrder);
-        RowSpinner.setMinValue(1);
-        RowSpinner.setMaxValue(9);
-        RowSpinner.setValue(3);
-        final NumberPicker ColSpinner = (NumberPicker) findViewById(R.id.ColOrder);
-        ColSpinner.setMinValue(1);
-        ColSpinner.setMaxValue(9);
-        ColSpinner.setValue(3);
+//        final Spinner Typespinner = (Spinner) findViewById(R.id.MatType);
+//        final NumberPicker RowSpinner = (NumberPicker) findViewById(R.id.RowOrder);
+//        RowSpinner.setMinValue(1);
+//        RowSpinner.setMaxValue(9);
+//        RowSpinner.setValue(3);
+//        final NumberPicker ColSpinner = (NumberPicker) findViewById(R.id.ColOrder);
+//        ColSpinner.setMinValue(1);
+//        ColSpinner.setMaxValue(9);
+//        ColSpinner.setValue(3);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                if (NoError()) {
-                    Type t = TypeFromString(Typespinner.getSelectedItem().toString());
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable("TYPE",t);
-                    bundle.putString("NAME",editText.getText().toString());
-                    bundle.putInt("ROW",RowSpinner.getValue());
-                    bundle.putInt("COL",ColSpinner.getValue());
-                    Intent intent;
-                    intent = new Intent(getApplication(), FillingMatrix.class);
-                    intent.putExtras(bundle);
-                    startActivityForResult(intent,RESCODE);
+                Log.v("TAG2", "Clicked");
+//                if (NoError()) {
+                Type type = TypeFromString("Normal");
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("TYPE", type);
+                bundle.putString("NAME", "A");
+                bundle.putInt("ROW", 2);
+                bundle.putInt("COL", 2);
+                Intent intent = new Intent(getApplication(), FillingMatrix.class);
+                intent.putExtras(bundle);
 
-                }
-
+                Log.v("TAG2", "StartedActivity");
+                startActivityForResult(intent, RESCODE);
             }
-
-            private boolean NoError() {
-                if (editText.getText().toString().isEmpty()) {
-                    Toast.makeText(getApplication(), R.string.Warning1, Toast.LENGTH_LONG).show();
-                    return false;
-                }
-                if ((Typespinner.getSelectedItem().toString().equals("Identity") ||
-                        Typespinner.getSelectedItem().toString().equals("Diagonal")) &&
-                        (RowSpinner.getValue() != ColSpinner.getValue())) {
-                    Toast.makeText(getApplicationContext(), R.string.NotSquare, Toast.LENGTH_LONG).show();
-                    return false;
-                }
-                if(editText.getText().toString().contains("+")||
-                        editText.getText().toString().contains("x")||editText.getText().toString().contains("-")){
-                    Toast.makeText(getApplicationContext(),R.string.Warning13,Toast.LENGTH_SHORT).show();
-                    return false;
-                }
-                return true;
-
-            }
-
 
         });
 
