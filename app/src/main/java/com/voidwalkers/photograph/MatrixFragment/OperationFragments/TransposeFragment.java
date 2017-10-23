@@ -34,52 +34,20 @@ public class TransposeFragment extends ListFragment {
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-        if(PreferenceManager.getDefaultSharedPreferences(getActivity()).
-                getBoolean("TRANSPOSE_PROMPT",true)&&((GlobalValues)getActivity().
-                getApplication()).GetCompleteList().get(position).is_squareMatrix())
-        {
-            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-            builder.setTitle(R.string.TransposePrompt);
-            builder.setPositiveButton(R.string.Yup, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    ((GlobalValues)getActivity().getApplication()).GetCompleteList().get(ClickPos).SquareTranspose();
-                    Toast.makeText(getActivity(),R.string.SuccessTranspose,Toast.LENGTH_SHORT).show();
-                    dialogInterface.dismiss();
-                }
-            });
-            builder.setNegativeButton(R.string.Nope, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    dialogInterface.dismiss();
                     Intent i2 = new Intent(getContext(), ShowResult.class);
                     Matrix original = ((GlobalValues)getActivity().getApplication()).GetCompleteList().get(ClickPos);
                     i2.putExtras(original.Transpose().GetDataBundled());
                     startActivity(i2);
-                }
-            });
-            builder.setMessage(R.string.SquareTransPrompt);
-            builder.show();
-        }
-        else //Non Square Matrix to Transpose
-        {
-            Intent i2 = new Intent(getContext(), ShowResult.class);
-            Matrix original = ((GlobalValues)getActivity().getApplication()).GetCompleteList().get(ClickPos);
-            i2.putExtras(original.Transpose().GetDataBundled());
-            startActivity(i2);
-        }
-
     }
 
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == 120) //User Said Yes
-        {
-            ((GlobalValues) getActivity().getApplication()).GetCompleteList().get(ClickPos).SquareTranspose();
-            Toast.makeText(getActivity(), R.string.SuccessTranspose, Toast.LENGTH_SHORT).show();
-        }
-    }
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if (resultCode == 120) //User Said Yes
+//        {
+//            ((GlobalValues) getActivity().getApplication()).GetCompleteList().get(ClickPos).SquareTranspose();
+//            Toast.makeText(getActivity(), R.string.SuccessTranspose, Toast.LENGTH_SHORT).show();
+//        }
+//    }
 
 }

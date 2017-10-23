@@ -20,4 +20,10 @@ public class GlobalMemory {
         QuadraticData.put("Vx^{V}+Vx+V=V", "quad1");
         QuadraticData.put("V", "quad2");
     }
+
+    static {
+        LinearData = new HashMap<String, String>() ;
+        LinearData.put("Vx+Vy+V=V","Linear1") ;
+        LinearData.put("Vy+Vx+V=V","Linear2") ;
+    }
 }

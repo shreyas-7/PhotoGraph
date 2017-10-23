@@ -29,6 +29,12 @@ public class EquationSolver extends AppCompatActivity {
 
         // change it to random .
 
+//        if (Latex.latexInput.contains(",")){
+//            Log.e("TaG2", "LinearEquation");
+//            this.SolveMatrix();
+//            setContentView(R.layout.activity_matrix_main);
+//        }
+//
         if (Latex.latexInput.contains("array")) {
             Log.e("TaG2", "Matrix called");
             this.SolveMatrix();
@@ -69,12 +75,24 @@ public class EquationSolver extends AppCompatActivity {
         int columns = StringUtils.countMatches(latexInput, "l") - 1;
         Log.v("Tag2", Integer.toString(rows) + " " + Integer.toString(columns));
         Log.e("TAG2", latexInput);
-//        latexInput = latexInput.replaceAll("\\\\frac\\{(.*)\\}\\{(.*)\\}", Double.toString(RemoveFrac("$1", "$2")));
+
+//        String pattern = "\\\\frac\\{([+-]?]\\d*\\.?\\d+)\\}\\{([+-]?\\d*\\.?\\d+}\\}" ;
+//        Pattern p = Pattern.compile(pattern) ;
+//        Matcher m = p.matcher(latexInput) ;
+//
+//        if (m.find()) {
+//            String a = m.group(1) ;
+//        }
+        if (latexInput.contains("frac")) {
+            latexInput = latexInput.replaceAll("\\\\frac\\{(.*)\\}\\{(.*)\\}", String.valueOf(Float.parseFloat("$1") / Float.parseFloat("$2")));
+        }
+        Log.e("TAG2", latexInput);
 //        latexInput = latexInput.replaceAll("\\{(.*)/(.*)\\}", Double.toString(RemoveSlash("$1", "$2")));
         Log.v("Tag2", Integer.toString(rows) + " " + Integer.toString(columns));
         latexInput = latexInput.replaceAll("[a-z\\&\\\\]", "");
         Log.e("TAG2", latexInput);
         String[] coeffs = latexInput.split("\\}\\{");
+
 
         Matrix input_matrix = new Matrix(rows, columns, Type.Normal);
 
@@ -82,7 +100,8 @@ public class EquationSolver extends AppCompatActivity {
 
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
-                input_matrix.SetElementof(Float.parseFloat(coeffs[i + j + 2]), i, j);
+                Log.v("Tag2",String.valueOf(rows*i+j+2) );
+                input_matrix.SetElementof(Float.parseFloat(coeffs[columns*i + j + 2]), i, j);
             }
         }
 
@@ -99,6 +118,14 @@ public class EquationSolver extends AppCompatActivity {
 
     private void Solve() {
         String latexInput = Latex.latexInput;
+
+        if (latexInput.contains(",")){
+            Log.v("TAG2", "CALLED Linear Solver");
+            Intent i = new Intent(this, Linear.class);
+            startActivity(i);
+            Log.v("TAG2", "SOLVED Linear Solver");
+
+        }
 
         if (latexInput.indexOf(',') == -1) {
 

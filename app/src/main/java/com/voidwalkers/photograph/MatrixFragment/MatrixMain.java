@@ -1,6 +1,5 @@
 package com.voidwalkers.photograph.MatrixFragment;
 
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -36,7 +35,7 @@ import com.voidwalkers.photograph.MatrixFragment.OperationFragments.TraceFragmen
 import com.voidwalkers.photograph.MatrixFragment.OperationFragments.TransposeFragment;
 import com.voidwalkers.photograph.MatrixFragment.base_fragments.MatrixMainFragmentList;
 import com.voidwalkers.photograph.R;
-import com.voidwalkers.photograph.MatrixFragment.base_classes.MakeNewMatrix ;
+import com.voidwalkers.photograph.ScannerFragment.CameraActivity;
 
 
 public class MatrixMain extends AppCompatActivity
@@ -79,7 +78,7 @@ public class MatrixMain extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 // On click Start MakeNewMatrix Activity
-                Intent intent = new Intent(getApplicationContext(), MakeNewMatrix.class);
+                Intent intent = new Intent(getApplicationContext(), CameraActivity.class);
                 startActivityForResult(intent, RESULT);
             }
         });
