@@ -1,4 +1,3 @@
-
 package com.voidwalkers.photograph.MatrixFragment.base_classes;
 
 import android.content.Intent;
@@ -117,8 +116,8 @@ public class ShowResult extends AppCompatActivity {
                         Matrix matrix = new Matrix();
                         matrix.SetFromBundle(getIntent().getExtras());
                         String auto_name = "Result " + String.valueOf(((GlobalValues) getApplication()).AutoSaved);
-                        matrix.SetName(auto_name);
-                        matrix.SetType();
+//                        matrix.SetName(auto_name);
+//                        matrix.SetType();
                         ((GlobalValues) getApplication()).AddResultToGlobal(matrix);
                         Toast.makeText(getApplicationContext(), (getString(R.string.SavedAs) + " " + auto_name), Toast.LENGTH_SHORT).show();
                         Intent home = new Intent(getApplication(), MatrixMain.class);

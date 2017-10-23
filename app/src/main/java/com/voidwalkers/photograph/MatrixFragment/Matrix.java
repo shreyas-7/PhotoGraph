@@ -1,22 +1,4 @@
-/*
- * Copyright (C) 2017 Ashar Khan <ashar786khan@gmail.com>
- *
- * This file is part of Matrix Calculator.
- *
- * Matrix Calculator is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * Matrix Calculator is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with Matrix Calculator.  If not, see <http://www.gnu.org/licenses/>.
- *
- */
+
 package com.voidwalkers.photograph.MatrixFragment;
 
 
@@ -25,37 +7,27 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import com.voidwalkers.photograph.R ;
+import org.apache.commons.math3.linear.* ;
 
 public class Matrix {
 
     private int NumberofRows, NumberofCols;
 
-    private Type type;
-
-    private String name;
-
     private float Elements[][]=new float[9][9];
 
-    public  Matrix(int r,int c,Type t) {
+    public  Matrix(int r,int c) {
         this.NumberofRows=r;
         this.NumberofCols=c;
-        this.type=t;
-        this.name="New Normal 3";
     }
 
     public Matrix(int p) {
         NumberofRows=p;
         NumberofCols=p;
-        type=Type.Normal;
-        name="New Square 1";
-
     }
 
     public Matrix() {
         NumberofRows=9;
         NumberofCols=9;
-        type=Type.Normal;
-        name="New Matrix";
     }
 
     public int GetRow()
@@ -78,32 +50,11 @@ public class Matrix {
         NumberofCols=c;
     }
 
-    public void SetType(Type t1)
-    {
-        this.type=t1;
-    }
-
     public boolean is_squareMatrix()
     {
         return (NumberofCols==NumberofRows);
     }
 
-    public Type GetType()
-    {
-        return this.type;
-    }
-
-    @SuppressWarnings("WeakerAccess")
-    public void  MakeNull() {
-        for (int i=0;i<this.GetRow();i++){
-            for (int j=0;j<this.GetCol();j++)
-            {
-                this.Elements[i][j]=0;
-            }
-        }
-    }
-
-    @SuppressWarnings("WeakerAccess")
     public void MakeIdentity() {
         for (int i=0;i<this.GetRow();i++){
             for (int j=0;j<this.GetCol();j++)
@@ -114,16 +65,7 @@ public class Matrix {
                     this.Elements[i][j]=0;
             }
         }
-    }
 
-    public String GetName()
-    {
-        return this.name;
-    }
-
-    public void SetName(String nam)
-    {
-        this.name=nam;
     }
 
     public void AddtoThis(Matrix m) {
@@ -168,15 +110,13 @@ public class Matrix {
             throw new IllegalStateException("Matrix must be Square");
         else {
             for(int i=0;i<this.GetRow();i++)
-                for(int j=0;j<this.GetCol();j++)
-                    if(i==j)
-                        trace+=this.GetElementof(i,j);
+                        trace+=this.GetElementof(i,i);
             return trace;
         }
     }
 
     public Matrix Transpose() {
-        Matrix p = new Matrix(this.GetCol(),this.GetRow(),this.GetType());
+        Matrix p = new Matrix(this.GetCol(),this.GetRow());
         for(int i=0;i<this.GetRow();i++)
             for (int j=0;j<this.GetCol();j++)
                 p.Elements[j][i]=this.Elements[i][j];
@@ -191,18 +131,6 @@ public class Matrix {
         this.CopyFrom(p);
     }
 
-    public void SwapWith(Matrix h) {
-        if(isSameOrder(h))
-        {
-            Matrix buffer = new Matrix(this.GetRow(),this.GetCol(),this.GetType());
-            buffer.Elements = this.Elements.clone();
-            this.Elements = h.Elements.clone();
-            h.Elements =buffer.Elements.clone();
-
-        }
-
-    }
-
     private boolean AreMultipliabe(Matrix h)
     {
         return this.GetCol()==h.GetRow();
@@ -212,7 +140,7 @@ public class Matrix {
     private Matrix MultipyWith(Matrix j) throws Exception{
         if(AreMultipliabe(j))
         {
-            Matrix m= new Matrix(this.GetRow(),j.GetCol(),this.GetType());
+            Matrix m= new Matrix(this.GetRow(),j.GetCol());
             for(int i=0;i<this.GetRow();i++)
                 for(int js=0;js<m.GetCol();js++)
                 {
@@ -233,15 +161,15 @@ public class Matrix {
 
     public void MultiplytoThis(Matrix m) throws ExceptionInInitializerError{
         if (this.AreMultipliabe(m)) {
-            Matrix mh = new Matrix(this.GetRow(), m.GetCol(), this.GetType());
+            Matrix m1 = new Matrix(this.GetRow(), m.GetCol());
             for (int i = 0; i < this.GetRow(); i++)
                 for (int js = 0; js < m.GetCol(); js++) {
-                    mh.Elements[i][js] = 0;
+                    m1.Elements[i][js] = 0;
                     for (int k = 0; k < this.GetCol(); k++) {
-                        mh.Elements[i][js] += this.Elements[i][k] * m.Elements[k][js];
+                        m1.Elements[i][js] += this.Elements[i][k] * m.Elements[k][js];
                     }
                 }
-            this.CloneFrom(mh);
+            this.CloneFrom(m1);
         }
         else{
             throw new ExceptionInInitializerError();
@@ -253,15 +181,65 @@ public class Matrix {
         this.Elements[R_index][C_index]=Elt;
     }
 
-    public float GetDeterminant(ProgressDialog px) {
+//    public float GetDeterminant(ProgressDialog px) {
+//        float  Result=0;
+//        int total = 0;
+//        int flag=0,a=0,b=0;
+//        int Order =this.GetRow();
+//        if(Order==1)
+//        {
+//            Result= this.Elements[0][0];
+//            px.setProgress(100);
+//            return Result;
+//        }
+//        if(Order==2)
+//        {
+//            float l=this.Elements[0][0]*this.Elements[1][1];
+//            float m=this.Elements[1][0]*this.Elements[0][1];
+//            Result=l-m;
+//            px.setProgress(100);
+//            return Result;
+//
+//        }
+//        else
+//        {
+//            for(;flag<Order;flag++)
+//            {
+//                Matrix pointer= new Matrix(Order-1);
+//                for(int i=1;i<Order;i++)
+//                {
+//                    px.setProgress((total*100)/(Order*Order));
+//                    total++;
+//                    for(int j=0;j< Order;j++)
+//                    {
+//                        if(flag!=j)
+//                        {
+//                            float pg=this.Elements[i][j];
+//                            pointer.PushAt(a,b,pg);
+//                            b++;
+//                        }
+//                    }
+//                    a++;
+//                    b=0;
+//
+//                }
+//                a=0;
+//                b=0;
+//                float z=pointer.GetDeterminant();
+//                Result +=Math.pow(-1,flag)*(this.Elements[0][flag]*z);
+//            }
+//        }
+//        px.setProgress(100);
+//        return Result;
+//    }
+
+    public float GetDeterminant() {
         float  Result=0;
-        int total = 0;
         int flag=0,a=0,b=0;
-        int Order =this.GetRow();
+        int Order=this.GetRow();
         if(Order==1)
         {
             Result= this.Elements[0][0];
-            px.setProgress(100);
             return Result;
         }
         if(Order==2)
@@ -269,7 +247,6 @@ public class Matrix {
             float l=this.Elements[0][0]*this.Elements[1][1];
             float m=this.Elements[1][0]*this.Elements[0][1];
             Result=l-m;
-            px.setProgress(100);
             return Result;
 
         }
@@ -280,8 +257,6 @@ public class Matrix {
                 Matrix pointer= new Matrix(Order-1);
                 for(int i=1;i<Order;i++)
                 {
-                    px.setProgress((total*100)/(Order*Order));
-                    total++;
                     for(int j=0;j< Order;j++)
                     {
                         if(flag!=j)
@@ -293,54 +268,6 @@ public class Matrix {
                     }
                     a++;
                     b=0;
-
-                }
-                a=0;
-                b=0;
-                float z=pointer.GetDeterminant();
-                Result +=Math.pow(-1,flag)*(this.Elements[0][flag]*z);
-            }
-        }
-        px.setProgress(100);
-        return Result;
-    }
-
-    private float GetDeterminant() {
-        float  Result=0;
-        int flag=0,a=0,b=0;
-        int Order =this.GetRow();
-        if(Order==1)
-        {
-            Result= this.Elements[0][0];
-            return Result;
-        }
-        if(Order==2)
-        {
-            float l=this.Elements[0][0]*this.Elements[1][1];
-            float m=this.Elements[1][0]*this.Elements[0][1];
-            Result=l-m;
-            return Result;
-
-        }
-        else
-        {
-            for(;flag<Order;flag++)
-            {
-                Matrix pointer= new Matrix(Order-1);
-                for(int i=1;i<Order;i++)
-                {
-                    for(int j=0;j< Order;j++)
-                    {
-                        if(flag!=j)
-                        {
-                            float pg=this.Elements[i][j];
-                            pointer.PushAt(a,b,pg);
-                            b++;
-                        }
-                    }
-                    a++;
-                    b=0;
-
                 }
                 a=0;
                 b=0;
@@ -350,41 +277,6 @@ public class Matrix {
         }
 
         return Result;
-    }
-
-    public float GetMinorDeterminant(int indexX, int indexY) {
-        Matrix matrix = new Matrix(this.GetCol() - 1);
-        int a = 0, b = 0;
-        for (int i = 0; i < this.GetRow(); i++) {
-            for (int j = 0; j < this.GetCol(); j++) {
-                if (indexY != j && indexX !=i) {
-                    matrix.SetElementof(this.GetElementof(i, j), a, b);
-                    b++;
-                }
-            }
-            b=0;
-            if(indexX !=i)
-                a++;
-        }
-        return (float) matrix.GetDeterminant();
-    }
-
-    @SuppressWarnings("unused")
-    public Matrix GetMinor(int indexX, int indexY) {
-        Matrix matrix = new Matrix(this.GetCol() - 1);
-        int a = 0, b = 0;
-        for (int i = 0; i < this.GetRow(); i++) {
-            for (int j = 0; j < this.GetCol(); j++) {
-                if (indexY != j && indexX !=i) {
-                    matrix.SetElementof(this.GetElementof(i, j), a, b);
-                    b++;
-                }
-            }
-            b=0;
-            if(indexX !=i)
-                a++;
-        }
-        return matrix;
     }
 
     private void MakeAdjoint(ProgressDialog Progress) {
@@ -489,8 +381,6 @@ public class Matrix {
         Bundle AllInfo= new Bundle();
         AllInfo.putInt("ROW",this.GetRow());
         AllInfo.putInt("COL",this.GetCol());
-        AllInfo.putString("NAME",name);
-        AllInfo.putSerializable("TYPE",this.GetType());
         AllInfo.putFloatArray("VALUES",Compress(this.Elements,this.GetRow(),this.GetCol()));
         return AllInfo;
     }
@@ -506,10 +396,8 @@ public class Matrix {
     }
 
     public void SetFromBundle(Bundle bundle) throws ClassCastException {
-        this.name=bundle.getString("NAME");
         this.SetRow(bundle.getInt("ROW"));
         this.SetCol(bundle.getInt("COL"));
-        this.SetType((Type) bundle.getSerializable("TYPE"));
         this.Elements=Expand(bundle.getInt("ROW"),bundle.getInt("COL"),bundle.getFloatArray("VALUES"));
     }
 
@@ -523,7 +411,6 @@ public class Matrix {
         return Values;
     }
 
-    @SuppressWarnings("WeakerAccess")
     public int GetDrawable(Type t) {
         switch (t)
         {
@@ -538,25 +425,6 @@ public class Matrix {
 
         }
         return 0;
-    }
-
-    public void SetType() {
-        if(this.isNull()){
-            this.SetType(Type.Null);
-            return;
-        }
-        if(!this.is_squareMatrix())
-            this.SetType(Type.Normal);
-        else
-        {
-            if(this.isIdentity())
-                this.SetType(Type.Identity);
-            else
-            if(this.isDiagonal())
-                this.SetType(Type.Diagonal);
-            else
-                this.SetType(Type.Normal);
-        }
     }
 
     public boolean isNull() {
@@ -610,18 +478,14 @@ public class Matrix {
         this.SetCol(p.GetCol());
         this.SetRow(p.GetRow());
         this.CopyFrom(p);
-        this.SetType(p.GetType());
-        this.SetName(p.GetName());
     }
 
     public Matrix ExactClone(String newname) {
-        Matrix matrix = new Matrix(this.GetRow(),this.GetCol(),this.GetType());
+        Matrix matrix = new Matrix(this.GetRow(),this.GetCol());
         this.CopyThisto(matrix);
-        matrix.SetName(newname);
         return matrix;
     }
 
-    @SuppressWarnings("WeakerAccess")
     public void ScalarMultiply(float multiplier){
         for(int i=0;i<this.GetRow();i++)
             for(int j=0;j<this.GetCol();j++)
@@ -629,7 +493,7 @@ public class Matrix {
     }
 
     public Matrix ReturnScaler(float ig){
-        Matrix re  = new Matrix(this.GetRow(),this.GetCol(),this.GetType());
+        Matrix re  = new Matrix(this.GetRow(),this.GetCol());
         for(int i=0;i<this.GetRow();i++)
             //noinspection ManualArrayCopy
             for(int j=0;j<this.GetCol();j++)
@@ -639,15 +503,9 @@ public class Matrix {
     }
     public int GetRank() throws IllegalStateException{
 
-        /*
-        Know Issues :
-        1. Array Index Out of Bound Exceptions by ZeroCount
-        2. Crash on Higher Square Matrix AIOB Exception
-        3. Crash on Non Square Matrix Ranks
-         */
         int rank,i,retest=1,grp,p,r,j;
         int ZeroList[] = new int[9];
-        Matrix buffer = new Matrix(this.GetRow(),this.GetCol(),this.GetType());
+        Matrix buffer = new Matrix(this.GetRow(),this.GetCol());
         buffer.Elements = this.Elements.clone();
         buffer.Rank_UpdateInitZeros(ZeroList);
         buffer.Rank_ArrangeMatrix(ZeroList);
@@ -710,8 +568,6 @@ public class Matrix {
         return rank;
     }
 
-    //Rank Specific methods
-
     private void Rank_ArrangeMatrix(int initZeros[]){
         int l,reqrow=0,i,k,lastrow,tempvar,large;
         float rowtemp[] = new float[9];
@@ -765,25 +621,6 @@ public class Matrix {
         }
     }
 
-
-    @SuppressWarnings("unused")
-    public Matrix GetEcholean() throws IllegalStateException {
-        Matrix matrix = new Matrix(this.GetRow(),this.GetCol(),this.GetType());
-        //noinspection StatementWithEmptyBody
-        if(this.Elements[0][0]==0)
-            throw new IllegalStateException("Element 1,1 is Zero");
-        else {
-
-            /*
-            Here will the the Algorithm to get Echolean of a Matrix
-             */
-        }
-        return matrix;
-    }
-
-
-
-    //Overrided Methods
     @Override
     public String toString(){
         String s = "--->";
@@ -794,112 +631,4 @@ public class Matrix {
         }
         return s;
     }
-
-
-
-
-
-    /*         <<----------- LOGICAL FUNCTIONS ----------------->>              */
-
-    /*Logical Functions for Optimizing heavy Matrix Calculations, they will ensure
-    heavy tasks like checking if all row is zero or not or if all columns are zero or not
-    thereby reducing the Processing time by many folds. They may extent the processing time if not called wisely
-    THEY WILL TEST SPECIFIC PROPERTIES OF A MATRIX AND LOGICALLY RETURN THE RESULT INSTEAD OF DOING CALCULATIONS
-    IN TRADITIONAL ALGORITHMS.
-
-    The Following Properties must be satisfied by them :
-
-    1. All Should be Called by Member functions only and in no way, directly means all should be private
-    2. All Should only return a boolean
-    3. No Parameter to be given to them, (they should only affect the calling object) i.e use "this" keyword
-    4. They Should never under any circumstances modify the original object
-    5. Some Heavy Logical function can use a new thread for processing.
-     */
-
-    @SuppressWarnings("unused")
-    private boolean RowZero(){ //checks if a complete row is zero
-        int flag1=0;
-        for(int i=0;i<this.GetRow();i++) {
-            for (int j = 0; j < this.GetCol(); j++) {
-                if(this.GetElementof(i,j) == 0)
-                    flag1++;
-            }
-            if (++flag1 == this.GetCol())
-                return true;
-            flag1 = 0;
-        }
-        return false;
-    }
-
-    @SuppressWarnings("unused")
-    private boolean ColZero(){ //checks if a complete column is zero
-        int flag1=0;
-        for(int i=0;i<this.GetCol();i++) {
-            for (int j = 0; j < this.GetRow(); j++) {
-                if(this.GetElementof(i,j) == 0)
-                    flag1++;
-            }
-            if (++flag1 == this.GetRow())
-                return true;
-            flag1 = 0;
-        }
-        return false;
-    }
-
-    @SuppressWarnings("unused")
-    private boolean RowEqualModulo() { //checks if rows are multiple of one another
-        float array1[] = new float[this.GetRow()];
-        float array2[] = new float[this.GetRow()];
-        for(int i=0;i<this.GetCol();i++){
-            for(int j=1;j<=this.GetRow();j++)
-            {
-                array1[j-1] = this.GetElementof(j-1,i);
-                array2[j] = this.GetElementof(j,i);
-
-            }
-            if (Multiples(array1,array2)){
-                return true;
-            }
-        }
-        return false;
-
-    }
-
-    @SuppressWarnings("unused")
-    private boolean ColEqualModulo() { //checks if rows are multiple of one another
-        float array1[] = new float[this.GetCol()];
-        float array2[] = new float[this.GetCol()];
-        for(int i=0;i<this.GetRow();i++){
-            for(int j=1;j<=this.GetCol();j++)
-            {
-                array1[j-1] = this.GetElementof(i,j-1);
-                array2[j] = this.GetElementof(i,j);
-
-            }
-            if (Multiples(array1,array2)){
-                return true;
-            }
-        }
-        return false;
-
-    }
-
-    private boolean Multiples (float a[],float b[]) { //used by above function to check if the two arrays are multiple of each other
-        //a if multiples constant value
-        float Constant; int index=0;
-        while(index  < b.length  ){ //finds until the value of b[i] is a non zero
-            if(b[index]!= 0)
-            {
-                Constant = a[0]/b[index];
-                for(int i=index;i<a.length;i++)
-                    if(Constant != a[i]/b[i])
-                        return false;
-            }
-            else
-                index++;
-        }
-        return true;
-    }
-
-
 }

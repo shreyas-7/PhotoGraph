@@ -1,4 +1,3 @@
-
 package com.voidwalkers.photograph.MatrixFragment.OperationFragments;
 
 
@@ -98,7 +97,7 @@ public class MultiplyFragment extends Fragment {
     }
     private Matrix MultiplyAll(){
         ArrayList<Matrix> buffer =((GlobalValues)getActivity().getApplication()).MatrixQueue;
-        Matrix res = new Matrix(buffer.get(0).GetRow(),buffer.get(0).GetCol(),buffer.get(0).GetType());
+        Matrix res = new Matrix(buffer.get(0).GetRow(),buffer.get(0).GetCol());
         res.CloneFrom(buffer.get(0));
         for(int i=1;i<buffer.size();i++){
             res.MultiplytoThis(buffer.get(i));

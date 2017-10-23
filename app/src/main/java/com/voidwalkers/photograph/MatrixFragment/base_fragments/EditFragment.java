@@ -1,22 +1,3 @@
-/*
- * Copyright (C) 2017 Ashar Khan <ashar786khan@gmail.com>
- *
- * This file is part of Matrix Calculator.
- *
- * Matrix Calculator is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * Matrix Calculator is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with Matrix Calculator.  If not, see <http://www.gnu.org/licenses/>.
- *
- */
 
 package com.voidwalkers.photograph.MatrixFragment.base_fragments;
 
@@ -137,7 +118,7 @@ public class EditFragment extends Fragment {
                     }
 
             }
-            ((GlobalValues)getActivity().getApplication()).GetCompleteList().get(index).SetType();
+//            ((GlobalValues)getActivity().getApplication()).GetCompleteList().get(index).SetType();
             ((GlobalValues)getActivity().getApplication()).matrixAdapter.notifyDataSetChanged();
         } catch (Exception e) {
             e.printStackTrace();
@@ -260,15 +241,15 @@ public class EditFragment extends Fragment {
         }
     }
 
-    public void RevertChanges() {
-        Matrix m = ((GlobalValues) getActivity().getApplication()).current_editing;
-        if (m != null) {
-            for (int i = 0; i < m.GetRow(); i++) {
-                for (int j = 0; j < m.GetCol(); j++) {
-                    EditText e = (EditText) RootView.findViewById(i * 10 + j);
-                    e.setText(GetText(m.GetElementof(i, j)));
-                }
-            }
-        }
-    }
+//    public void RevertChanges() {
+//        Matrix m = ((GlobalValues) getActivity().getApplication()).current_editing;
+//        if (m != null) {
+//            for (int i = 0; i < m.GetRow(); i++) {
+//                for (int j = 0; j < m.GetCol(); j++) {
+//                    EditText e = (EditText) RootView.findViewById(i * 10 + j);
+//                    e.setText(GetText(m.GetElementof(i, j)));
+//                }
+//            }
+//        }
+//    }
 }

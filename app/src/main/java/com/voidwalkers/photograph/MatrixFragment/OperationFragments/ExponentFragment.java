@@ -84,7 +84,7 @@ public class ExponentFragment extends ListFragment {
             public void run() {
                 Matrix res = new Matrix(((GlobalValues)getActivity().getApplication()).GetCompleteList().get(pos).GetRow()
                         ,((GlobalValues)getActivity().getApplication()).GetCompleteList().get(pos).GetCol()
-                        ,((GlobalValues)getActivity().getApplication()).GetCompleteList().get(pos).GetType());
+                        );
                 res.CloneFrom(((GlobalValues)getActivity().getApplication()).GetCompleteList().get(pos));
                 res.Raiseto(exponent);
                 progressDialog.dismiss();

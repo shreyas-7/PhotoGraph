@@ -33,7 +33,6 @@
         <activity
             android:name=".MatrixFragment.MatrixMain"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".MatrixFragment.SelectOperation" />
         <activity
             android:name=".MatrixFragment.base_classes.FillingMatrix"
             android:parentActivityName=".MatrixFragment.MatrixMain"

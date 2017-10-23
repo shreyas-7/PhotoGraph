@@ -2,8 +2,6 @@
 package com.voidwalkers.photograph.MatrixFragment.base_classes;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -34,17 +32,10 @@ public class MultiplierSetter extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(!editText.getText().toString().isEmpty()) {
-                    if(editText.getText().toString().contains(".") &&
-                            !PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getBoolean("DECIMAL_USE",true)) {
-                        Toast.makeText(getApplicationContext(), R.string.AllowDecimals, Toast.LENGTH_SHORT).show();
-                    }
-                    else{
-
                         Intent intent = new Intent();
                         intent.putExtra("MULTIPLIER_VAL", Float.parseFloat(editText.getText().toString()));
                         setResult(1054, intent);
                         finish();
-                    }
                 }
                 else
                     Toast.makeText(getApplicationContext(),R.string.NoValue,Toast.LENGTH_SHORT).show();

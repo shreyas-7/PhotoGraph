@@ -72,15 +72,15 @@ public class VariableListAdd extends ListFragment {
             @SuppressWarnings("ConstantConditions") //to suppress the null pointer exception of the  textview
                     TextView textView = (TextView) getParentFragment().getView().findViewById(R.id.AdditionStatus);
             String Initial = textView.getText().toString();
-            if(Initial.isEmpty()){
-                textView.setText(click.GetName());
+//            if(Initial.isEmpty()){
+//                textView.setText(click.GetName());
                 ((GlobalValues)getActivity().getApplication()).MatrixQueue.add(click);
-            }
-            else {
-                String Complete = Initial +  " + " + click.GetName();
-                textView.setText(Complete);
+//            }
+//            else {
+//                String Complete = Initial +  " + " + click.GetName();
+//                textView.setText(Complete);
                 ((GlobalValues)getActivity().getApplication()).MatrixQueue.add(click);
-            }
+//            }
         }catch  (NullPointerException e){
             Log.d("AddToQueue","Exception raised, cannot get textview from parent fragment");
             e.printStackTrace();

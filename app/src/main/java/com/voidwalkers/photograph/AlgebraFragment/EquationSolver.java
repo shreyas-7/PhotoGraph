@@ -94,7 +94,7 @@ public class EquationSolver extends AppCompatActivity {
         String[] coeffs = latexInput.split("\\}\\{");
 
 
-        Matrix input_matrix = new Matrix(rows, columns, Type.Normal);
+        Matrix input_matrix = new Matrix(rows, columns);
 
         float[][] variable = new float[3][3];
 
@@ -106,8 +106,6 @@ public class EquationSolver extends AppCompatActivity {
         }
 
         int name = ((GlobalValues)getApplication()).GetCompleteList().size() + 1 ;
-
-        input_matrix.SetName (Integer.toString(name)) ;
 
         ((GlobalValues) getApplication()).AddResultToGlobal(input_matrix);
 

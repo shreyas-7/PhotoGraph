@@ -1,4 +1,3 @@
-
 package com.voidwalkers.photograph.MatrixFragment;
 
 

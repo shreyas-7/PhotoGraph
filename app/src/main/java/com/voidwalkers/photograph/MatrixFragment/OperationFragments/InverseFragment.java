@@ -120,7 +120,7 @@ public class InverseFragment extends ListFragment {
             public void run() {
                 Message message = new Message();
                 Bundle bundle = new Bundle();
-                float detr = (float) SquareList.get(i).GetDeterminant(progressDialog);
+                float detr = (float) SquareList.get(i).GetDeterminant();
                 if(detr == 0.0f){
                     myHandler.postDelayed(new Runnable() {
                         @Override

@@ -127,7 +127,7 @@ public class Quadratic extends AppCompatActivity {
         String step7 = "";
         if (D > 0){
             step7 = "roots of equation are ";
-             
+
         }
 
         // this code basically adds steps, (lines) to the ListView

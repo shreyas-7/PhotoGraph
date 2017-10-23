@@ -1,16 +1,11 @@
 
 package com.voidwalkers.photograph.MatrixFragment.OperationFragments;
 
-
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v4.app.ListFragment;
-import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.voidwalkers.photograph.MatrixFragment.Matrix;
 import com.voidwalkers.photograph.MatrixFragment.MatrixAdapter;
@@ -39,15 +34,4 @@ public class TransposeFragment extends ListFragment {
                     i2.putExtras(original.Transpose().GetDataBundled());
                     startActivity(i2);
     }
-
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if (resultCode == 120) //User Said Yes
-//        {
-//            ((GlobalValues) getActivity().getApplication()).GetCompleteList().get(ClickPos).SquareTranspose();
-//            Toast.makeText(getActivity(), R.string.SuccessTranspose, Toast.LENGTH_SHORT).show();
-//        }
-//    }
-
 }

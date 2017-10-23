@@ -1,6 +1,5 @@
 package com.voidwalkers.photograph.MatrixFragment.OperationFragments;
 
-import android.app.ProgressDialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -44,19 +43,19 @@ public class TraceFragment extends ListFragment {
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
-        ProgressDialog progressDialog = new ProgressDialog(getContext());
-        progressDialog.setMessage(getString(R.string.Calculating));
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-        progressDialog.setIndeterminate(true);
-        progressDialog.setCanceledOnTouchOutside(false);
-        progressDialog.show();
-        RunToGetTrace(position,progressDialog);
+//        ProgressDialog progressDialog = new ProgressDialog(getContext());
+//        progressDialog.setMessage(getString(R.string.Calculating));
+//        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+//        progressDialog.setIndeterminate(true);
+//        progressDialog.setCanceledOnTouchOutside(false);
+//        progressDialog.show();
+        GetTrace(position);
     }
 
-    private void RunToGetTrace(int position, ProgressDialog progressDialog) {
+    private void GetTrace(int position) {
         double result = ((GlobalValues)getActivity().getApplication()).GetCompleteList().get(position).GetTrace();
         final String formatted = GetText(result);
-        progressDialog.dismiss();
+//        progressDialog.dismiss();
         String formatted2  = getString(R.string.trace_is) +" " +formatted;
         new AlertDialog.Builder(getContext())
                 .setCancelable(true)

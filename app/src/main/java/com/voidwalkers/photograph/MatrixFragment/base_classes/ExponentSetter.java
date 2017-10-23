@@ -1,8 +1,9 @@
 package com.voidwalkers.photograph.MatrixFragment.base_classes;
+/**
+ * ExponentSetter Class
+ */
 
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;

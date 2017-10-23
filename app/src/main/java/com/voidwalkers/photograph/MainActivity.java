@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         AlgebraButton.setOnClickListener(
                 new Button.OnClickListener(){
                     public void onClick(View v){
-                        Log.e("HHH","B") ;
+                        Log.e("TAG","CameraActivity") ;
                         Intent i = new Intent(v.getContext(), CameraActivity.class) ;
                         startActivity(i);
                     }

@@ -64,13 +64,14 @@ public class MatrixMainFragmentList extends ListFragment {
     @Override
     public void onActivityResult(int requestcode, int resultCode, Intent data) {
         super.onActivityResult(requestcode, resultCode, data);
-        if (resultCode == 100) {
-            ((GlobalValues) getActivity().getApplication()).GetCompleteList().get(position1).
-                    SetName(data.getStringExtra("NEW_NAME_FOR_THIS_MATRIX"));
-            ((GlobalValues) getActivity().getApplication()).matrixAdapter.notifyDataSetChanged();
+//        if (resultCode == 100) {
+//            ((GlobalValues) getActivity().getApplication()).GetCompleteList().get(position1).
+//                    SetName(data.getStringExtra("NEW_NAME_FOR_THIS_MATRIX"));
+        ((GlobalValues) getActivity().getApplication()).matrixAdapter.notifyDataSetChanged();
 
-        }
-        if(resultCode==12)
-            Toast.makeText(getContext(),R.string.ChangedOrder,Toast.LENGTH_SHORT).show();
+//        }
+//        if(resultCode==12)
+//            Toast.makeText(getContext(),R.string.ChangedOrder,Toast.LENGTH_SHORT).show();
+//    }
     }
 }
