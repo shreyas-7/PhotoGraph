@@ -26,6 +26,9 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Main class for linear equation input
+ */
 public class Linear extends AppCompatActivity {
     // the class contains four data members , namely the coefficients
     private static double[] Eq1 = new double[4];
@@ -40,6 +43,9 @@ public class Linear extends AppCompatActivity {
     public ArrayList<String> listItems = new ArrayList<String>();
     public ArrayAdapter<String> adapter;
 
+    /**
+     *Handles all activities when Linear is called
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -132,16 +138,23 @@ public class Linear extends AppCompatActivity {
 //             just make graph.
             String errorMessage = "Sorry, this template is not currently supported" ;
             // send to admin from here.
+            this.addItems(steps,errorMessage);
         }
 
 
     }
 
+    /**
+     * function for adding items to a ListView
+     */
     public void addItems(View v, String step) {
         listItems.add(step);
         adapter.notifyDataSetChanged();
     }
 
+    /**
+     * calles function corresponding to string name given as input
+     */
     public void callByName(String funcName) {
         try {
             Method method = getClass().getDeclaredMethod(funcName);
@@ -159,6 +172,11 @@ public class Linear extends AppCompatActivity {
         }
     }
 
+    /**
+     * Function equation as input and converts it to it standrard template formate
+     * @param latexInput the equation String entered by user
+     * @return
+     */
     public static String parse(String latexInput) {
 
         Log.v("TAG2", "Transforming from Latex");
@@ -177,6 +195,9 @@ public class Linear extends AppCompatActivity {
         return answer;
     }
 
+    /**
+     * Makes the graph for two linear equation in xy plane
+     */
     public void MakeLinearGraph() {
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setLoadWithOverviewMode(true);
@@ -209,6 +230,10 @@ public class Linear extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * if the template already exists in the gloabal memory then linear0 gives detailed solution of the
+     * input equations
+     */
     public void Linear0() {
         if (notAllZero()) {
             String step1 = "This is the Standard form!";
@@ -220,9 +245,11 @@ public class Linear extends AppCompatActivity {
             String step7 = "Now equation 2 is :" + String.valueOf(Eq2[0] * Eq1[0]) + "x +(" + String.valueOf(Eq2[1] * Eq1[0]) + "y) = " + String.valueOf((Eq2[3] - Eq2[2]) * Eq1[0]);
             // whichever is greater
             String step8 = "Now subtract 1 from 2";
+
             String step9 = String.valueOf(Eq1[1] * Eq2[0] - Eq2[1] * Eq1[0]) + "y = " + String.valueOf((Eq1[3] - Eq1[2]) * Eq2[0] - (Eq2[3] - Eq2[2]) * Eq1[0]);
-            String step10 = "y = " + String.valueOf(((Eq1[3] - Eq1[2]) * Eq2[0] - (Eq2[3] - Eq2[2]) * Eq1[0]) / Eq1[1] * Eq2[0] - Eq2[1] * Eq1[0]);
             Double y_val = ((Eq1[3] - Eq1[2]) * Eq2[0] - (Eq2[3] - Eq2[2]) * Eq1[0]) / (Eq1[1] * Eq2[0] - Eq2[1] * Eq1[0]);
+            String step10 = "y = " + String.valueOf(y_val);
+
             String step11 = "Substitute y in equation 1";
             String step12 = String.valueOf(Eq1[0]) + "x +(" + String.valueOf(Eq1[1]) + "*" + String.valueOf(y_val) + ") = " + String.valueOf(Eq1[3] - Eq1[2]);
             Double x_val = ((Eq1[3] - Eq1[2]) - Eq1[1] * y_val) / Eq1[0];
@@ -249,7 +276,9 @@ public class Linear extends AppCompatActivity {
         }
     }
 
-
+    /**
+     * finds coefficients out of standard template1 type of input linear equations
+     */
     public void Linear1(){
         Log.e("TAG","Linear1called") ;
         String local="";
@@ -285,7 +314,7 @@ public class Linear extends AppCompatActivity {
             Eq1[1] = Double.parseDouble(Vars[1]) ;
             Eq1[2] = Double.parseDouble(Vars[2]) ;
             Eq1[3] = Double.parseDouble(Vars[3]) ;
-    }
+        }
         if (state){
             Eq2[0] = Double.parseDouble(Vars[0]) ;
             Eq2[1] = Double.parseDouble(Vars[1]) ;
@@ -294,26 +323,32 @@ public class Linear extends AppCompatActivity {
         }
     }
 
+    /**
+     *  finds coefficients out of standard template2 type of input linear equations
+     */
     public void Linear2(){
         Log.e("TAG","Linear2called") ;
         String local="";
-        if (state == false){
-            local = Latex.Linear1;
+        if (!state){
+            local = Latex.latexInput.split(",")[0];
         }
         else{
-            local = Latex.Linear2;
+            local = Latex.latexInput.split(",")[1];
         }
-
+        Log.e("TAG",local+"1");
         String Vars[] = new String[4];
-        local = local.replaceAll("\\s+","");
+        local = local.replaceAll(" ","");
+        Log.e("TAG",local+"2");
 
-        String pattern = "([+-]?\\d*\\.?\\d+)y([+-]?\\d*\\.?\\d+)x([+-]?\\d*\\.?\\d+)=([+-]?\\d*\\.?\\d+)";
+        String pattern = "(.*)y(.*)x(.*)=(.*)";
         Pattern p = Pattern.compile(pattern);
         Matcher m = p.matcher(local);
 
         if (m.find()){
+            Log.v("TAG2","in matcher");
             for (int i=0;i<4;i++){
                 Vars[i]=m.group(i+1);
+                Log.v("TAG2",Vars[i]) ;
             }
             if (Vars[0].equals("")) Vars[0] = "1";
             if (Vars[0].equals("-")) Vars[0] = "-1";
@@ -321,26 +356,135 @@ public class Linear extends AppCompatActivity {
             if (Vars[1].equals("-")) Vars[1] = "-1";
             if (Vars[2].equals("")) Vars[2] = "0";
         }
-        if (state == false) {
-            Eq1[1] = Double.parseDouble(Vars[0]);
-            Eq1[0] = Double.parseDouble(Vars[1]);
-            Eq1[2] = Double.parseDouble(Vars[2]);
-            Eq1[3] = Double.parseDouble(Vars[3]);
+        if (!state){
+            Eq1[0] = Double.parseDouble(Vars[1]) ;
+            Eq1[1] = Double.parseDouble(Vars[0]) ;
+            Eq1[2] = Double.parseDouble(Vars[2]) ;
+            Eq1[3] = Double.parseDouble(Vars[3]) ;
             String step1 = "Equation 1 is :" + String.valueOf(Eq1[1]) + "y +(" + String.valueOf(Eq1[0]) + "x) = " + String.valueOf(Eq1[3] - Eq1[2]);
             String step2 = "Conversion to standard form is trivial!";
-            this.addItems(steps, step1);//
-            this.addItems(steps, step2);//
+            this.addItems(this.findViewById(R.id.quadratic_steps), step1);//
+            this.addItems(this.findViewById(R.id.quadratic_steps), step2);//
         }
-        if (state == true){
-            Eq2[1] = Double.parseDouble(Vars[0]) ;
+        if (state){
             Eq2[0] = Double.parseDouble(Vars[1]) ;
+            Eq2[1] = Double.parseDouble(Vars[0]) ;
             Eq2[2] = Double.parseDouble(Vars[2]) ;
             Eq2[3] = Double.parseDouble(Vars[3]) ;
             String step1 = "Equation 2 is :" + String.valueOf(Eq2[1]) + "y +(" + String.valueOf(Eq2[0]) + "x) = " + String.valueOf(Eq2[3] - Eq2[2]);
             String step2 = "Conversion to standard form is trivial!" ;
-            this.addItems(steps, step1);//
-            this.addItems(steps, step2);//
+            this.addItems(this.findViewById(R.id.quadratic_steps), step1);//
+            this.addItems(this.findViewById(R.id.quadratic_steps), step2);//
         }
     }
+    /**
+     * finds coefficients out of standard template2 type of input linear equations
+     */
+    public void Linear3(){
+        Log.e("TAG","Linear3called") ;
+        String local="";
+        if (!state){
+            local = Latex.latexInput.split(",")[0];
+        }
+        else{
+            local = Latex.latexInput.split(",")[1];
+        }
+        Log.e("TAG",local+"1");
+        String Vars[] = new String[4];
+        local = local.replaceAll(" ","");
+        Log.e("TAG",local+"2");
+
+        String pattern = "(.*)x(.*)y=(.*)";
+        Pattern p = Pattern.compile(pattern);
+        Matcher m = p.matcher(local);
+
+        if (m.find()){
+            Log.v("TAG2","in matcher");
+            for (int i=0;i<3;i++){
+                Vars[i]=m.group(i+1);
+                Log.v("TAG2",Vars[i]) ;
+            }
+            if (Vars[0].equals("")) Vars[0] = "1";
+            if (Vars[0].equals("-")) Vars[0] = "-1";
+            if (Vars[1].equals("+")) Vars[1] = "1";
+            if (Vars[1].equals("-")) Vars[1] = "-1";
+            if (Vars[2].equals("")) Vars[2] = "0";
+        }
+        if (!state){
+            Eq1[0] = Double.parseDouble(Vars[0]) ;
+            Eq1[1] = Double.parseDouble(Vars[1]) ;
+            Eq1[2] = 0 ;
+            Eq1[3] = Double.parseDouble(Vars[2]) ;
+            String step1 = "Equation 1 is :" + String.valueOf(Eq1[1]) + "y +(" + String.valueOf(Eq1[0]) + "x) = " + String.valueOf(Eq1[3] - Eq1[2]);
+            String step2 = "Conversion to standard form is trivial!";
+            this.addItems(this.findViewById(R.id.quadratic_steps), step1);//
+            this.addItems(this.findViewById(R.id.quadratic_steps), step2);//
+        }
+        if (state){
+            Eq2[0] = Double.parseDouble(Vars[0]) ;
+            Eq2[1] = Double.parseDouble(Vars[1]) ;
+            Eq2[2] = 0 ;
+            Eq2[3] = Double.parseDouble(Vars[2]) ;
+            String step1 = "Equation 2 is :" + String.valueOf(Eq2[1]) + "y +(" + String.valueOf(Eq2[0]) + "x) = " + String.valueOf(Eq2[3] - Eq2[2]);
+            String step2 = "Conversion to standard form is trivial!" ;
+            this.addItems(this.findViewById(R.id.quadratic_steps), step1);//
+            this.addItems(this.findViewById(R.id.quadratic_steps), step2);//
+        }
+    }
+    /**
+     * finds coefficients out of standard template2 type of input linear equations
+     */
+    public void Linear4(){
+        Log.e("TAG","Linear4called") ;
+        String local="";
+        if (!state){
+            local = Latex.latexInput.split(",")[0];
+        }
+        else{
+            local = Latex.latexInput.split(",")[1];
+        }
+        Log.e("TAG",local+"1");
+        String Vars[] = new String[4];
+        local = local.replaceAll(" ","");
+        Log.e("TAG",local+"2");
+
+        String pattern = "(.*)y(.*)x=(.*)";
+        Pattern p = Pattern.compile(pattern);
+        Matcher m = p.matcher(local);
+
+        if (m.find()){
+            Log.v("TAG2","in matcher");
+            for (int i=0;i<3;i++){
+                Vars[i]=m.group(i+1);
+                Log.v("TAG2",Vars[i]) ;
+            }
+            if (Vars[0].equals("")) Vars[0] = "1";
+            if (Vars[0].equals("-")) Vars[0] = "-1";
+            if (Vars[1].equals("+")) Vars[1] = "1";
+            if (Vars[1].equals("-")) Vars[1] = "-1";
+            if (Vars[2].equals("")) Vars[2] = "0";
+        }
+        if (!state){
+            Eq1[0] = Double.parseDouble(Vars[1]) ;
+            Eq1[1] = Double.parseDouble(Vars[0]) ;
+            Eq1[2] = 0 ;
+            Eq1[3] = Double.parseDouble(Vars[2]) ;
+            String step1 = "Equation 1 is :" + String.valueOf(Eq1[1]) + "y +(" + String.valueOf(Eq1[0]) + "x) = " + String.valueOf(Eq1[3] - Eq1[2]);
+            String step2 = "Conversion to standard form is trivial!";
+            this.addItems(this.findViewById(R.id.quadratic_steps), step1);//
+            this.addItems(this.findViewById(R.id.quadratic_steps), step2);//
+        }
+        if (state){
+            Eq2[0] = Double.parseDouble(Vars[1]) ;
+            Eq2[1] = Double.parseDouble(Vars[0]) ;
+            Eq2[2] = 0 ;
+            Eq2[3] = Double.parseDouble(Vars[2]) ;
+            String step1 = "Equation 2 is :" + String.valueOf(Eq2[1]) + "y +(" + String.valueOf(Eq2[0]) + "x) = " + String.valueOf(Eq2[3] - Eq2[2]);
+            String step2 = "Conversion to standard form is trivial!" ;
+            this.addItems(this.findViewById(R.id.quadratic_steps), step1);//
+            this.addItems(this.findViewById(R.id.quadratic_steps), step2);//
+        }
+    }
+
 
 }

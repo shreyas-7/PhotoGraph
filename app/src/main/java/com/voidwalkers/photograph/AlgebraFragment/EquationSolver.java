@@ -10,16 +10,23 @@ import com.voidwalkers.photograph.GlobalValues;
 import com.voidwalkers.photograph.Latex;
 import com.voidwalkers.photograph.MatrixFragment.Matrix;
 import com.voidwalkers.photograph.MatrixFragment.MatrixMain;
-import com.voidwalkers.photograph.MatrixFragment.Type;
 import com.voidwalkers.photograph.R;
 import org.apache.commons.lang3.StringUtils;
 import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * This activity identifies the type of expression given
+ * as input and tries to match it with a supported template.
+ *
+ */
 public class EquationSolver extends AppCompatActivity {
 
     @Override
+    /**
+     * Creates the activity
+     */
     protected void onCreate(Bundle savedInstanceState) {
 
         Intent i = getIntent();
@@ -45,6 +52,12 @@ public class EquationSolver extends AppCompatActivity {
         }
     }
 
+    /**
+     * Removes any fractional terms present in the string.
+     * @param a The numerator of the fraction.
+     * @param b The denominator of the fraction.
+     * @return A decimal value of the fractional term.
+     */
     private double RemoveFrac(String a, String b) {
 
 //        String pattern = "\\\\frac\\{(.*)\\}\\{(.*)\\}" ;
@@ -61,10 +74,23 @@ public class EquationSolver extends AppCompatActivity {
         // denominator zero error is to be taken care of.
     }
 
+    /**
+     * Removes fractional terms with the numerator and the denominator in the same line,
+     * separated by a slash.
+     * @param a The numerator of the term
+     * @param b The denominator of the term
+     * @return The decimal representation of the string.
+     */
     private double RemoveSlash(String a, String b) {
         return Math.round(Double.parseDouble(a) / Double.parseDouble(b));
     }
 
+    /**
+     * Processes the input string representing the matrix into
+     * an appropriate form, i.e. without fractional numbers,
+     * extra spaces etc. The improved matrix is then passed on to the
+     * MatrixMain activity for further processing.
+     */
     private void SolveMatrix() {
 
         String latexInput = Latex.latexInput;
@@ -107,6 +133,8 @@ public class EquationSolver extends AppCompatActivity {
 
         int name = ((GlobalValues)getApplication()).GetCompleteList().size() + 1 ;
 
+        input_matrix.SetName (Integer.toString(name)) ;
+
         ((GlobalValues) getApplication()).AddResultToGlobal(input_matrix);
 
         Intent i = new Intent(this, MatrixMain.class);
@@ -114,6 +142,13 @@ public class EquationSolver extends AppCompatActivity {
     }
 
 
+    /**
+     * Filters the input string to determine the type of expression
+     * it represents. After the input is suitably classified, it is then passed
+     * on to the appropriate activity for evaluation. In case no known template matches
+     * the input, the question is passed on to the Online activity to be solved
+     * by Wolfram Alpha.
+     */
     private void Solve() {
         String latexInput = Latex.latexInput;
 
@@ -125,7 +160,7 @@ public class EquationSolver extends AppCompatActivity {
 
         }
 
-        if (latexInput.indexOf(',') == -1) {
+        else if (latexInput.replaceAll(" ","").contains("^{2}")) {
 
             // So a comma is not found in the string, it is a quadratic
             // very vague right now
@@ -136,6 +171,13 @@ public class EquationSolver extends AppCompatActivity {
             startActivity(i);
 
             Log.v("TAG2", "SOLVED Quadratic Solver");
+
+        }
+
+        else if (!Latex.latexInput.contains("array")){
+            Log.v("TAG2", "Checking online");
+            Intent i = new Intent(this, Online.class);
+            startActivity(i);
 
         }
     }

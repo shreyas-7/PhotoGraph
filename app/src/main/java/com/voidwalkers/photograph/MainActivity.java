@@ -1,6 +1,9 @@
+/**
+ * Main Activity of the application
+ * User can choose between matrix operations and other operations
+ */
 package com.voidwalkers.photograph;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         AlgebraButton.setOnClickListener(
                 new Button.OnClickListener(){
                     public void onClick(View v){
-                        Log.e("TAG","CameraActivity") ;
+//                        Log.e("HHH","B") ;
                         Intent i = new Intent(v.getContext(), CameraActivity.class) ;
                         startActivity(i);
                     }
@@ -38,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         MatrixButton.setOnClickListener(
                 new Button.OnClickListener(){
                     public void onClick(View v){
-                        Log.e("HHH","C") ;
+//                        Log.e("HHH","C") ;
 
                         Intent i = new Intent(v.getContext(), MatrixMain.class) ;
                         startActivity(i);

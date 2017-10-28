@@ -1,16 +1,12 @@
 package com.voidwalkers.photograph.MatrixFragment.OperationFragments;
 
-
-
-import android.app.ProgressDialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.preference.PreferenceManager;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ListFragment;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -23,113 +19,70 @@ import com.voidwalkers.photograph.MatrixFragment.Matrix;
 import com.voidwalkers.photograph.MatrixFragment.MatrixAdapter;
 import com.voidwalkers.photograph.R;
 
-import java.lang.ref.WeakReference;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class DeterminantFragment extends ListFragment {
 
     ArrayList<Matrix> SquareList;
+    String TAG = this.getClass().getSimpleName();
 
-    //Inner Class
-    private  static class MyHandler extends Handler{
-        private final WeakReference<DeterminantFragment> determinantFragmentWeakReference;// a weak Reference to Outer Fragment
-        private MyHandler(DeterminantFragment fragment){
-            determinantFragmentWeakReference = new WeakReference<>(fragment); //Initialize the Weak Reference with the Fragment
-        }
-        @Override
-        public void handleMessage(Message msg) //override this method
-        {
-            final DeterminantFragment determinantFragment = determinantFragmentWeakReference.get();
-            if(determinantFragment!=null) {
-
-                final Bundle val;
-                val = msg.getData();
-                if (determinantFragment.isVisible()) {
-
-                    final String mes = determinantFragment.getString(R.string.determinant_is)+ " " + determinantFragment.GetText(val.getDouble("RESULTANT"));
-
-                    final AlertDialog.Builder builder = new AlertDialog.Builder(determinantFragment.getContext());
-                    builder.setPositiveButton(R.string.copy, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            ClipboardManager clipboardManager = (ClipboardManager) determinantFragment.getActivity()
-                                    .getSystemService(Context.CLIPBOARD_SERVICE);
-                            ClipData clipData = ClipData.newPlainText("DETERMINANT_RES",determinantFragment.GetText(val.getDouble("RESULTANT")));
-                            clipboardManager.setPrimaryClip(clipData);
-                            if(clipboardManager.hasPrimaryClip()){
-                                Toast.makeText(determinantFragment.getContext(),R.string.CopyToClip,Toast.LENGTH_SHORT).show();
-                            }
-                            else
-                                Log.d("ClipData","Failed to set to Clip board");
-                            dialogInterface.dismiss();
-                        }
-                    });
-
-                    builder.setNeutralButton(R.string.Done, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            dialogInterface.dismiss();
-                        }
-                    });
-                    builder.setMessage(mes);
-                    builder.setTitle(R.string.determinant);
-                    builder.setCancelable(false);
-                    builder.show();
-
-                }
-                else
-                    Log.d("Determinant : ", "not shown");
-            }
-        }
-    }
-
-    private final MyHandler myhandler = new MyHandler(this);
-
-
-
+    /**
+     * Displays the list of matrices
+     * @param savedInstanceState
+     */
     @Override
-    public void onActivityCreated(Bundle savedInstances) {
-        super.onActivityCreated(savedInstances);
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         SquareList = new ArrayList<>();
         for (int i = 0; i < ((GlobalValues) getActivity().getApplication()).GetCompleteList().size(); i++) {
             if (((GlobalValues) getActivity().getApplication()).GetCompleteList().get(i).is_squareMatrix())
                 SquareList.add(((GlobalValues) getActivity().getApplication()).GetCompleteList().get(i));
         }
-        MatrixAdapter MatriXadapter = new MatrixAdapter(getActivity(), R.layout.list_layout_fragment, SquareList);
+
+        MatrixAdapter adapter = new MatrixAdapter(getContext(), R.layout.list_layout_fragment,SquareList);
         getListView().setDividerHeight(1);
-        setListAdapter(MatriXadapter);
+        setListAdapter(adapter);
     }
 
+    /**
+     * Returns Determinant of the matrix by standard algorithm
+     * @param l
+     * @param v
+     * @param position
+     * @param id
+     */
     @Override
-    public void onListItemClick(ListView L, View V, int position, long id) {
-        double var = SquareList.get(position).GetDeterminant();
-        Message message = new Message();
-        Bundle bundle = new Bundle();
-        bundle.putDouble("RESULTANT",var);
-        message.setData(bundle);
-        myhandler.sendMessage(message);
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        double result = ((GlobalValues)getActivity().getApplication()).GetCompleteList().get(position).GetDeterminant();
+        final String formatted = GetText(result);
+        String formatted2  = "Determinant is " +formatted;
+        new AlertDialog.Builder(getContext())
+                .setCancelable(true)
+                .setMessage(formatted2)
+                .setTitle(R.string.determinant)
+                .setPositiveButton(R.string.copy, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // copying to clipboard
+                        ClipboardManager manager = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
+                        ClipData data = ClipData.newPlainText("Determinant",formatted);
+                        manager.setPrimaryClip(data);
+                        if(manager.hasPrimaryClip())
+                            Toast.makeText(getContext(), R.string.CopyToClip, Toast.LENGTH_SHORT).show();
+                        else
+                            Log.e(TAG,"Cannot Put Data to Clip");
+                        dialog.dismiss();
+                    }
+                })
+                .setNeutralButton(R.string.Done, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .show();
     }
-
-
-
-//    public void RunToGetDeterminant(final int pos)
-//    {
-//        Runnable runnable = new Runnable() {
-//            @Override
-//            public void run() {
-//                double var = SquareList.get(pos).GetDeterminant();
-//                Message message = new Message();
-//                Bundle bundle = new Bundle();
-//                bundle.putDouble("RESULTANT",var);
-//                message.setData(bundle);
-//                myhandler.sendMessage(message);
-//
-//            }
-//        };
-//        Thread thread = new Thread(runnable);
-//        thread.start();
-//    }
 
     private String GetText(double res) {
 

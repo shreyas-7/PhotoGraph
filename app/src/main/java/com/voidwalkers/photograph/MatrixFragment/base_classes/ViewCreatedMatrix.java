@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.voidwalkers.photograph.GlobalValues;
 import com.voidwalkers.photograph.R;
 import com.voidwalkers.photograph.MatrixFragment.base_fragments.ViewMatrixFragment;
+import com.voidwalkers.photograph.MatrixFragment.base_fragments.EditFragment ;
 
 public class ViewCreatedMatrix extends AppCompatActivity {
 
@@ -22,16 +23,17 @@ public class ViewCreatedMatrix extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_created_matrix);
 
-//        int index =getIntent().getIntExtra("INDEX",-1);
-//        if(getSupportActionBar()!=null && index != (-1))
-//            getSupportActionBar().setTitle(((GlobalValues) getApplication()).GetCompleteList().get(index).GetName());
+        int index =getIntent().getIntExtra("INDEX",-1);
+        if(getSupportActionBar()!=null && index != (-1))
+            getSupportActionBar().setTitle(((GlobalValues) getApplication()).GetCompleteList().get(index).GetName());
         ViewMatrixFragment viewMatrixFragment = new ViewMatrixFragment();
         Bundle bundle = new Bundle();
-//        bundle.putInt("INDEX",getIntent().getIntExtra("INDEX",-1));
+        bundle.putInt("INDEX",getIntent().getIntExtra("INDEX",-1));
         viewMatrixFragment.setArguments(bundle);
         if(savedInstanceState==null){
             FragmentTransaction  transaction= getSupportFragmentManager().beginTransaction();
             transaction.add(R.id.FragmentContainer,viewMatrixFragment,"VIEW_TAG").commit();
+
         }
     }
     @Override
@@ -41,25 +43,26 @@ public class ViewCreatedMatrix extends AppCompatActivity {
         return true;
     }
     @Override
-    protected void onActivityResult(int requestCode,int resultCode,Intent data)
+    protected void onActivityResult(int requestcode,int resultCode,Intent data)
     {
-        super.onActivityResult(requestCode,resultCode,data);
+        super.onActivityResult(requestcode,resultCode,data);
         if(resultCode==100)
         {
-//            int index =getIntent().getExtras().getInt("INDEX",-1);
-//            if(index!=(-1))
-//            {
-//                ((GlobalValues)getApplication()).GetCompleteList().get(index).
-//                        SetName(data.getStringExtra("NEW_NAME_FOR_THIS_MATRIX"));
+            int index =getIntent().getExtras().getInt("INDEX",-1);
+            if(index!=(-1))
+            {
+                ((GlobalValues)getApplication()).GetCompleteList().get(index).
+                        SetName(data.getStringExtra("NEW_NAME_FOR_THIS_MATRIX"));
                 ((GlobalValues)getApplication()).matrixAdapter.notifyDataSetChanged();
                 finish();
             }
 
 
         }
-//        if(resultCode==ChangedOrder)
-//        {
-//            Toast.makeText(getApplication(),R.string.ChangedOrder,Toast.LENGTH_SHORT).show();
-//            finish();
-//        }
+        if(resultCode==ChangedOrder)
+        {
+            Toast.makeText(getApplication(),R.string.ChangedOrder,Toast.LENGTH_SHORT).show();
+            finish();
+        }
     }
+}

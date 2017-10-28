@@ -10,20 +10,19 @@ import com.voidwalkers.photograph.MatrixFragment.MatrixAdapter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Stores standard templates of linear class in hashmap corresponding to their function call name
+ */
 public class GlobalMemory {
 
-    public static HashMap<String, String> QuadraticData;
+    // public static HashMap<String, String> QuadraticData;
     public static HashMap<String, String> LinearData;
-
-    static {
-        QuadraticData = new HashMap<String, String>();
-        QuadraticData.put("Vx^{V}+Vx+V=V", "quad1");
-        QuadraticData.put("V", "quad2");
-    }
 
     static {
         LinearData = new HashMap<String, String>() ;
         LinearData.put("Vx+Vy+V=V","Linear1") ;
         LinearData.put("Vy+Vx+V=V","Linear2") ;
+        LinearData.put("Vx+Vy=V","Linear3");
+        LinearData.put("Vy+Vx=V","Linear4");
     }
 }

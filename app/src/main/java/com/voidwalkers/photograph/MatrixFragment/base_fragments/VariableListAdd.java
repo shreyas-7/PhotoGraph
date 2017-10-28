@@ -1,20 +1,11 @@
-/*
- * Copyright (C) 2017 Ashar Khan <ashar786khan@gmail.com>
- *
- * This file is part of Matrix Calculator.
- *
- * Matrix Calculator is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * Matrix Calculator is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with Matrix Calculator.  If not, see <http://www.gnu.org/licenses/>.
+/**
+ * Fragment used for addition operation
+ * Contains of
+ * <ul>
+ *     <li>A TextView of matrices to be processed</li>
+ *     <li>A ListView of added matrices</li>
+ *     <li>Confirm and Cancel Buttons</li>
+ * </ul>
  *
  */
 
@@ -39,6 +30,13 @@ public class VariableListAdd extends ListFragment {
     int Row;
     int Col;
     int ClickNo;
+
+    /**
+     * On Creating, a matrix adapter gets created, layout is changed to list fragment and the contents of the list are displayed via the adapter
+     * Adds compatible matrices to a queue and adds them
+     * @return A ListView of Matrices
+     * @param savedInstanceState
+     */
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -47,6 +45,15 @@ public class VariableListAdd extends ListFragment {
         setListAdapter(adapter);
     }
 
+    /**
+     * Event Listener for list items,
+     * On the first click set the row and columns to the given matrix, and on subsequent clicks check if the rows and columns match and add to queue,
+     * otherwise raise a Toast message
+     * @param l
+     * @param v
+     * @param position
+     * @param id
+     */
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
@@ -67,22 +74,29 @@ public class VariableListAdd extends ListFragment {
             }
         }
     }
+
+    /**
+     * takes input a matrix and adds it to the matrix queue
+     * @param click (matrix clicked)
+     */
     private void AddToQueue(Matrix click){
         try {
-            @SuppressWarnings("ConstantConditions") //to suppress the null pointer exception of the  textview
-                    TextView textView = (TextView) getParentFragment().getView().findViewById(R.id.AdditionStatus);
+            // Get the textview of displayed matrices
+            TextView textView = (TextView) getParentFragment().getView().findViewById(R.id.AdditionStatus);
             String Initial = textView.getText().toString();
-//            if(Initial.isEmpty()){
-//                textView.setText(click.GetName());
+            if(Initial.isEmpty()){
+                // if the textview was empty, set it equal to the name of the clicked matrix and add it to the queue of matrices
+                textView.setText(click.GetName());
                 ((GlobalValues)getActivity().getApplication()).MatrixQueue.add(click);
-//            }
-//            else {
-//                String Complete = Initial +  " + " + click.GetName();
-//                textView.setText(Complete);
+            }
+            else {
+                // else change the textview to initial_name + '+' + name of the clicked matrix and add it to the queue of matrices
+                String Complete = Initial +  " + " + click.GetName();
+                textView.setText(Complete);
                 ((GlobalValues)getActivity().getApplication()).MatrixQueue.add(click);
-//            }
+            }
         }catch  (NullPointerException e){
-            Log.d("AddToQueue","Exception raised, cannot get textview from parent fragment");
+            Log.d("TAG2","NullptrException");
             e.printStackTrace();
         }
 

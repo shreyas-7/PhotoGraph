@@ -24,11 +24,6 @@ import java.text.DecimalFormat;
 
 public class ViewMatrixFragment extends Fragment {
 
-
-    public ViewMatrixFragment() {
-    }
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -36,13 +31,6 @@ public class ViewMatrixFragment extends Fragment {
 
         View v=inflater.inflate(R.layout.view_matrix_frag, container, false);
         CardView cardView = (CardView) v.findViewById(R.id.DynamicCardView);
-
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-        String string=sharedPreferences.getString("ELEVATE_AMOUNT","4");
-        String string2=sharedPreferences.getString("CARD_CHANGE_KEY","#bdbdbd");
-
-        cardView.setCardElevation(Integer.parseInt(string));
-        cardView.setCardBackgroundColor(Color.parseColor(string2));
 
         CardView.LayoutParams params1= new CardView.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -56,7 +44,7 @@ public class ViewMatrixFragment extends Fragment {
             {
                 TextView textView = new TextView(getContext());
                 textView.setGravity(Gravity.CENTER);
-                textView.setText(SafeSubString( GetText(((GlobalValues)getActivity().getApplication()).GetCompleteList().get(index).GetElementof(i,j)), getLength()));
+                textView.setText( GetText(((GlobalValues)getActivity().getApplication()).GetCompleteList().get(index).GetElementof(i,j)));
                 textView.setWidth(CalculatedWidth(((GlobalValues)getActivity().getApplication()).GetCompleteList().get(index).GetCol()));
                 textView.setTextSize(SizeReturner(((GlobalValues)getActivity().getApplication()).GetCompleteList().get(index).GetRow(),((GlobalValues)getActivity().getApplication()).GetCompleteList().get(index).GetCol(),
                         PreferenceManager.getDefaultSharedPreferences(getContext()).
@@ -71,11 +59,34 @@ public class ViewMatrixFragment extends Fragment {
         gridLayout.setLayoutParams(params1);
         cardView.addView(gridLayout);
 
-
-
-        // Inflate the layout for this fragment
         return v;
     }
+
+    private String GetText(float res) {
+
+        if (!PreferenceManager.getDefaultSharedPreferences(getContext()).getBoolean("DECIMAL_USE", true)) {
+            DecimalFormat decimalFormat = new DecimalFormat("###############");
+            return decimalFormat.format(res);
+        } else
+        {
+            switch (Integer.parseInt(PreferenceManager.getDefaultSharedPreferences(getContext()).getString("ROUNDIND_INFO","0"))) {
+                case 0:
+                    return String.valueOf(res);
+                case 1:
+                    DecimalFormat single = new DecimalFormat("########.#");
+                    return single.format(res);
+                case 2:
+                    DecimalFormat Double = new DecimalFormat("########.##");
+                    return Double.format(res);
+                case 3:
+                    DecimalFormat triple = new DecimalFormat("########.###");
+                    return triple.format(res);
+                default:
+                    return String.valueOf(res);
+            }
+        }
+    }
+
     public int CalculatedHeight(int a)
     {
         switch (a)
@@ -205,49 +216,6 @@ public class ViewMatrixFragment extends Fragment {
         }
 
         return 0;
-    }
-    public String SafeSubString(String s, int MaxLength)
-    {
-        if(!TextUtils.isEmpty(s))
-        {
-            if(s.length()>=MaxLength){
-                return s.substring(0,MaxLength);
-            }
-        }
-        return s;
-    }
-    public int getLength()
-    {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-        boolean v=preferences.getBoolean("EXTRA_SMALL_FONT",false);
-        if(v)
-            return 8;
-        else
-            return 6;
-    }
-    private String GetText(float res) {
-
-        if (!PreferenceManager.getDefaultSharedPreferences(getContext()).getBoolean("DECIMAL_USE", true)) {
-            DecimalFormat decimalFormat = new DecimalFormat("###############");
-            return decimalFormat.format(res);
-        } else
-        {
-            switch (Integer.parseInt(PreferenceManager.getDefaultSharedPreferences(getContext()).getString("ROUNDIND_INFO","0"))) {
-                case 0:
-                    return String.valueOf(res);
-                case 1:
-                    DecimalFormat single = new DecimalFormat("########.#");
-                    return single.format(res);
-                case 2:
-                    DecimalFormat Double = new DecimalFormat("########.##");
-                    return Double.format(res);
-                case 3:
-                    DecimalFormat triple = new DecimalFormat("########.###");
-                    return triple.format(res);
-                default:
-                    return String.valueOf(res);
-            }
-        }
     }
 
 

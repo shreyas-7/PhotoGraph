@@ -1,10 +1,17 @@
+/**
+ * Global Values
+ */
 package com.voidwalkers.photograph;
 
 import android.app.Application;
+import android.content.pm.PackageManager;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.voidwalkers.photograph.MatrixFragment.Matrix;
 import com.voidwalkers.photograph.MatrixFragment.MatrixAdapter ;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class GlobalValues extends Application {
 
@@ -55,4 +62,5 @@ public class GlobalValues extends Application {
     public boolean CanCreateVariable(){
             return true;
     }
+
 }

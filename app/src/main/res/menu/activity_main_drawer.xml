@@ -18,10 +18,6 @@
             android:id="@+id/multiply"
             android:icon="@drawable/ic_action_send_now"
             android:title="@string/multiply" />
-        <item
-            android:id="@+id/ScalerMulti"
-            android:icon="@drawable/ic_action_send_now"
-            android:title="@string/ScalerMult" />
 
         <item
             android:id="@+id/Transpose"
@@ -47,12 +43,16 @@
             android:id="@+id/adjoint"
             android:icon="@drawable/ic_action_send_now"
             android:title="@string/adjoint" />
+        <item
+        android:id="@+id/eigenvalue"
+        android:icon="@drawable/ic_action_send_now"
+        android:title="Eigenvalues" />
 
         <item
-            android:id="@+id/RankofMat1"
+            android:id="@+id/eigenvectors"
             android:icon="@drawable/ic_action_send_now"
-            android:visible="false"
-            android:title="@string/RankofMat"/>
+            android:title="EigenVectors" />
+
     </group>
 
 

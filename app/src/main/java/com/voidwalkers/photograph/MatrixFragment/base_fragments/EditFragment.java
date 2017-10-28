@@ -21,11 +21,11 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.GridLayout;
 
-import com.voidwalkers.photograph.GlobalValues ;
-import com.voidwalkers.photograph.MatrixFragment.Matrix ;
+import com.voidwalkers.photograph.GlobalValues;
+import com.voidwalkers.photograph.MatrixFragment.Matrix;
+import com.voidwalkers.photograph.R;
 
 import java.text.DecimalFormat;
-import com.voidwalkers.photograph.R ;
 
 
 public class EditFragment extends Fragment {
@@ -241,15 +241,15 @@ public class EditFragment extends Fragment {
         }
     }
 
-//    public void RevertChanges() {
-//        Matrix m = ((GlobalValues) getActivity().getApplication()).current_editing;
-//        if (m != null) {
-//            for (int i = 0; i < m.GetRow(); i++) {
-//                for (int j = 0; j < m.GetCol(); j++) {
-//                    EditText e = (EditText) RootView.findViewById(i * 10 + j);
-//                    e.setText(GetText(m.GetElementof(i, j)));
-//                }
-//            }
-//        }
-//    }
+    public void RevertChanges() {
+        Matrix m = ((GlobalValues) getActivity().getApplication()).current_editing;
+        if (m != null) {
+            for (int i = 0; i < m.GetRow(); i++) {
+                for (int j = 0; j < m.GetCol(); j++) {
+                    EditText e = (EditText) RootView.findViewById(i * 10 + j);
+                    e.setText(GetText(m.GetElementof(i, j)));
+                }
+            }
+        }
+    }
 }

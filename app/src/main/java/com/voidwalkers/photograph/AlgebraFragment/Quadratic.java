@@ -1,5 +1,6 @@
 package com.voidwalkers.photograph.AlgebraFragment;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,23 +12,22 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.series.DataPoint;
-import com.jjoe64.graphview.series.LineGraphSeries;
-import com.voidwalkers.photograph.GlobalMemory;
 import com.voidwalkers.photograph.Latex;
+import com.voidwalkers.photograph.MainActivity;
 import com.voidwalkers.photograph.R;
 
 import org.w3c.dom.Text;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Class for Quadratic
+ */
 public class Quadratic extends AppCompatActivity {
     /*the class contains four data members , namely the coefficients*/
+
     private static double Coeffs[] = new double[4];
     public ListView steps ;
 //    public RelativeLayout rl;
@@ -37,8 +37,12 @@ public class Quadratic extends AppCompatActivity {
     public ArrayList<String> listItems=new ArrayList<String>();
     public ArrayAdapter<String> adapter;
 
+    /**
+     * Handles all activity when Quadratic is called
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
 
         // general oncreate method
 
@@ -80,7 +84,17 @@ public class Quadratic extends AppCompatActivity {
         //  }
 
     }
-
+    @Override
+    public void onBackPressed()
+    {
+        Intent i = new Intent(this, MainActivity.class);
+        startActivity(i);
+        super.onBackPressed();
+    }
+    /**
+     * updates values of Coeffs array
+     * @param quadTransform transformed latex string after parse
+     */
     private void changecoeffs(String quadTransform) {
         Coeffs[0]=PolyCoeffs(quadTransform,"x^{2}");
         Coeffs[1]=PolyCoeffs(quadTransform,"x");
@@ -88,6 +102,11 @@ public class Quadratic extends AppCompatActivity {
         Coeffs[3]=0;
     }
 
+    /**
+     * Main function of the Quadratic class
+     * makes graph of the input equation and gives a detailed solution
+     * @param coeffs Coefficient of input equation in standard form
+     */
     private void quad0(double[] coeffs) {
         WebView webView = (WebView)findViewById(R.id.graphoutput);
         webView.getSettings().setJavaScriptEnabled(true);
@@ -124,20 +143,32 @@ public class Quadratic extends AppCompatActivity {
         String step6 = "Applying Standard formula for quadratic";
         double D = Coeffs[1]*Coeffs[1] - 4*Coeffs[0]*Coeffs[2];
 
-        String step7 = "";
-        if (D > 0){
-            step7 = "roots of equation are ";
-
-        }
-
-        // this code basically adds steps, (lines) to the ListView
-
         this.addItems(this.findViewById(R.id.quadratic_steps),step1);
         this.addItems(this.findViewById(R.id.quadratic_steps),step2);
         this.addItems(this.findViewById(R.id.quadratic_steps),step3);
         this.addItems(this.findViewById(R.id.quadratic_steps),step4);
         this.addItems(this.findViewById(R.id.quadratic_steps),step5);
+
+
         //knthis.addItems(this.findViewById(R.id.quadratic_steps),step6);
+        if (D >= 0){
+            double x1= (-Coeffs[1] + Math.sqrt(D))/(2*Coeffs[0]);
+            double x2= (-Coeffs[1] - Math.sqrt(D))/(2*Coeffs[0]);
+            String step7 = "Roots of equation are ";
+            String step8 = "root 1 =" +String.valueOf(x1);
+            String step9 = "root 2 =" +String.valueOf(x2);
+
+            this.addItems(this.findViewById(R.id.quadratic_steps),step7);
+            this.addItems(this.findViewById(R.id.quadratic_steps),step8);
+            this.addItems(this.findViewById(R.id.quadratic_steps),step9);
+        }
+        else{
+            String step10 = "The equation has imaginary roots.";
+            this.addItems(this.findViewById(R.id.quadratic_steps),step10);
+        }
+        // this code basically adds steps, (lines) to the ListView
+
+
 
     }
 
@@ -165,6 +196,11 @@ public class Quadratic extends AppCompatActivity {
 //        }
 //    }
 
+    /**
+     * takes latexInput and converts it to solvable string by PolyCoeffs
+     * i.e. converts all fraction with their corresponding double values
+     * @return a string form of input equation with all unsolvable forms removed
+     */
     public static String parse(String latexInput) {
         Log.i("TAG23","Transforming from Latex") ;
         String answer = latexInput.replaceAll("\\s+", "");
@@ -184,7 +220,8 @@ public class Quadratic extends AppCompatActivity {
                 Log.i("TAG23",p);
                 Log.i("TAG23",q);
                 double replace = Double.parseDouble(p)/Double.parseDouble(q);
-
+                replace = Math.round(replace*100);
+                replace = replace/100;
 
                 answer = answer.replaceAll("\\\\frac\\{"+p+"\\}\\{"+q+"\\}", String.valueOf(replace));
                 Log.i("TAG23",String.valueOf(replace));
@@ -422,6 +459,12 @@ public class Quadratic extends AppCompatActivity {
 //
 //    }
 
+    /**
+     * Function takes a solvable latex String of equation and a variable returns the coeffs of the varible in that latex
+     * @param latex Solvable latex string of equation
+     * @param variable Variable whose Coefficient is to be found
+     * @return coeffs of the varible in that latex
+     */
     public double PolyCoeffs(String latex,String variable) {
 
         String[] splitted = latex.split("\\s+");
@@ -458,6 +501,9 @@ public class Quadratic extends AppCompatActivity {
                     if (ans.equals("-")){
                         ans = "-1";
                     }
+                    if (ans.equals("")){
+                        ans = "1";
+                    }
 
                     if (isDouble(ans)) {
                         double newcon = Double.parseDouble(ans);
@@ -475,6 +521,10 @@ public class Quadratic extends AppCompatActivity {
 
     }
 
+    /**
+     * Checks and Gives output if given string is a Double or not
+     * @return true if String can be converted to double otherwise false
+     */
     boolean isDouble(String str) {
         try {
             Double.parseDouble(str);

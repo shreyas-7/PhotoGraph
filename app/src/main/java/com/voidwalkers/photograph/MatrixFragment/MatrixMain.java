@@ -1,10 +1,13 @@
+/**
+ * Main Matrix Class
+ */
+
 package com.voidwalkers.photograph.MatrixFragment;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -26,10 +29,11 @@ import com.voidwalkers.photograph.GlobalValues;
 import com.voidwalkers.photograph.MatrixFragment.OperationFragments.AdditionFragment;
 import com.voidwalkers.photograph.MatrixFragment.OperationFragments.AdjointFragment;
 import com.voidwalkers.photograph.MatrixFragment.OperationFragments.DeterminantFragment;
+import com.voidwalkers.photograph.MatrixFragment.OperationFragments.EigenvalueFragment;
+import com.voidwalkers.photograph.MatrixFragment.OperationFragments.EigenvectorFragment;
 import com.voidwalkers.photograph.MatrixFragment.OperationFragments.ExponentFragment;
 import com.voidwalkers.photograph.MatrixFragment.OperationFragments.InverseFragment;
 import com.voidwalkers.photograph.MatrixFragment.OperationFragments.MultiplyFragment;
-import com.voidwalkers.photograph.MatrixFragment.OperationFragments.RankFragment;
 import com.voidwalkers.photograph.MatrixFragment.OperationFragments.SubtractionFragment;
 import com.voidwalkers.photograph.MatrixFragment.OperationFragments.TraceFragment;
 import com.voidwalkers.photograph.MatrixFragment.OperationFragments.TransposeFragment;
@@ -109,19 +113,22 @@ public class MatrixMain extends AppCompatActivity
         return true;
     }
 
+    /**
+     *
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // on click event for ClearVar
         int id = item.getItemId();
         if (id == R.id.ClearAllVar)
-            // making a standard Alert dialog box
             if(!((GlobalValues)getApplication()).GetCompleteList().isEmpty()){
-
-                // create an alert dialog box
+                // create an dialog box
                 AlertDialog.Builder builder= new AlertDialog.Builder(MatrixMain.this);
-                builder.setMessage(R.string.Warning9);
-                builder.setTitle(R.string.Clear);
-                builder.setPositiveButton(R.string.Yup, new DialogInterface.OnClickListener() {
+                builder.setMessage("Clear all Variables?");
+                builder.setTitle("Clear All");
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         // On Clicking yes, matrices cleared from globalvalues
@@ -134,7 +141,7 @@ public class MatrixMain extends AppCompatActivity
                         t.setText(R.string.OpenHint);
                     }
                 });
-                builder.setNegativeButton(R.string.Nope, new DialogInterface.OnClickListener() {
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogInterface.dismiss();
@@ -144,11 +151,16 @@ public class MatrixMain extends AppCompatActivity
             }
             else {
                 Log.v("TAG2","Nothing") ;
-                Toast.makeText(getApplication(), R.string.Warning8, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplication(), "Nothing to clear", Toast.LENGTH_SHORT).show();
             }
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * On Selecting various Navigation bar items, replacing fragments
+     * @param item
+     * @return
+     */
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // event handler for the navigation menu
@@ -165,9 +177,7 @@ public class MatrixMain extends AppCompatActivity
                 MatrixMainFragmentList fragment_home=new MatrixMainFragmentList();
                 // replacing the fragment with home fragment
                 getSupportFragmentManager().beginTransaction().replace(R.id.MainContent,fragment_home,"MAIN_LIST").commit();
-                // setting the clearallvar button as visible
                 ActionbarMenu.findItem(R.id.ClearAllVar).setVisible(true);
-                // actionbar title as app name
                 actionBar.setTitle(R.string.app_name);
                 if(((GlobalValues)getApplication()).GetCompleteList().isEmpty())
                     actionBar.setSubtitle(null);
@@ -309,6 +319,46 @@ public class MatrixMain extends AppCompatActivity
                 }
                 b.setVisibility(View.GONE);
                 break;
+            case R.id.eigenvectors:
+                FragmentTransaction eigenvectors = getSupportFragmentManager().beginTransaction();
+                EigenvectorFragment eigen = new EigenvectorFragment();
+                eigenvectors.replace(R.id.MainContent,eigen,"EIGEN_VECTORS");
+                eigenvectors.setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                eigenvectors.commit();
+                //Modify Actionbar
+                ActionbarMenu.findItem(R.id.ClearAllVar).setVisible(false);
+                actionBar.setTitle("EigenVectors");
+                actionBar.setSubtitle(null);
+                if(((GlobalValues)getApplication()).GetCompleteList().isEmpty())
+                    t.setText(R.string.OpenHint2);
+                else {
+                    if (isAnyVariableSquare())
+                        t.setText(null);
+                    else
+                        t.setText(R.string.NoSupport);
+                }
+                b.setVisibility(View.GONE);
+                break;
+            case R.id.eigenvalue:
+                FragmentTransaction eigenvalues = getSupportFragmentManager().beginTransaction();
+                EigenvalueFragment eigenval = new EigenvalueFragment();
+                eigenvalues.replace(R.id.MainContent,eigenval,"EIGEN_VALUES");
+                eigenvalues.setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                eigenvalues.commit();
+                //Modify Actionbar
+                ActionbarMenu.findItem(R.id.ClearAllVar).setVisible(false);
+                actionBar.setTitle("EigenValues");
+                actionBar.setSubtitle(null);
+                if(((GlobalValues)getApplication()).GetCompleteList().isEmpty())
+                    t.setText(R.string.OpenHint2);
+                else {
+                    if (isAnyVariableSquare())
+                        t.setText(null);
+                    else
+                        t.setText(R.string.NoSupport);
+                }
+                b.setVisibility(View.GONE);
+                break;
             case R.id.inverse:
                 FragmentTransaction InverseTransaction= getSupportFragmentManager().beginTransaction();
                 InverseFragment inv = new InverseFragment();
@@ -338,7 +388,7 @@ public class MatrixMain extends AppCompatActivity
                 AdjointTransaction.commit();
                 //Modify the Actionbar
                 ActionbarMenu.findItem(R.id.ClearAllVar).setVisible(false);
-                actionBar.setTitle(R.string.adjoint);
+                actionBar.setTitle("Adjoint");
                 actionBar.setSubtitle(null);
                 if(((GlobalValues)getApplication()).GetCompleteList().isEmpty())
                     t.setText(R.string.OpenHint2);
@@ -351,27 +401,18 @@ public class MatrixMain extends AppCompatActivity
                 }
                 b.setVisibility(View.GONE);
                 break;
-            case R.id.RankofMat1:
-                FragmentTransaction RankTransaction= getSupportFragmentManager().beginTransaction();
-                RankFragment rank = new RankFragment();
-                RankTransaction.replace(R.id.MainContent, rank,"RANK_FRAGMENT");
-                RankTransaction.setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-                RankTransaction.commit();
-                //Modify the Actionbar
-                ActionbarMenu.findItem(R.id.ClearAllVar).setVisible(false);
-                actionBar.setTitle(R.string.RankofMat);
-                actionBar.setSubtitle(null);
-                if(((GlobalValues)getApplication()).GetCompleteList().isEmpty())
-                    t.setText(R.string.OpenHint2);
-                else
-                    t.setText(null);
-                break;
-
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_main);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    /**
+     * Add Matrix if found in bundle else repeat activity
+     * @param requestcode
+     * @param resultCode
+     * @param data
+     */
     @Override
     protected void onActivityResult(int requestcode,int resultCode,Intent data)
     {
@@ -386,53 +427,30 @@ public class MatrixMain extends AppCompatActivity
                     m.SetFromBundle(AllData);
                     ((GlobalValues) getApplication()).AddToGlobal(m); //Sending the things to Global Reference
                     if(actionBar.getSubtitle()==null)
-                        actionBar.setSubtitle(R.string.MainSubtitle);
+                        actionBar.setSubtitle("All Variables");
                     t.setText(null);
-                    Toast.makeText(getApplicationContext(), R.string.Created, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Variable Created", Toast.LENGTH_SHORT).show();
                 }  catch (NullPointerException e2){
                     e2.printStackTrace();
-                    Log.d("NullException:","The Adapter was Null Forcing user to Refresh");
-                    EnforceRefresh();
-                } catch (Exception ignored){ //catch Exception apart fro above two and ignore it
                 }
-
             }
         }
+        // Recreate this Activity if none added
         if(resultCode==100)
-            this.recreate(); // Recreate this Activity if a Change in Theme has been marked
-
+            this.recreate();
     }
 
-    private void EnforceRefresh() {
-        Snackbar snackbar = Snackbar.make(findViewById(R.id.MainContent),R.string.EnforceRef,Snackbar.LENGTH_INDEFINITE);
-        snackbar.setAction(R.string.Refresh, new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ((GlobalValues)getApplication()).matrixAdapter.notifyDataSetChanged();
-            }
-        });
-        snackbar.show();
-    }
-
+    /**
+     * returns true if any of the variables is square
+     * calls is_squareMatrix on all input matrices
+     * @return
+     */
     protected boolean isAnyVariableSquare()
     {
         for(int i = 0; i <((GlobalValues)getApplication()).GetCompleteList().size(); i++)
             if(((GlobalValues)getApplication()).GetCompleteList().get(i).is_squareMatrix())
                 return true;
         return false;
-    }
-    public void SetMainActivity(boolean actionmenu,String MainTitle,String subtitle){
-        Button b = (Button) findViewById(R.id.Main_Add_Variable);
-        ActionbarMenu.findItem(R.id.ClearAllVar).setVisible(actionmenu);
-        actionBar.setTitle(MainTitle);
-        if(((GlobalValues)getApplication()).GetCompleteList().isEmpty())
-            actionBar.setSubtitle(null);
-        else
-            actionBar.setSubtitle(subtitle);
-        if(((GlobalValues)getApplication()).GetCompleteList().isEmpty())
-            t.setText(R.string.OpenHint);
-        else
-            t.setText(null);
     }
 }
 

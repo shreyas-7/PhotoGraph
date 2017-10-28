@@ -1,7 +1,5 @@
 package com.voidwalkers.photograph.MatrixFragment.OperationFragments;
 
-
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -28,7 +26,6 @@ public class InverseFragment extends ListFragment {
     boolean ENABLED_NO_DECIMAL;
 
     ArrayList<Matrix> SquareList;
-    ProgressDialog progress;
 
     private static class MyHandler extends Handler{
         private final WeakReference<InverseFragment> weakReference;
@@ -37,22 +34,13 @@ public class InverseFragment extends ListFragment {
         }
         @Override
         public  void handleMessage(Message message) {
-            if (weakReference.get().progress.isShowing()) {
                 Intent intent = new Intent(weakReference.get().getActivity(), ShowResult.class);
                 if (message.getData().getFloat("DETERMINANT", 0) == 0) {
                     intent.putExtras(message.getData());
-                    weakReference.get().progress.dismiss();
-                    weakReference.get().startActivity(intent);
-                } else {
-                    intent.putExtras(message.getData());
-                    intent.putExtra(weakReference.get().KEY,message.getData().getFloat("DETERMINANT",0));
-                    weakReference.get().progress.dismiss();
                     weakReference.get().startActivity(intent);
                 }
-
             }
         }
-    }
 
     MyHandler myHandler = new MyHandler(this);
 
@@ -76,25 +64,18 @@ public class InverseFragment extends ListFragment {
     @Override
     public void onListItemClick(ListView L, View V, int position, long id)
     {
-        ProgressDialog progressDialog = new ProgressDialog(getContext());
-        progressDialog.setMessage(getString(R.string.Calculating));
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-        progressDialog.setIndeterminate(false);
-        progressDialog.setCanceledOnTouchOutside(false);
-        progressDialog.show();
-        progress = progressDialog;
         if(ENABLED_NO_DECIMAL)
-            RunAndGetDeterminantWithAdjoint(position,progressDialog);
+            RunAndGetDeterminantWithAdjoint(position);
         else
-            RunNewGetInverse(position, progressDialog);
+            RunNewGetInverse(position);
     }
 
-    public void RunNewGetInverse(final int pos,final ProgressDialog pq)
+    public void RunNewGetInverse(final int pos)
     {
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                Matrix res = SquareList.get(pos).Inverse(pq);
+                Matrix res = SquareList.get(pos).Inverse();
                 Message message = new Message();
                 if(res!=null){
                     message.setData(res.GetDataBundled());
@@ -107,14 +88,13 @@ public class InverseFragment extends ListFragment {
                             Toast.makeText(getContext(),R.string.NoInverse,Toast.LENGTH_SHORT).show();
                         }
                     },0);
-                    pq.dismiss();
                 }
             }
         };
         Thread thread = new Thread(runnable);
         thread.start();
     }
-    public void RunAndGetDeterminantWithAdjoint(final int i, final ProgressDialog progressDialog){
+    public void RunAndGetDeterminantWithAdjoint(final int i){
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
@@ -128,12 +108,10 @@ public class InverseFragment extends ListFragment {
                             Toast.makeText(getContext(),R.string.NoInverse,Toast.LENGTH_SHORT).show();
                         }
                     },0);
-                    progressDialog.dismiss();
                 }
                 else {
-                    progressDialog.setProgress(0);
                     bundle.putFloat("DETERMINANT",detr);
-                    Matrix res = SquareList.get(i).ReturnAdjoint(progressDialog);
+                    Matrix res = SquareList.get(i).ReturnAdjoint();
                     bundle.putAll(res.GetDataBundled());
                     message.setData(bundle);
                     myHandler.sendMessage(message);

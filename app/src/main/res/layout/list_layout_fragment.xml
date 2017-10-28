@@ -34,7 +34,7 @@
                 android:layout_alignParentStart="true"
                 android:id="@+id/ImageForMatrix"
                 android:layout_centerVertical="true"
-                android:src="@mipmap/normal"/>
+                android:src="@mipmap/matrix"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

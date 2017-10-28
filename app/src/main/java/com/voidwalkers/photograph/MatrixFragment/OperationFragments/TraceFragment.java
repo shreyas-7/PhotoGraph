@@ -1,3 +1,6 @@
+/**
+ * Calculate the trace of the matrix
+ */
 package com.voidwalkers.photograph.MatrixFragment.OperationFragments;
 
 import android.content.ClipData;
@@ -27,6 +30,10 @@ public class TraceFragment extends ListFragment {
     ArrayList<Matrix> SquareList;
     String TAG = this.getClass().getSimpleName();
 
+    /**
+     * Display square matrices in view
+     * @param savedInstanceState
+     */
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -41,22 +48,18 @@ public class TraceFragment extends ListFragment {
         setListAdapter(adapter);
     }
 
+    /**
+     * Display The Trace of the matrix
+     * @param l
+     * @param v
+     * @param position
+     * @param id
+     */
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
-//        ProgressDialog progressDialog = new ProgressDialog(getContext());
-//        progressDialog.setMessage(getString(R.string.Calculating));
-//        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-//        progressDialog.setIndeterminate(true);
-//        progressDialog.setCanceledOnTouchOutside(false);
-//        progressDialog.show();
-        GetTrace(position);
-    }
-
-    private void GetTrace(int position) {
         double result = ((GlobalValues)getActivity().getApplication()).GetCompleteList().get(position).GetTrace();
         final String formatted = GetText(result);
-//        progressDialog.dismiss();
-        String formatted2  = getString(R.string.trace_is) +" " +formatted;
+        String formatted2  = "Trace is " +formatted;
         new AlertDialog.Builder(getContext())
                 .setCancelable(true)
                 .setMessage(formatted2)
@@ -64,6 +67,7 @@ public class TraceFragment extends ListFragment {
                 .setPositiveButton(R.string.copy, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        // copying to clipboard
                         ClipboardManager manager = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
                         ClipData data = ClipData.newPlainText("TRACE_RES",formatted);
                         manager.setPrimaryClip(data);
@@ -82,7 +86,6 @@ public class TraceFragment extends ListFragment {
                 })
                 .show();
     }
-
     private String GetText(double res) {
 
         if (!PreferenceManager.getDefaultSharedPreferences(getContext()).getBoolean("DECIMAL_USE", true)) {

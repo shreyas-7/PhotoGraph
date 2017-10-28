@@ -1,8 +1,11 @@
+/**
+ * Creates a cardview to display the result
+ * Can Save the result to existing variables
+ */
+
 package com.voidwalkers.photograph.MatrixFragment.base_classes;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -28,23 +31,10 @@ public class ShowResult extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.result_layout);
 
-        if(preferences.getBoolean("AUTO_TOAST_ENABLER",false)){
-            Toast.makeText(getApplicationContext(),"Result Calculated",Toast.LENGTH_SHORT).show();
-        }
-
-
         CardView cardView = (CardView) findViewById(R.id.DynamicCard2);
-
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String string=sharedPreferences.getString("ELEVATE_AMOUNT","4");
-        String string2=sharedPreferences.getString("CARD_CHANGE_KEY","#bdbdbd");
-
-        cardView.setCardElevation(Integer.parseInt(string));
-        cardView.setCardBackgroundColor(Color.parseColor(string2));
 
         CardView.LayoutParams params1= new CardView.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -52,7 +42,6 @@ public class ShowResult extends AppCompatActivity {
         GridLayout gridLayout = new GridLayout(getApplicationContext());
         gridLayout.setRowCount(getIntent().getExtras().getInt("ROW",0));
         gridLayout.setColumnCount(getIntent().getExtras().getInt("COL",0));
-        //float var[][] = (float[][]) getIntent().getExtras().getSerializable("VALUES");
         float var [][] = new Matrix().Expand(getIntent().getExtras().getInt("ROW",0),getIntent().getIntExtra("COL",0),getIntent().getFloatArrayExtra("VALUES"));
         for(int i=0;i<getIntent().getExtras().getInt("ROW",0);i++)
         {
@@ -85,7 +74,6 @@ public class ShowResult extends AppCompatActivity {
         }
 
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.result_actionbar,menu);
@@ -97,41 +85,26 @@ public class ShowResult extends AppCompatActivity {
         switch (item.getItemId())
         {
             case R.id.SaveResult :
-
-                if(((GlobalValues)getApplication()).CanCreateVariable()) {
-                    if (AnyExponents(((/*float[][]) getIntent().getExtras().getSerializable("VALUES"))*/
-                                    new Matrix().Expand(getIntent().getExtras().getInt("ROW",0),getIntent().getIntExtra("COL",0),getIntent().getFloatArrayExtra("VALUES")))),
-                            (getIntent().getExtras().getInt("ROW", 0)), (getIntent().getExtras().getInt("COL", 0))) ||
-                            !((TextView)findViewById(R.id.TextContainer)).getText().toString().isEmpty()){
-
-                        if (AnyExponents(((/*float[][]) getIntent().getExtras().getSerializable("VALUES"))*/
-                                        new Matrix().Expand(getIntent().getExtras().getInt("ROW",0),getIntent().getIntExtra("COL",0),getIntent().getFloatArrayExtra("VALUES")))),
-                                (getIntent().getExtras().getInt("ROW", 0)), (getIntent().getExtras().getInt("COL", 0))))
-                            Toast.makeText(getApplicationContext(), R.string.CannotSave, Toast.LENGTH_SHORT).show();
-
-                        if(!((TextView)findViewById(R.id.TextContainer)).getText().toString().isEmpty())
-                            Toast.makeText(getApplicationContext(), R.string.CannotSave2, Toast.LENGTH_SHORT).show();
-
-                    } else {
-                        Matrix matrix = new Matrix();
-                        matrix.SetFromBundle(getIntent().getExtras());
-                        String auto_name = "Result " + String.valueOf(((GlobalValues) getApplication()).AutoSaved);
-//                        matrix.SetName(auto_name);
-//                        matrix.SetType();
-                        ((GlobalValues) getApplication()).AddResultToGlobal(matrix);
-                        Toast.makeText(getApplicationContext(), (getString(R.string.SavedAs) + " " + auto_name), Toast.LENGTH_SHORT).show();
-                        Intent home = new Intent(getApplication(), MatrixMain.class);
-                        home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); //clear all the activities on top of home.
-                        startActivity(home);
-                        finish();
-                    }
-
-                    return true;
-                }
+                Matrix matrix = new Matrix();
+                matrix.SetFromBundle(getIntent().getExtras());
+                String auto_name = "Result " + String.valueOf(((GlobalValues) getApplication()).AutoSaved);
+                matrix.SetName(auto_name);
+                ((GlobalValues) getApplication()).AddResultToGlobal(matrix);
+                Toast.makeText(getApplicationContext(), (getString(R.string.SavedAs) + " " + auto_name), Toast.LENGTH_SHORT).show();
+                Intent home = new Intent(getApplication(), MatrixMain.class);
+                home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(home);
+                finish();
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Return height of card
+     * @param a
+     * @return
+     */
 
     private int CalculatedHeight(int a)
     {
@@ -150,6 +123,7 @@ public class ShowResult extends AppCompatActivity {
         }
         return 0;
     }
+
     private int SizeReturner(int r, int c,boolean b)
     {
         if(!b) {
@@ -247,20 +221,8 @@ public class ShowResult extends AppCompatActivity {
         return 0;
     }
 
-    private boolean AnyExponents(float v[][],int r, int c)
-    {
-        for(int i=0;i<r;i++)
-            for(int j=0;j<c;j++)
-            {
-                if(Float.toString(v[i][j]).contains("E")||Float.toString(v[i][j]).contains("N") || Float.toString(v[i][j]).contains("Infinity"))
-                    return true;
-                if(v[i][j]>999999 && !PreferenceManager.getDefaultSharedPreferences(this).getBoolean("DECIMAL_USE",true))
-                    return true;
-            }
-        return  false;
-    }
-    private String GetText(float res) {
 
+    private String GetText(float res) {
         if (!PreferenceManager.getDefaultSharedPreferences(this).getBoolean("DECIMAL_USE", true)) {
             DecimalFormat decimalFormat = new DecimalFormat("###############");
             return decimalFormat.format(res);

@@ -11,7 +11,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.softminds.matrixcalculator.base_fragments.ViewMatrixFragment">
+        tools:context="com.voidwalkers.photograph.MatrixFragment.base_fragments.ViewMatrixFragment">
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content">

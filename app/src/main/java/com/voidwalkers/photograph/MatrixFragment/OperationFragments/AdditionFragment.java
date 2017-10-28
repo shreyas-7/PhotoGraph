@@ -1,11 +1,13 @@
+/**
+ * AdditionFragment
+ * Starts when addition operation is selected
+ */
 package com.voidwalkers.photograph.MatrixFragment.OperationFragments;
-
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +27,14 @@ public class AdditionFragment extends Fragment {
 
     View root;
 
+    /**
+     * Shows current buffer of items to be added
+     * Checks
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -62,6 +72,11 @@ public class AdditionFragment extends Fragment {
         });
         return view;
     }
+
+    /**
+     * Sum of all the elements
+     * @return
+     */
     private Matrix SumAll(){
         ArrayList<Matrix> buffer =((GlobalValues)getActivity().getApplication()).MatrixQueue;
         Matrix res = new Matrix(buffer.get(1).GetRow(),buffer.get(1).GetCol());
@@ -70,12 +85,17 @@ public class AdditionFragment extends Fragment {
         }
         return res;
     }
+
+    /**
+     * Remove from the Matrix Queue
+     * Called when Remove button is clicked
+     */
     private void RemoveFromQueue(){
         TextView textView = (TextView) root.findViewById(R.id.AdditionStatus);
         String Initial = textView.getText().toString();
         if(Initial.isEmpty()){
             ((GlobalValues)getActivity().getApplication()).MatrixQueue.clear();
-            Toast.makeText(getContext(),R.string.NothingTORemove,Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(),"Nothing to remove",Toast.LENGTH_SHORT).show();
         }
         else {
             if(Initial.contains("+")) {

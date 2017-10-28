@@ -1,7 +1,10 @@
 package com.voidwalkers.photograph.MatrixFragment;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.voidwalkers.photograph.R;
 
@@ -43,6 +47,7 @@ public class MatrixAdapter extends ArrayAdapter<Matrix> {
 
         Row.setText(r);
         Col.setText(c);
+        Naam.setText(m.GetName());
 
         //Return the View
         return convertView;

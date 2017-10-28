@@ -1,6 +1,14 @@
+/**
+ * Fragment used for subtraction operation
+ * Contains of
+ * <ul>
+ *     <li>A TextView of matrices to be processed</li>
+ *     <li>A ListView of added matrices</li>
+ *     <li>Confirm and Cancel Buttons</li>
+ * </ul>
+ *
+ */
 package com.voidwalkers.photograph.MatrixFragment.base_fragments;
-
-
 
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
@@ -14,8 +22,6 @@ import com.voidwalkers.photograph.MatrixFragment.Matrix;
 import com.voidwalkers.photograph.MatrixFragment.MatrixAdapter;
 import com.voidwalkers.photograph.R;
 import com.voidwalkers.photograph.GlobalValues;
-
-
 
 public class VariableListSub extends ListFragment {
 
@@ -31,6 +37,13 @@ public class VariableListSub extends ListFragment {
         setListAdapter(adapter);
     }
 
+    /**
+     *
+     * @param l
+     * @param v
+     * @param position
+     * @param id
+     */
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
@@ -51,22 +64,26 @@ public class VariableListSub extends ListFragment {
             }
         }
     }
+
+    /**
+     * takes input a matrix and adds it to the matrix queue
+     * @param click (the matrix which is clicked)
+     */
     private void AddToQueue(Matrix click){
         try {
-            @SuppressWarnings("ConstantConditions") //to suppress the null pointer exception of the  textview
-                    TextView textView = (TextView) getParentFragment().getView().findViewById(R.id.AdditionStatus);
+            TextView textView = (TextView) getParentFragment().getView().findViewById(R.id.AdditionStatus);
             String Initial = textView.getText().toString();
-//            if(Initial.isEmpty()){
-//                textView.setText(click.GetName());
-//                ((GlobalValues)getActivity().getApplication()).MatrixQueue.add(click);
-//            }
-//            else {
-//                String Complete = Initial +  " - " + click.GetName();
-                textView.setText(String.valueOf(((GlobalValues)getActivity().getApplication()).MatrixQueue.size() + 1));
+            if(Initial.isEmpty()){
+                textView.setText(click.GetName());
                 ((GlobalValues)getActivity().getApplication()).MatrixQueue.add(click);
-//            }
+            }
+            else {
+                String Complete = Initial +  " - " + click.GetName();
+                textView.setText(Complete);
+                ((GlobalValues)getActivity().getApplication()).MatrixQueue.add(click);
+            }
         }catch  (NullPointerException e){
-            Log.d("AddToQueue","Exception raised, cannot get textview from parent fragment");
+            Log.d("TAG2","Couldn't get textview");
             e.printStackTrace();
         }
 

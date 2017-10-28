@@ -1,11 +1,12 @@
+/**
+ * Multiplies two or more matrices that satisfy matrix multiplication
+ */
 package com.voidwalkers.photograph.MatrixFragment.OperationFragments;
-
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,11 @@ public class MultiplyFragment extends Fragment {
 
     View root;
     @Override
+    /**
+     * Displays all the matrices in a listView via matrix adapter
+     * Can add matrices to the queue satisfying matrix multiplication property
+     * Can remove matrices from the queue
+     */
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         ((GlobalValues)getActivity().getApplication()).MatrixQueue.clear();
@@ -66,6 +72,10 @@ public class MultiplyFragment extends Fragment {
         });
         return view;
     }
+
+    /**
+     * Removes matrices from the queue and reflects in textView
+     */
     private void RemoveFromQueue(){
         TextView textView = (TextView) root.findViewById(R.id.AdditionStatus);
         String Initial = textView.getText().toString();
@@ -95,12 +105,18 @@ public class MultiplyFragment extends Fragment {
             }
         }
     }
+
+    /**
+     * Calls the arrayList of matrices and adds it to the answermatrix
+     * @return
+     */
     private Matrix MultiplyAll(){
-        ArrayList<Matrix> buffer =((GlobalValues)getActivity().getApplication()).MatrixQueue;
-        Matrix res = new Matrix(buffer.get(0).GetRow(),buffer.get(0).GetCol());
-        res.CloneFrom(buffer.get(0));
-        for(int i=1;i<buffer.size();i++){
-            res.MultiplytoThis(buffer.get(i));
+        ArrayList<Matrix> m =((GlobalValues)getActivity().getApplication()).MatrixQueue;
+        Matrix res = new Matrix(m.get(0).GetRow(),m.get(0).GetCol());
+        // copy the matrix
+        res.CloneFrom(m.get(0));
+        for(int i=1;i<m.size();i++){
+            res.MultiplytoThis(m.get(i));
         }
         return res;
     }
