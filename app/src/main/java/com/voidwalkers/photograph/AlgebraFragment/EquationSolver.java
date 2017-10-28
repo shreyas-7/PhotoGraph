@@ -176,7 +176,7 @@ public class EquationSolver extends AppCompatActivity {
 
         else if (!Latex.latexInput.contains("array")){
             Log.v("TAG2", "Checking online");
-            Intent i = new Intent(this, Online.class);
+            Intent i = new Intent(this, Forum.class);
             startActivity(i);
 
         }

@@ -34,7 +34,6 @@ dependencies {
     //    compile 'com.android.support:appcompat-v7:26.+'
     //    testCompile 'junit:junit:4.12'
     compile fileTree(include: ['*.jar'], dir: 'libs')
-
     compile 'com.android.support:multidex:1.0.0'
     compile 'org.apache.commons:commons-math3:3.6.1'
     compile 'org.apache.commons:commons-lang3:3.5'
@@ -50,4 +49,7 @@ dependencies {
     compile 'com.android.support:support-v4:25.3.1'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
+    compile files('libs/activation.jar')
+    compile files('libs/additionnal.jar')
+    compile files('libs/mail.jar')
 }

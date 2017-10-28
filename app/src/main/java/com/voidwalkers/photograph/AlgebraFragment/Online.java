@@ -44,6 +44,7 @@ public class Online extends AppCompatActivity {
 
         Log.e("TAG23", "Getting started");
 
+
         WebView mypage = (WebView) findViewById(R.id.function_webview);
 
         mypage.setWebViewClient(new myWebClient());

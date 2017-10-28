@@ -1,5 +1,6 @@
 package com.voidwalkers.photograph.AlgebraFragment;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +17,7 @@ import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.voidwalkers.photograph.GlobalMemory;
 import com.voidwalkers.photograph.Latex;
+import com.voidwalkers.photograph.MainActivity;
 import com.voidwalkers.photograph.R;
 
 import org.w3c.dom.Text;
@@ -136,9 +138,9 @@ public class Linear extends AppCompatActivity {
 
         else {
 //             just make graph.
-            String errorMessage = "Sorry, this template is not currently supported" ;
-            // send to admin from here.
-            this.addItems(steps,errorMessage);
+            Intent i = new Intent(this, Forum.class);
+            startActivity(i);
+
         }
 
 

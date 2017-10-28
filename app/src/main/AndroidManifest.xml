@@ -22,6 +22,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".AlgebraFragment.Forum"/>
         <activity android:name=".AlgebraFragment.Linear" />
         <activity android:name=".AlgebraFragment.Quadratic" />
         <activity android:name=".AlgebraFragment.Online" />
@@ -53,7 +54,6 @@
             android:label="@string/ScalerMult"
             android:parentActivityName=".MatrixFragment.MatrixMain"
             android:theme="@style/AppThemeDialog" />
-        <activity android:name=".MatrixFragment.base_classes.FillingMatrix"></activity>
     </application>
 
 </manifest>
