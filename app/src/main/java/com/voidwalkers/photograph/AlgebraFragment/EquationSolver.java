@@ -98,7 +98,7 @@ public class EquationSolver extends AppCompatActivity {
         latexInput = latexInput.replaceAll(" ", "");
 
         int rows = StringUtils.countMatches(latexInput, "\\\\") + 1;
-        int columns = StringUtils.countMatches(latexInput, "l") - 1;
+        int columns = StringUtils.countMatches(latexInput, "&")/(rows-1) ;
         Log.v("Tag2", Integer.toString(rows) + " " + Integer.toString(columns));
         Log.e("TAG2", latexInput);
 
@@ -127,6 +127,7 @@ public class EquationSolver extends AppCompatActivity {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
                 Log.v("Tag2",String.valueOf(rows*i+j+2) );
+                if(coeffs[columns*i+j+2].contains("-")) input_matrix.SetElementof(-Float.parseFloat(coeffs[columns*i + j + 2].substring(1)), i, j);
                 input_matrix.SetElementof(Float.parseFloat(coeffs[columns*i + j + 2]), i, j);
             }
         }

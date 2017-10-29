@@ -20,6 +20,10 @@ import com.voidwalkers.photograph.MatrixFragment.base_classes.ShowResult;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
+/**
+ * Fragment for finding inverse of the matrix
+ */
+
 public class InverseFragment extends ListFragment {
 
     final String KEY = "DETERMINANT_FOR_INVERSE";
@@ -70,6 +74,10 @@ public class InverseFragment extends ListFragment {
             RunNewGetInverse(position);
     }
 
+    /**
+     * Getting inverse, created a new thread
+     * @param pos
+     */
     public void RunNewGetInverse(final int pos)
     {
         Runnable runnable = new Runnable() {
@@ -94,6 +102,11 @@ public class InverseFragment extends ListFragment {
         Thread thread = new Thread(runnable);
         thread.start();
     }
+
+    /**
+     * Create a thread that gets determinant
+     * @param i
+     */
     public void RunAndGetDeterminantWithAdjoint(final int i){
         Runnable runnable = new Runnable() {
             @Override

@@ -1,6 +1,10 @@
 
 package com.voidwalkers.photograph.MatrixFragment.OperationFragments;
 
+/**
+ * Same as addition fragment just + is replaced with -
+ * and the titles are changed
+ */
 
 import android.content.Intent;
 import android.os.Bundle;

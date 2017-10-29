@@ -21,6 +21,10 @@ import com.voidwalkers.photograph.R;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
+/**
+ * Shows eigenvalues
+ */
+
 public class EigenvalueFragment extends ListFragment {
 
     ArrayList<Matrix> SquareList;

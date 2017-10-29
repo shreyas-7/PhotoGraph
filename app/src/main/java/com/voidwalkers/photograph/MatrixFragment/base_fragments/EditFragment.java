@@ -1,6 +1,5 @@
 
-package com.voidwalkers.photograph.MatrixFragment.base_fragments;
-
+package com.voidwalkers.photograph.MatrixFragment.base_fragments ;
 
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -27,6 +26,10 @@ import com.voidwalkers.photograph.R;
 
 import java.text.DecimalFormat;
 
+/**
+ * Fragment for viewing matrices
+ *
+ */
 
 public class EditFragment extends Fragment {
 
@@ -35,8 +38,9 @@ public class EditFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        /// edit fragment
         View V = inflater.inflate(R.layout.fragment_edit, container, false);
-
+    /// Display the matrix
         CardView cardView = (CardView) V.findViewById(R.id.EditMatrixCard);
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
@@ -152,6 +156,7 @@ public class EditFragment extends Fragment {
         return 0;
     }
 
+    /// returns the sizes of the boxes
     public int SizeReturner(int r, int c, boolean b) {
         if (!b) {
             if (r > c) {
@@ -216,6 +221,12 @@ public class EditFragment extends Fragment {
         return ((int)(dp * ((float)metrics.densityDpi) / DisplayMetrics.DENSITY_DEFAULT));
 
     }
+
+    /**
+     * Gets text from number
+     * @param res
+     * @return
+     */
     private String GetText(float res) {
 
         if (!PreferenceManager.getDefaultSharedPreferences(getContext()).getBoolean("DECIMAL_USE", true)) {
@@ -237,18 +248,6 @@ public class EditFragment extends Fragment {
                     return triple.format(res);
                 default:
                     return String.valueOf(res);
-            }
-        }
-    }
-
-    public void RevertChanges() {
-        Matrix m = ((GlobalValues) getActivity().getApplication()).current_editing;
-        if (m != null) {
-            for (int i = 0; i < m.GetRow(); i++) {
-                for (int j = 0; j < m.GetCol(); j++) {
-                    EditText e = (EditText) RootView.findViewById(i * 10 + j);
-                    e.setText(GetText(m.GetElementof(i, j)));
-                }
             }
         }
     }

@@ -22,6 +22,10 @@ import com.voidwalkers.photograph.R;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
+/**
+ * Fragment for showing determinant
+ */
+
 public class DeterminantFragment extends ListFragment {
 
     ArrayList<Matrix> SquareList;

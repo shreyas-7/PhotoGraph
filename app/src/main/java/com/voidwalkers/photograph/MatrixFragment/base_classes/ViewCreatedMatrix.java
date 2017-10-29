@@ -13,6 +13,9 @@ import com.voidwalkers.photograph.R;
 import com.voidwalkers.photograph.MatrixFragment.base_fragments.ViewMatrixFragment;
 import com.voidwalkers.photograph.MatrixFragment.base_fragments.EditFragment ;
 
+/**
+ * View the created matrix
+ */
 public class ViewCreatedMatrix extends AppCompatActivity {
 
     Menu ActionMenu;

@@ -11,6 +11,10 @@ import android.widget.Toast;
 
 import com.voidwalkers.photograph.R;
 
+/**
+ * Multiplying activity, adds matrices in the row according to multiplication condition.
+ */
+
 public class MultiplierSetter extends AppCompatActivity {
 
     @Override

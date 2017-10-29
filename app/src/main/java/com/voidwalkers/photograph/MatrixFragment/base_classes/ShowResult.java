@@ -33,7 +33,9 @@ public class ShowResult extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.result_layout);
-
+        /**
+         * Show cardview and grid layout
+         */
         CardView cardView = (CardView) findViewById(R.id.DynamicCard2);
 
         CardView.LayoutParams params1= new CardView.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
@@ -75,12 +77,18 @@ public class ShowResult extends AppCompatActivity {
 
     }
     @Override
+    /**
+     * Display the options
+     */
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.result_actionbar,menu);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
+    /**
+     * On clicking the item save the matrix
+     */
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId())
         {
@@ -221,6 +229,9 @@ public class ShowResult extends AppCompatActivity {
         return 0;
     }
 
+    /**
+     * Get text from float depending on the number of decimal places
+     */
 
     private String GetText(float res) {
         if (!PreferenceManager.getDefaultSharedPreferences(this).getBoolean("DECIMAL_USE", true)) {

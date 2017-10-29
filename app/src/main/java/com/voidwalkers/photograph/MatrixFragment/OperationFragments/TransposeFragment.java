@@ -1,5 +1,8 @@
 package com.voidwalkers.photograph.MatrixFragment.OperationFragments;
 
+/**
+ * Calculate the transpose of the matrix and store it to a new variable
+ */
 
 import android.content.DialogInterface;
 import android.content.Intent;
